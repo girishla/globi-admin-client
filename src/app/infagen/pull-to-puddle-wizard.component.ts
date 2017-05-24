@@ -1,20 +1,40 @@
-import {Component} from '@angular/core';
-import {Message} from 'primeng/components/common/api';
+import { Component, OnInit } from '@angular/core';
+import { Message } from 'primeng/components/common/api';
+import { Router } from "@angular/router";
+import { SourceTable } from "app/shared/models/source-table.model";
+import { SourceTablesService } from "app/shared/services/source-tables.service";
 
 @Component({
     selector: 'pull-to-puddle-wizard',
     templateUrl: './pull-to-puddle-wizard.component.html'
 })
-export class PullToPuddleWizardComponent {
+
+export class PullToPuddleWizardComponent implements OnInit {
+
+    tables: SourceTable[];
+
+    constructor(
+        private stService: SourceTablesService
+
+    ) {
+
+        stService.queryAll().subscribe(data => {
+            this.tables = data.sourceTables;
+            console.log(data)  ;
+        })
+         
+
+    }
+
     activeIndex: number = 0;
-    firstName: string;
-    lastName: string;
-    address: string;
+    radioValue: string = "";
 
     msgs: Message[] = [];
 
     next() {
+
         this.activeIndex++;
+
     }
 
     ok() {
@@ -23,6 +43,10 @@ export class PullToPuddleWizardComponent {
 
     onChange(label: string) {
         this.msgs.length = 0;
-        this.msgs.push({severity: 'info', summary: label});
+        this.msgs.push({ severity: 'info', summary: label });
     }
+    ngOnInit(): void {
+        this.radioValue = "GEN";
+    }
+
 }

@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppMenuComponent, AppSubMenu } from './app.menu.component';
@@ -14,11 +14,25 @@ import { AppRoutes } from './app.routes';
 import { EmptyDemo } from './view/emptydemo';
 import { Documentation } from "app/view/documentation";
 import { Home } from "app/view/home";
-import { StepsModule, GrowlModule } from "primeng/primeng";
+import { StepsModule, GrowlModule, RadioButtonModule } from "primeng/primeng";
 import { WizardModule } from "app/wizard/wizard.module";
 import { Infagen } from "app/infagen/infagen";
 import { PullToPuddleWizardComponent } from "app/infagen/pull-to-puddle-wizard.component";
+import { SourceTableResolver } from "app/source-table/source-table-resolver.service";
+import { RouterModule } from "@angular/router";
+import { SourceTablesService } from "app/shared/services/source-tables.service";
+import { ApiService } from "app/shared/services/api.service";
 
+
+// const sourceTableRouting: ModuleWithProviders = RouterModule.forChild([
+//   {
+//     path: 'infagen/tables',
+//     component: Infagen,
+//     resolve: {
+//       article: SourceTableResolver
+//     }
+//   }
+// ]);
 
 
 @NgModule({
@@ -33,7 +47,8 @@ import { PullToPuddleWizardComponent } from "app/infagen/pull-to-puddle-wizard.c
     Home,
     Infagen,
     PullToPuddleWizardComponent,
-    
+
+
   ],
   imports: [
     BrowserModule,
@@ -41,11 +56,17 @@ import { PullToPuddleWizardComponent } from "app/infagen/pull-to-puddle-wizard.c
     FormsModule,
     HttpModule,
     AppRoutes,
-    StepsModule,    
+    StepsModule,
     WizardModule,
-    GrowlModule,    
+    GrowlModule,
+    RadioButtonModule
   ],
-  providers: [],
+
+ providers: [
+    SourceTableResolver,
+    SourceTablesService,
+    ApiService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
