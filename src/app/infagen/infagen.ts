@@ -9,13 +9,6 @@ import { MenuItem } from 'primeng/primeng';
             width: 25%
         }
 
-        .ui-steps .ui-steps-item .ui-menuitem-link{
-
-            padding:0em;
-
-            
-        }
-
     `],
     encapsulation: ViewEncapsulation.None
 })
