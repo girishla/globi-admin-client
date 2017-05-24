@@ -12,27 +12,6 @@ import { MenuItem } from 'primeng/primeng';
     `],
     encapsulation: ViewEncapsulation.None
 })
-export class Infagen implements OnInit {
+export class Infagen {
 
-    private stepsItems: MenuItem[];
-
-    ngOnInit() {
-        this.stepsItems = [
-            {
-                label: 'Source'
-            },
-            {
-                label: 'Table'
-            },
-            {
-                label: 'Columns'
-            },
-            {
-                label: 'Confirmation'
-            },
-            {
-                label: 'Confirmation'
-            }
-        ];
-    }
 }

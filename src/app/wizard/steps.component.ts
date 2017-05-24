@@ -21,12 +21,12 @@ import { StepComponent } from './step.component';
 
 
         <div class="ui-g" >
-            <div class="ui-g-3">
+            <div class="ui-g-2">
                 <button pButton type="text" *ngIf="activeIndex > 0"
                     (click)="previous()" icon="fa-hand-o-left" label="Previous"></button>
             </div> 
-            <div class="ui-g-6"></div>
-            <div class="ui-g-3">  
+            <div class="ui-g-8"></div>
+            <div class="ui-g-2">  
                 <button pButton type="text" [disabled]="activeIndex == items.length - 1"
                     (click)="next()" icon="fa-hand-o-right" iconPos="right" label="Next"></button>
             </div>   
