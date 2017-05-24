@@ -7,37 +7,40 @@
             <label for="sourceSystem">Select Source System:</label>
             <div class="ui-g form-group">
 
-                    <div class="ui-g-4">
+                <div class="ui-g-4">
+                </div>
+                <div class="ui-g-4">
+
+
+                    <div class="ui-g-12">
+                        <p-radioButton name="rg" value="GEN" label="Genesis" [(ngModel)]="radioValue"></p-radioButton>
                     </div>
-                    <div class="ui-g-4">
-                        
-
-                        <div class="ui-g-12">
-                            <p-radioButton name="rg" value="GEN" label="Genesis" [(ngModel)]="radioValue"></p-radioButton>
-                        </div>
-                        <div class="ui-g-12">
-                            <p-radioButton name="rg" value="CUK" label="LNI CRM" [(ngModel)]="radioValue"></p-radioButton>
-                        </div>
-                        <div class="ui-g-12">
-                            <p-radioButton name="rg" value="CGL" label="Global CRM" [(ngModel)]="radioValue"></p-radioButton>
-                        </div>
-                        <div class="ui-g-12">
-                            <p-radioButton name="rg" value="FBM" label="FBM" [(ngModel)]="radioValue"></p-radioButton>
-                        </div>
+                    <div class="ui-g-12">
+                        <p-radioButton name="rg" value="CUK" label="LNI CRM" [(ngModel)]="radioValue"></p-radioButton>
                     </div>
-
-                    <div class="ui-g-4">
+                    <div class="ui-g-12">
+                        <p-radioButton name="rg" value="CGL" label="Global CRM" [(ngModel)]="radioValue"></p-radioButton>
                     </div>
-
-
+                    <div class="ui-g-12">
+                        <p-radioButton name="rg" value="FBM" label="FBM" [(ngModel)]="radioValue"></p-radioButton>
+                    </div>
+                </div>
+                <div class="ui-g-4">
+                </div>
+                <div class="ui-g-2">
+                    <button pButton type="text" (click)="gettables()" icon="fa-hand-o-right" iconPos="right"
+                        label="Next"></button>
+                </div>
 
             </div>
 
-            <!--<button pButton label="Go" (click)="next()"></button>-->
+            <!--<button pButton label="Go" (click)="gettables()"></button>-->
+
         </pe-step>
 
 
         <pe-step label="Table">
+            <router-outlet></router-outlet>
             <label for="lastname">Last Name:</label>
             <input id="lastname" name="lastname" type="text" pInputText [(ngModel)]="lastName" />
             <button pButton label="Go" (click)="next()"></button>

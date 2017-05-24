@@ -19,7 +19,6 @@ import { StepComponent } from './step.component';
             [class]="styleClass" [readonly]="true"></p-steps>            
          <ng-content></ng-content>
 
-
         <div class="ui-g" >
             <div class="ui-g-2">
                 <button pButton type="text" *ngIf="activeIndex > 0"
@@ -30,7 +29,8 @@ import { StepComponent } from './step.component';
                 <button pButton type="text" [disabled]="activeIndex == items.length - 1"
                     (click)="next()" icon="fa-hand-o-right" iconPos="right" label="Next"></button>
             </div>   
-        </div>    
+        </div>   
+ 
     `
 })
 export class StepsComponent implements AfterContentInit, OnChanges {

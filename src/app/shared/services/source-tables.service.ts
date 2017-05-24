@@ -11,7 +11,14 @@ import { SourceTable} from '../models/source-table.model';
 export class SourceTablesService {
   constructor (
     private apiService: ApiService
-  ) {}
+  ) {
+
+  
+
+  }
+
+
+
 
   queryByName(tableName:string): Observable<{sourceTables: SourceTable[], sourceTableCount: number}> {
     // Convert any filters over to Angular's URLSearchParams
@@ -25,13 +32,15 @@ export class SourceTablesService {
     ).map(data => data);
   }
 
-  queryAll(): Observable<{sourceTables: SourceTable[], sourceTableCount: number}> {
+
+  queryAll(sourceName:string): Observable<{sourceTables: SourceTable[], sourceTableCount: number}> {
     // Convert any filters over to Angular's URLSearchParams
     const params: URLSearchParams = new URLSearchParams();
 
+
     return this.apiService
     .get(
-      '/infagen/datasources/lnicrm/tables',
+      '/infagen/datasources/' + sourceName + '/tables',
       params
     ).map(data => data);
   }

@@ -17,8 +17,9 @@ export class SourceTableResolver implements Resolve<SourceTable> {
     state: RouterStateSnapshot
   ): Observable<any> {
 
-    return this.sourceTablesService.queryAll()
+    return this.sourceTablesService.queryAll(route.params['ds'])
            .catch((err) => this.router.navigateByUrl('/'));
   }
+  
 
 }
