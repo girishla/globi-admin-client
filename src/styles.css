@@ -18,3 +18,10 @@ body .ui-listbox .ui-listbox-header .ui-listbox-filter-container .ui-inputtext{
     color:#000000
 
 }
+
+
+body .ui-listbox .ui-listbox-list{
+
+    height:300px;
+    overflow:auto
+}
