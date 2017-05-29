@@ -13,11 +13,10 @@ export class PTPConfirmGenerate implements OnInit {
 
     selectedCols: SourceTableColumn[];
 
-
     ngOnInit(): void {
         this.selectedCols = this.ptpStateService.columnsList;
         if (!this.selectedCols) {
-              this.router.navigateByUrl('/infaptp');
+              this.router.navigateByUrl('/infaptp/start');
 
         }
 
@@ -26,6 +25,10 @@ export class PTPConfirmGenerate implements OnInit {
 
     constructor(private router: Router, private route: ActivatedRoute, private ptpStateService: PTPStateService) {
 
+    }
+
+        selectColumns() {
+        this.router.navigateByUrl('/infaptp/datasources/' + this.route.snapshot.params['ds'] + "/tables/" + this.route.snapshot.params['table'] + "/columns");
     }
 
     generate() {

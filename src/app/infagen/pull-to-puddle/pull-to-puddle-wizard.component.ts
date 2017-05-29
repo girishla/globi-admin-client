@@ -16,7 +16,6 @@ export class PullToPuddleWizardComponent implements OnInit {
     tables: SourceTable[];
     stepsItems;
 
-
     constructor(
         private stService: SourceTablesService,
         private router: Router,
@@ -33,17 +32,6 @@ export class PullToPuddleWizardComponent implements OnInit {
     msgs: Message[] = [];
 
 
-    selecttable() {
-        this.router.navigateByUrl('/infaptp/datasources/' + this.sourceSystemValue.toLowerCase());
-
-    }
-
-    selectSource() {
-        this.router.navigateByUrl('/infaptp');
-
-    }
-
-
 
 
     onChange(label: string) {
@@ -56,16 +44,16 @@ export class PullToPuddleWizardComponent implements OnInit {
 
     setCurrentIndex(url) {
 
-        if (url === "/infaptp") {
+        if (url === "/infaptp/start") {
             this.activeIndex = 0;
         }
         else if (((url.startsWith("/infaptp/datasources")) && (url.indexOf("tables") === -1))) {
             this.activeIndex = 1;
         }
-        else if (url.indexOf("tables") > 0) {
+        else if ((url.indexOf("tables") > 0)  && (url.indexOf("generate") === -1)) {
             this.activeIndex = 2;
         }
-        else if (url.indexOf("confirmation") > 0) {
+        else if (url.indexOf("generate") > 0) {
             this.activeIndex = 3;
         }
 
@@ -73,7 +61,6 @@ export class PullToPuddleWizardComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.sourceSystemValue = this.sourceSystemValue || "GEN";
 
         this.setCurrentIndex(this.router.url);
 

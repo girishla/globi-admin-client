@@ -1,0 +1,34 @@
+<div class="card card-w-title">
+
+    <div class="ui-g">
+        <div class="ui-g-4">
+        </div>
+        <div class="ui-g-4">
+            <div class="ui-g-12">
+                <p-radioButton name="rg" value="GEN" label="Genesis" [(ngModel)]="sourceSystemValue"></p-radioButton>
+            </div>
+            <div class="ui-g-12">
+                <p-radioButton name="rg" value="CUK" label="LNI CRM" [(ngModel)]="sourceSystemValue"></p-radioButton>
+            </div>
+            <div class="ui-g-12">
+                <p-radioButton name="rg" value="CGL" label="Global CRM" [(ngModel)]="sourceSystemValue"></p-radioButton>
+            </div>
+            <div class="ui-g-12">
+                <p-radioButton name="rg" value="FBM" label="FBM" [(ngModel)]="sourceSystemValue"></p-radioButton>
+            </div>
+        </div>
+        <div class="ui-g-4">
+        </div>
+
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-8">
+        </div>
+        <div class="ui-g-2">
+            <button pButton type="text" (click)="selecttable()" icon="fa-hand-o-right" iconPos="right" label="Next"></button>
+        </div>
+    </div>
+
+
+
+</div>

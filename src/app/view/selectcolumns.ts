@@ -44,6 +44,11 @@ export class SelectTableColumns implements OnInit {
 
     }
 
+   selectTable() {
+        this.router.navigateByUrl('/infaptp/datasources/' + this.route.snapshot.params['ds']);
+
+    }
+
 
 
 }

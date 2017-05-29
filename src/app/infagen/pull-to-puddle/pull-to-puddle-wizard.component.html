@@ -1,60 +1,8 @@
 <div class="card ">
-
-    <pe-steps [(activeIndex)]="activeIndex" (change)="onChange($event)">
-
-        <pe-step label="Source" style-class="">
-            <label for="sourceSystem">Select Source System:</label>
-            <div class="ui-g">
-
-                <div class="ui-g-4">
-                </div>
-                <div class="ui-g-4">
-                    <div class="ui-g-12">
-                        <p-radioButton name="rg" value="GEN" label="Genesis" [(ngModel)]="sourceSystemValue"></p-radioButton>
-                    </div>
-                    <div class="ui-g-12">
-                        <p-radioButton name="rg" value="CUK" label="LNI CRM" [(ngModel)]="sourceSystemValue"></p-radioButton>
-                    </div>
-                    <div class="ui-g-12">
-                        <p-radioButton name="rg" value="CGL" label="Global CRM" [(ngModel)]="sourceSystemValue"></p-radioButton>
-                    </div>
-                    <div class="ui-g-12">
-                        <p-radioButton name="rg" value="FBM" label="FBM" [(ngModel)]="sourceSystemValue"></p-radioButton>
-                    </div>
-                </div>
-                <div class="ui-g-4">
-                </div>
-
-            </div>
-            <div class="ui-g">
-                <div class="ui-g-8">
-                </div>
-                <div class="ui-g-2">
-                    <button pButton type="text" (click)="selecttable()" icon="fa-hand-o-right" iconPos="right" label="Next"></button>
-                </div>
-
-            </div>
-        </pe-step>
-
-
-
-        <pe-step label="Table">
-            <router-outlet></router-outlet>
-        </pe-step>
-
-
-        <pe-step label="Columns">
-            <!--<router-outlet name="columns"></router-outlet>-->
-        </pe-step>
-
-
-        <pe-step label="Confirmation">
-            <!--<router-outlet name="confirmation"></router-outlet>-->
-        </pe-step>
-
-
-    </pe-steps>
-
+    <p-steps [model]="stepsItems" [(activeIndex)]="activeIndex">
+    </p-steps>
+ 
+     <router-outlet></router-outlet>
 
     <p-growl [value]="msgs"></p-growl>
 

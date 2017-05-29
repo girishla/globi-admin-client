@@ -33,8 +33,12 @@ export class SelectTable implements OnInit {
         this.router.navigateByUrl('/infaptp/datasources/' + this.route.snapshot.params['ds'] + "/tables/" + this.selectedTable.toLowerCase() + "/columns");
     }
 
+    selectSource() {
+        this.router.navigateByUrl('/infaptp/start');
+    }
 
-    
+
+
     constructor(private router: Router, private route: ActivatedRoute) {
 
 

@@ -27,6 +27,7 @@ import { SelectTableColumns } from "app/view/selectcolumns";
 import { SourceTableColumnsResolver } from "app/shared/services/source-table-columns-resolver.service";
 import { SourceTableColumnsService } from "app/shared/services/source-table-columns.service";
 import { PTPConfirmGenerate } from "app/view/confirm";
+import { SelectSource } from "app/view/selectsource";
 
 
 
@@ -45,7 +46,8 @@ import { PTPConfirmGenerate } from "app/view/confirm";
     PullToPuddleWizardComponent,
     SelectTable,
     SelectTableColumns,
-    PTPConfirmGenerate
+    PTPConfirmGenerate,
+    SelectSource 
 
   ],
   imports: [

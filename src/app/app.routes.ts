@@ -10,6 +10,7 @@ import { SelectTable } from "app/view/selecttable";
 import { SourceTableColumnsResolver } from "app/shared/services/source-table-columns-resolver.service";
 import { SelectTableColumns } from "app/view/selectcolumns";
 import { PTPConfirmGenerate } from "app/view/confirm";
+import { SelectSource } from "app/view/selectsource";
 
 
 export const routes: Routes = [
@@ -19,6 +20,9 @@ export const routes: Routes = [
         path: 'infaptp', component: Infagen, data: {
             activeIndex: 0
         }, children: [{
+            path: 'start',
+            component: SelectSource
+        },{
             path: 'datasources/:ds',
             component: SelectTable,
             resolve: {

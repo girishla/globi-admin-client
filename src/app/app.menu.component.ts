@@ -43,9 +43,9 @@ export class AppMenuComponent implements OnInit {
                 ]
             },
             {
-                label: 'Automation', icon: 'android',
+                label: 'Infa Generators', icon: 'android',
                 items: [
-                    {label: 'Informatica Generator', icon: 'input', routerLink: ['/infaptp']}
+                    {label: ' Pull to Puddle', icon: 'input', routerLink: ['/infaptp/start']}
                 ]
             },
             {label: 'Documentation', icon: 'find_in_page', routerLink: ['/documentation']}
