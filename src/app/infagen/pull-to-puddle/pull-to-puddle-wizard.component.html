@@ -34,12 +34,8 @@
                 </div>
 
             </div>
-
-
-
-            <!--<button pButton label="Go" (click)="gettables()"></button>-->
-
         </pe-step>
+
 
 
         <pe-step label="Table">
@@ -47,19 +43,13 @@
         </pe-step>
 
 
-
         <pe-step label="Columns">
-
- <router-outlet></router-outlet>
-
-
+            <!--<router-outlet name="columns"></router-outlet>-->
         </pe-step>
 
 
         <pe-step label="Confirmation">
-            <label for="address">Address:</label>
-            <input id="address" name="address" type="text" pInputText [(ngModel)]="address" />
-            <button pButton label="Ok" (click)="ok()"></button>
+            <!--<router-outlet name="confirmation"></router-outlet>-->
         </pe-step>
 
 

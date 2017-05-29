@@ -8,7 +8,7 @@ import { ActivatedRoute, Router,ActivatedRouteSnapshot } from '@angular/router';
 @Component({
     templateUrl: './selecttable.html'
 })
-export class SelectTables implements OnInit {
+export class SelectTable implements OnInit {
     sourceTableList: SourceTable[];
     tableNameList = [];
     selectedTable: string;
@@ -32,6 +32,9 @@ export class SelectTables implements OnInit {
     selectColumns() {
         this.router.navigateByUrl('/infaptp/datasources/' + this.route.snapshot.params['ds'] + "/tables/" + this.selectedTable.toLowerCase() + "/columns");
     }
+
+
+    
     constructor(private router: Router, private route: ActivatedRoute) {
 
 

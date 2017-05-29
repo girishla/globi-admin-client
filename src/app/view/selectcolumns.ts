@@ -29,15 +29,17 @@ export class SelectTableColumns implements OnInit {
         );
     }
 
-    constructor(private router: Router, private route: ActivatedRoute, private ptpStateService: PTPStateService) {
+    constructor(private router: Router, private route: ActivatedRoute, 
+                    private ptpStateService: PTPStateService) {
 
 
     }
 
     confirm() {
         console.log(this.selectedCols);
-
         this.ptpStateService.columnsList = this.selectedCols;
+        this.router.navigateByUrl('/infaptp/datasources/' + this.route.snapshot.params['ds'] 
+                + "/tables/" + this.route.snapshot.params['table'] + "/generate");
 
 
     }

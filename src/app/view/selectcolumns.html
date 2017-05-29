@@ -19,18 +19,18 @@
             <p-column field="columnDataType" header="Data Type" [sortable]="true"></p-column>
 
             <p-column field="integrationIdFlag" header="Integration Id" [style]="{'width':'145px'}">
-                <template let-row="rowData" let-index="rowIndex" let-col pTemplate type="body">
+                <ng-template let-row="rowData" let-index="rowIndex" let-col pTemplate type="body">
                     <input type="checkbox" id="integrationIdFlag{{index}}" name="integrationIdFlag" #integrationIdFlag="ngModel" [(ngModel)]="row[col.field]"
                     />
-                </template>
+                </ng-template>
             </p-column>
 
 
             <p-column field="changeCaptureColFlag" header="Change Capture Column" [style]="{'width':'145px'}">
-                <template let-row="rowData" let-index="rowIndex" let-col pTemplate type="body">
+                <ng-template let-row="rowData" let-index="rowIndex" let-col pTemplate type="body">
                     <input type="checkbox" id="changeCaptureColFlag{{index}}" name="changeCaptureColFlag" #integrationIdFlag="ngModel" [(ngModel)]="row[col.field]"
                     />
-                </template>
+                </ng-template>
             </p-column>
 
 

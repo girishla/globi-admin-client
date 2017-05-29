@@ -14,6 +14,7 @@ import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
 export class PullToPuddleWizardComponent implements OnInit {
 
     tables: SourceTable[];
+    stepsItems;
 
 
     constructor(
@@ -31,14 +32,6 @@ export class PullToPuddleWizardComponent implements OnInit {
 
     msgs: Message[] = [];
 
-    // next() {
-    //     this.activeIndex++;
-    // }
-
-    // ok() {
-    //     this.activeIndex = 0;
-    // }
-
 
     selecttable() {
         this.router.navigateByUrl('/infaptp/datasources/' + this.sourceSystemValue.toLowerCase());
@@ -50,10 +43,7 @@ export class PullToPuddleWizardComponent implements OnInit {
 
     }
 
-    selectColumns() {
-        this.router.navigateByUrl('/infaptp/datasources/' + this.sourceSystemValue.toLowerCase() +  "/columns");
 
-    }
 
 
     onChange(label: string) {
@@ -97,12 +87,21 @@ export class PullToPuddleWizardComponent implements OnInit {
 
         });
 
-        /*        var data = this.route.snapshot.children[0] && this.route.snapshot.children[0].data;
-        
-                if (data && data['activeIndex'])
-                    this.activeIndex = data['activeIndex'];
-                else
-                    this.activeIndex = 0;*/
+
+     this.stepsItems = [
+            {
+                label: 'Source'
+            },
+            {
+                label: 'Table'
+            },
+            {
+                label: 'Columns'
+            },
+            {
+                label: 'Confirmation'
+            }
+        ];
 
     }
 

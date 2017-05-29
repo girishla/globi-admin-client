@@ -22,10 +22,11 @@ import { SourceTableResolver } from "app/shared/services/source-table-resolver.s
 import { RouterModule, ActivatedRouteSnapshot } from "@angular/router";
 import { SourceTablesService } from "app/shared/services/source-tables.service";
 import { ApiService } from "app/shared/services/api.service";
-import { SelectTables } from "app/view/selecttable";
+import { SelectTable } from "app/view/selecttable";
 import { SelectTableColumns } from "app/view/selectcolumns";
 import { SourceTableColumnsResolver } from "app/shared/services/source-table-columns-resolver.service";
 import { SourceTableColumnsService } from "app/shared/services/source-table-columns.service";
+import { PTPConfirmGenerate } from "app/view/confirm";
 
 
 
@@ -42,8 +43,9 @@ import { SourceTableColumnsService } from "app/shared/services/source-table-colu
     Home,
     Infagen,
     PullToPuddleWizardComponent,
-    SelectTables,
-    SelectTableColumns
+    SelectTable,
+    SelectTableColumns,
+    PTPConfirmGenerate
 
   ],
   imports: [
@@ -59,7 +61,7 @@ import { SourceTableColumnsService } from "app/shared/services/source-table-colu
     ButtonModule,
     ListboxModule,
     DataTableModule,
-    CheckboxModule
+    CheckboxModule 
   ],
 
   providers: [
