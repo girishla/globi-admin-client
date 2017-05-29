@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SourceTable } from "app/shared/models/source-table.model";
 import { Observable } from "rxjs/Observable";
-import { ActivatedRoute, Router,ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRoute, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { SourceTableColumn } from "app/shared/models/source-table-column.model";
+import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
 
 
 @Component({
@@ -10,6 +11,7 @@ import { SourceTableColumn } from "app/shared/models/source-table-column.model";
 })
 export class SelectTableColumns implements OnInit {
     sourceTableColumnList: SourceTableColumn[];
+    selectedCols:SourceTableColumn[];
     columnNameList = [];
 
 
@@ -27,14 +29,18 @@ export class SelectTableColumns implements OnInit {
         );
     }
 
-    constructor(private router: Router, private route: ActivatedRoute) {
-
-
-
+    constructor(private router: Router, private route: ActivatedRoute, private ptpStateService: PTPStateService) {
 
 
     }
 
+    confirm() {
+        console.log(this.selectedCols);
+
+        this.ptpStateService.columnsList = this.selectedCols;
+
+
+    }
 
 
 

@@ -3,21 +3,24 @@ import { Message } from 'primeng/components/common/api';
 import { Router, ActivatedRoute, ActivatedRouteSnapshot, NavigationStart } from "@angular/router";
 import { SourceTable } from "app/shared/models/source-table.model";
 import { SourceTablesService } from "app/shared/services/source-tables.service";
+import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
 
 @Component({
     selector: 'pull-to-puddle-wizard',
-    templateUrl: './pull-to-puddle-wizard.component.html'
+    templateUrl: './pull-to-puddle-wizard.component.html',
+     providers: [PTPStateService]
 })
 
 export class PullToPuddleWizardComponent implements OnInit {
 
     tables: SourceTable[];
-    
+
 
     constructor(
         private stService: SourceTablesService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private ptpStateService:PTPStateService
 
     ) {
 

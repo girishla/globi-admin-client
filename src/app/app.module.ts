@@ -14,7 +14,7 @@ import { AppRoutes } from './app.routes';
 import { EmptyDemo } from './view/emptydemo';
 import { Documentation } from "app/view/documentation";
 import { Home } from "app/view/home";
-import { StepsModule, GrowlModule, RadioButtonModule, ButtonModule, ListboxModule } from "primeng/primeng";
+import { StepsModule, GrowlModule, RadioButtonModule, ButtonModule, ListboxModule, DataTableModule, CheckboxModule } from "primeng/primeng";
 import { WizardModule } from "app/wizard/wizard.module";
 import { Infagen } from "app/infagen/infagen";
 import { PullToPuddleWizardComponent } from "app/infagen/pull-to-puddle/pull-to-puddle-wizard.component";
@@ -57,7 +57,9 @@ import { SourceTableColumnsService } from "app/shared/services/source-table-colu
     GrowlModule,
     RadioButtonModule,
     ButtonModule,
-    ListboxModule
+    ListboxModule,
+    DataTableModule,
+    CheckboxModule
   ],
 
   providers: [

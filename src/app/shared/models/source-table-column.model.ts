@@ -10,6 +10,7 @@
         precision: number;
         scale: number;
         integrationIdFlag: boolean;
+        changeCaptureColFlag: boolean;
         id?: any;
         version?: any;
         createdDate?: any;
