@@ -58,9 +58,9 @@ export class PullToPuddleWizardComponent implements OnInit {
     ngOnInit(): void {
         //        this.radioValue = "GEN";
 
-        var data=this.route.snapshot.children[0].data;
+        var data=this.route.snapshot.children[0] && this.route.snapshot.children[0].data;
 
-        if (data['activeIndex'])
+        if (data && data['activeIndex'])
             this.activeIndex = data['activeIndex'];
         else
             this.activeIndex = 0;

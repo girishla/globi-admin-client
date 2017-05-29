@@ -8,7 +8,6 @@ import { Infagen } from "app/infagen/infagen";
 import { SourceTableResolver } from "app/source-table/source-table-resolver.service";
 
 
-
 export const routes: Routes = [
     { path: '', component: Home },
     { path: 'documentation', component: Documentation },
