@@ -5,21 +5,23 @@ import { EmptyDemo } from './view/emptydemo';
 import { Documentation } from "app/view/documentation";
 import { Home } from "app/view/home";
 import { Infagen } from "app/infagen/infagen";
-import { SourceTableResolver } from "app/source-table/source-table-resolver.service";
+import { SourceTableResolver } from "app/shared/services/source-table-resolver.service";
 
 
 export const routes: Routes = [
     { path: '', component: Home },
     { path: 'documentation', component: Documentation },
     {
-        path: 'infagen', component: Infagen, children: [{
+        path: 'infagen', component: Infagen, data: {
+            activeIndex: 0
+        }, children: [{
             path: 'datasources/:ds',
             component: EmptyDemo,
             resolve: {
                 sourceTable: SourceTableResolver
             },
-            data:{
-                activeIndex:1
+            data: {
+                activeIndex: 1
             }
 
 

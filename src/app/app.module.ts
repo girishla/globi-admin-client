@@ -18,21 +18,12 @@ import { StepsModule, GrowlModule, RadioButtonModule, ButtonModule } from "prime
 import { WizardModule } from "app/wizard/wizard.module";
 import { Infagen } from "app/infagen/infagen";
 import { PullToPuddleWizardComponent } from "app/infagen/pull-to-puddle/pull-to-puddle-wizard.component";
-import { SourceTableResolver } from "app/source-table/source-table-resolver.service";
+import { SourceTableResolver } from "app/shared/services/source-table-resolver.service";
 import { RouterModule, ActivatedRouteSnapshot } from "@angular/router";
 import { SourceTablesService } from "app/shared/services/source-tables.service";
 import { ApiService } from "app/shared/services/api.service";
 
 
-// const sourceTableRouting: ModuleWithProviders = RouterModule.forChild([
-//   {
-//     path: 'infagen/tables',
-//     component: Infagen,
-//     resolve: {
-//       article: SourceTableResolver
-//     }
-//   }
-// ]);
 
 
 @NgModule({

@@ -17,9 +17,6 @@ export class SourceTablesService {
 
   }
 
-
-
-
   queryByName(tableName:string): Observable<{sourceTables: SourceTable[], sourceTableCount: number}> {
     // Convert any filters over to Angular's URLSearchParams
     const params: URLSearchParams = new URLSearchParams();

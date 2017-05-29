@@ -44,7 +44,6 @@ export class PullToPuddleWizardComponent implements OnInit {
         this.activeIndex++;
         this.router.navigateByUrl('/infagen/datasources/' + this.radioValue.toLowerCase());
 
-
     }
 
     onChange(label: string) {
@@ -56,7 +55,7 @@ export class PullToPuddleWizardComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        //        this.radioValue = "GEN";
+        this.radioValue = "GEN";
 
         var data=this.route.snapshot.children[0] && this.route.snapshot.children[0].data;
 
