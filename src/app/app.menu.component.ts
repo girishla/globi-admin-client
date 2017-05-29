@@ -45,7 +45,7 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Automation', icon: 'android',
                 items: [
-                    {label: 'Informatica Generator', icon: 'input', routerLink: ['/infagen']}
+                    {label: 'Informatica Generator', icon: 'input', routerLink: ['/infaptp']}
                 ]
             },
             {label: 'Documentation', icon: 'find_in_page', routerLink: ['/documentation']}

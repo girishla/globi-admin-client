@@ -6,17 +6,18 @@ import { Documentation } from "app/view/documentation";
 import { Home } from "app/view/home";
 import { Infagen } from "app/infagen/infagen";
 import { SourceTableResolver } from "app/shared/services/source-table-resolver.service";
+import { SelectTables } from "app/view/selecttables";
 
 
 export const routes: Routes = [
     { path: '', component: Home },
     { path: 'documentation', component: Documentation },
     {
-        path: 'infagen', component: Infagen, data: {
+        path: 'infaptp', component: Infagen, data: {
             activeIndex: 0
         }, children: [{
             path: 'datasources/:ds',
-            component: EmptyDemo,
+            component: SelectTables,
             resolve: {
                 sourceTable: SourceTableResolver
             },

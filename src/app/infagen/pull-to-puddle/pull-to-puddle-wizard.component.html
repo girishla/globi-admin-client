@@ -2,7 +2,6 @@
 
     <pe-steps [(activeIndex)]="activeIndex" (change)="onChange($event)">
 
-
         <pe-step label="Source" style-class="">
             <label for="sourceSystem">Select Source System:</label>
             <div class="ui-g">
@@ -11,16 +10,16 @@
                 </div>
                 <div class="ui-g-4">
                     <div class="ui-g-12">
-                        <p-radioButton name="rg" value="GEN" label="Genesis" [(ngModel)]="radioValue"></p-radioButton>
+                        <p-radioButton name="rg" value="GEN" label="Genesis" [(ngModel)]="sourceSystemValue"></p-radioButton>
                     </div>
                     <div class="ui-g-12">
-                        <p-radioButton name="rg" value="CUK" label="LNI CRM" [(ngModel)]="radioValue"></p-radioButton>
+                        <p-radioButton name="rg" value="CUK" label="LNI CRM" [(ngModel)]="sourceSystemValue"></p-radioButton>
                     </div>
                     <div class="ui-g-12">
-                        <p-radioButton name="rg" value="CGL" label="Global CRM" [(ngModel)]="radioValue"></p-radioButton>
+                        <p-radioButton name="rg" value="CGL" label="Global CRM" [(ngModel)]="sourceSystemValue"></p-radioButton>
                     </div>
                     <div class="ui-g-12">
-                        <p-radioButton name="rg" value="FBM" label="FBM" [(ngModel)]="radioValue"></p-radioButton>
+                        <p-radioButton name="rg" value="FBM" label="FBM" [(ngModel)]="sourceSystemValue"></p-radioButton>
                     </div>
                 </div>
                 <div class="ui-g-4">
@@ -31,7 +30,7 @@
                 <div class="ui-g-8">
                 </div>
                 <div class="ui-g-2">
-                    <button pButton type="text" (click)="gettables()" icon="fa-hand-o-right" iconPos="right" label="Next"></button>
+                    <button pButton type="text" (click)="selecttable()" icon="fa-hand-o-right" iconPos="right" label="Next"></button>
                 </div>
 
             </div>
@@ -45,17 +44,33 @@
 
         <pe-step label="Table">
             <router-outlet></router-outlet>
-            <label for="lastname">Last Name:</label>
-            <input id="lastname" name="lastname" type="text" pInputText [(ngModel)]="lastName" />
-            <button pButton label="Go" (click)="next()"></button>
+            <div class="ui-g">
+                <div class="ui-g-2">
+                    <button pButton type="text" (click)="selectSource()" icon="fa-hand-o-left" iconPos="left" label="Previous"></button>
+                </div>
+                <div class="ui-g-8">
+                </div>
+                <div class="ui-g-2">
+                    <button pButton type="text" (click)="selectColumns()" icon="fa-hand-o-right" iconPos="right" label="Next"></button>
+                </div>
+
+            </div>
         </pe-step>
 
 
 
-        <pe-step label="Keys">
-            <label for="address">Address:</label>
-            <input id="address" name="address" type="text" pInputText [(ngModel)]="address" />
-            <button pButton label="Ok" (click)="ok()"></button>
+        <pe-step label="Columns">
+            <div class="ui-g">
+                <div class="ui-g-2">
+                    <button pButton type="text" (click)="selectTable()" icon="fa-hand-o-left" iconPos="left" label="Previous"></button>
+                </div>
+                <div class="ui-g-8">
+                </div>
+                <div class="ui-g-2">
+                    <button pButton type="text" (click)="confirm()" icon="fa-hand-o-right" iconPos="right" label="Next"></button>
+                </div>
+
+            </div>
         </pe-step>
 
 

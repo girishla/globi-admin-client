@@ -14,7 +14,7 @@ import { AppRoutes } from './app.routes';
 import { EmptyDemo } from './view/emptydemo';
 import { Documentation } from "app/view/documentation";
 import { Home } from "app/view/home";
-import { StepsModule, GrowlModule, RadioButtonModule, ButtonModule } from "primeng/primeng";
+import { StepsModule, GrowlModule, RadioButtonModule, ButtonModule, ListboxModule } from "primeng/primeng";
 import { WizardModule } from "app/wizard/wizard.module";
 import { Infagen } from "app/infagen/infagen";
 import { PullToPuddleWizardComponent } from "app/infagen/pull-to-puddle/pull-to-puddle-wizard.component";
@@ -22,6 +22,7 @@ import { SourceTableResolver } from "app/shared/services/source-table-resolver.s
 import { RouterModule, ActivatedRouteSnapshot } from "@angular/router";
 import { SourceTablesService } from "app/shared/services/source-tables.service";
 import { ApiService } from "app/shared/services/api.service";
+import { SelectTables } from "app/view/selecttables";
 
 
 
@@ -38,7 +39,7 @@ import { ApiService } from "app/shared/services/api.service";
     Home,
     Infagen,
     PullToPuddleWizardComponent,
-
+    SelectTables
 
   ],
   imports: [
@@ -51,7 +52,8 @@ import { ApiService } from "app/shared/services/api.service";
     WizardModule,
     GrowlModule,
     RadioButtonModule,
-    ButtonModule
+    ButtonModule,
+    ListboxModule
   ],
 
   providers: [
