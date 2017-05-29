@@ -6,7 +6,9 @@ import { Documentation } from "app/view/documentation";
 import { Home } from "app/view/home";
 import { Infagen } from "app/infagen/infagen";
 import { SourceTableResolver } from "app/shared/services/source-table-resolver.service";
-import { SelectTables } from "app/view/selecttables";
+import { SelectTables } from "app/view/selecttable";
+import { SourceTableColumnsResolver } from "app/shared/services/source-table-columns-resolver.service";
+import { SelectTableColumns } from "app/view/selectcolumns";
 
 
 export const routes: Routes = [
@@ -24,7 +26,12 @@ export const routes: Routes = [
             data: {
                 activeIndex: 1
             }
-
+        },{
+            path: 'datasources/:ds/tables/:table/columns',
+            component: SelectTableColumns,
+            resolve: {
+                sourceTableColumn: SourceTableColumnsResolver
+            }
 
         }]
     },

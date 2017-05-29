@@ -12,6 +12,7 @@ import { SourceTablesService } from "app/shared/services/source-tables.service";
 export class PullToPuddleWizardComponent implements OnInit {
 
     tables: SourceTable[];
+    
 
     constructor(
         private stService: SourceTablesService,
@@ -47,7 +48,7 @@ export class PullToPuddleWizardComponent implements OnInit {
     }
 
     selectColumns() {
-        this.router.navigateByUrl('/infaptp/datasources/' + this.sourceSystemValue.toLowerCase() + "/tables");
+        this.router.navigateByUrl('/infaptp/datasources/' + this.sourceSystemValue.toLowerCase() +  "/columns");
 
     }
 
@@ -79,7 +80,7 @@ export class PullToPuddleWizardComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.sourceSystemValue = "GEN";
+        this.sourceSystemValue = this.sourceSystemValue || "GEN";
 
         this.setCurrentIndex(this.router.url);
 

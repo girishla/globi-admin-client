@@ -1,23 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { SourceTable } from "app/shared/models/source-table.model";
 import { Observable } from "rxjs/Observable";
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router,ActivatedRouteSnapshot } from '@angular/router';
 
 
 
 @Component({
-    templateUrl: './selecttables.html'
+    templateUrl: './selecttable.html'
 })
 export class SelectTables implements OnInit {
     sourceTableList: SourceTable[];
     tableNameList = [];
+    selectedTable: string;
+
 
     ngOnInit(): void {
         this.route.data.subscribe(
-
-
-
             (data: { sourceTable: SourceTable[] }) => {
+
+
                 this.sourceTableList = data.sourceTable;
                 var source = Observable.from(data.sourceTable);
                 source.map(table => table.tableName)
@@ -27,6 +28,10 @@ export class SelectTables implements OnInit {
         );
     }
 
+
+    selectColumns() {
+        this.router.navigateByUrl('/infaptp/datasources/' + this.route.snapshot.params['ds'] + "/tables/" + this.selectedTable.toLowerCase() + "/columns");
+    }
     constructor(private router: Router, private route: ActivatedRoute) {
 
 

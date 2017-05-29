@@ -44,33 +44,15 @@
 
         <pe-step label="Table">
             <router-outlet></router-outlet>
-            <div class="ui-g">
-                <div class="ui-g-2">
-                    <button pButton type="text" (click)="selectSource()" icon="fa-hand-o-left" iconPos="left" label="Previous"></button>
-                </div>
-                <div class="ui-g-8">
-                </div>
-                <div class="ui-g-2">
-                    <button pButton type="text" (click)="selectColumns()" icon="fa-hand-o-right" iconPos="right" label="Next"></button>
-                </div>
-
-            </div>
         </pe-step>
 
 
 
         <pe-step label="Columns">
-            <div class="ui-g">
-                <div class="ui-g-2">
-                    <button pButton type="text" (click)="selectTable()" icon="fa-hand-o-left" iconPos="left" label="Previous"></button>
-                </div>
-                <div class="ui-g-8">
-                </div>
-                <div class="ui-g-2">
-                    <button pButton type="text" (click)="confirm()" icon="fa-hand-o-right" iconPos="right" label="Next"></button>
-                </div>
 
-            </div>
+ <router-outlet></router-outlet>
+
+
         </pe-step>
 
 

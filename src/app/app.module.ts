@@ -22,7 +22,10 @@ import { SourceTableResolver } from "app/shared/services/source-table-resolver.s
 import { RouterModule, ActivatedRouteSnapshot } from "@angular/router";
 import { SourceTablesService } from "app/shared/services/source-tables.service";
 import { ApiService } from "app/shared/services/api.service";
-import { SelectTables } from "app/view/selecttables";
+import { SelectTables } from "app/view/selecttable";
+import { SelectTableColumns } from "app/view/selectcolumns";
+import { SourceTableColumnsResolver } from "app/shared/services/source-table-columns-resolver.service";
+import { SourceTableColumnsService } from "app/shared/services/source-table-columns.service";
 
 
 
@@ -39,7 +42,8 @@ import { SelectTables } from "app/view/selecttables";
     Home,
     Infagen,
     PullToPuddleWizardComponent,
-    SelectTables
+    SelectTables,
+    SelectTableColumns
 
   ],
   imports: [
@@ -58,7 +62,9 @@ import { SelectTables } from "app/view/selecttables";
 
   providers: [
     SourceTableResolver,
+    SourceTableColumnsResolver,
     SourceTablesService,
+    SourceTableColumnsService,
     ApiService
   ],
   bootstrap: [AppComponent]
