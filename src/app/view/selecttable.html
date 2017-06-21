@@ -1,16 +1,20 @@
 <div class="card card-w-title">
     <h1>Select Table</h1>
+<div [ngBusy]="routerEventSubscription"></div>
 
     <div class="ui-g">
+
         <div class="ui-g-3">
         </div>
 
         <div class="ui-g-6">
+             <sk-wave [isRunning]="isRunning"></sk-wave>
             <p-listbox [options]="tableNameList" [(ngModel)]="selectedTable" filter="true"></p-listbox>
         </div>
         <div class="ui-g-3">
         </div>
     </div>
+
 
     <div class="ui-g">
         <div class="ui-g-2">

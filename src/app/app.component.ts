@@ -1,5 +1,5 @@
 import {Component,AfterViewInit,ElementRef,Renderer,ViewChild} from '@angular/core';
-
+import {Spinkit} from 'ng-http-loader/spinkits'
 enum MenuOrientation {
     STATIC,
     OVERLAY,
@@ -33,7 +33,8 @@ export class AppComponent implements AfterViewInit {
     activeTopbarItem: any;
     documentClickListener: Function;
     resetMenu: boolean;
-
+    Spinkit=Spinkit;
+    
     @ViewChild('layoutContainer') layourContainerViewChild: ElementRef;
 
     @ViewChild('layoutMenuScroller') layoutMenuScrollerViewChild: ElementRef;
@@ -41,6 +42,8 @@ export class AppComponent implements AfterViewInit {
     constructor(public renderer: Renderer) {}
 
     ngAfterViewInit() {
+
+        
         this.layoutContainer = <HTMLDivElement> this.layourContainerViewChild.nativeElement;
         // this.layoutMenuScroller = <HTMLDivElement> this.layoutMenuScrollerViewChild.nativeElement;
 

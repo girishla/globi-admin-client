@@ -28,7 +28,9 @@ import { SourceTableColumnsResolver } from "app/shared/services/source-table-col
 import { SourceTableColumnsService } from "app/shared/services/source-table-columns.service";
 import { PTPConfirmGenerate } from "app/view/confirm";
 import { SelectSource } from "app/view/selectsource";
-
+import {BusyModule} from 'angular2-busy';
+import { WaveComponent } from 'ng2-spin-kit/app/spinner/wave'
+import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 
 
 
@@ -47,7 +49,8 @@ import { SelectSource } from "app/view/selectsource";
     SelectTable,
     SelectTableColumns,
     PTPConfirmGenerate,
-    SelectSource 
+    SelectSource,
+    WaveComponent
 
   ],
   imports: [
@@ -63,7 +66,9 @@ import { SelectSource } from "app/view/selectsource";
     ButtonModule,
     ListboxModule,
     DataTableModule,
-    CheckboxModule 
+    CheckboxModule,
+    BusyModule,
+    NgHttpLoaderModule
   ],
 
   providers: [

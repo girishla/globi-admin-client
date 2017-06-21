@@ -1,5 +1,7 @@
 <div class="layout-wrapper" [ngClass]="{'layout-compact':layoutCompact}">
 
+
+
     <div #layoutContainer class="layout-container" 
             [ngClass]="{'menu-layout-static': !isOverlay(),
             'menu-layout-overlay': isOverlay(),
@@ -20,6 +22,7 @@
         </div>
         
         <div class="layout-main">
+            <spinner [backgroundColor]="'#ff0000'" [spinner]="Spinkit.skWave"></spinner>
             <router-outlet></router-outlet>
             
             <app-footer></app-footer>
