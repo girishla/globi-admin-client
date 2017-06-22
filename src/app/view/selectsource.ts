@@ -11,7 +11,6 @@ import { ActivatedRoute, Router, ActivatedRouteSnapshot, NavigationStart } from 
 export class SelectSource implements OnInit {
 
     sourceSystemValue: string;
-    routerEventSubscription;
 
     ngOnInit(): void {
 
@@ -21,11 +20,6 @@ export class SelectSource implements OnInit {
 
 
     selecttable() {
-
-      this.routerEventSubscription=  this.router.events.subscribe((val) => {
-        //Dont care about what event NavigationStart/NavigationEnd as I need to show busy indicator as long as the router is doing something!
-
-        });
 
         this.router.navigateByUrl('/infaptp/datasources/' + this.sourceSystemValue.toLowerCase());
 

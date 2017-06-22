@@ -12,7 +12,6 @@ import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
 export class SelectTableColumns implements OnInit {
     sourceTableColumnList: SourceTableColumn[];
     selectedCols: SourceTableColumn[];
-    routerEventSubscription;
     columnNameList = [];
 
 
@@ -37,25 +36,14 @@ export class SelectTableColumns implements OnInit {
     }
 
     confirm() {
-
-        this.routerEventSubscription = this.router.events.subscribe((val) => {
-            //Dont care about what event NavigationStart/NavigationEnd as I need to show busy indicator as long as the router is doing something!
-
-        });
-
         console.log(this.selectedCols);
         this.ptpStateService.columnsList = this.selectedCols;
         this.router.navigateByUrl('/infaptp/datasources/' + this.route.snapshot.params['ds']
             + "/tables/" + this.route.snapshot.params['table'] + "/generate");
 
-
     }
 
     selectTable() {
-        this.routerEventSubscription = this.router.events.subscribe((val) => {
-            //Dont care about what event NavigationStart/NavigationEnd as I need to show busy indicator as long as the router is doing something!
-
-        });
 
         this.router.navigateByUrl('/infaptp/datasources/' + this.route.snapshot.params['ds']);
 

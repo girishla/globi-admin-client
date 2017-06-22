@@ -11,7 +11,6 @@ import { ActivatedRoute, Router, ActivatedRouteSnapshot } from '@angular/router'
 export class SelectTable implements OnInit {
     sourceTableList: SourceTable[];
     tableNameList = [];
-    routerEventSubscription;
     isRunning:Boolean=true;
     selectedTable: string;
 
@@ -35,18 +34,10 @@ export class SelectTable implements OnInit {
 
     selectColumns() {
 
-        this.routerEventSubscription = this.router.events.subscribe((val) => {
-            //Dont care about what event NavigationStart/NavigationEnd as I need to show busy indicator as long as the router is doing something!
-        });
-
         this.router.navigateByUrl('/infaptp/datasources/' + this.route.snapshot.params['ds'] + "/tables/" + this.selectedTable.toLowerCase() + "/columns");
     }
 
     selectSource() {
-
-        this.routerEventSubscription = this.router.events.subscribe((val) => {
-            //Dont care about what event NavigationStart/NavigationEnd as I need to show busy indicator as long as the router is doing something!
-        });
 
 
         this.router.navigateByUrl('/infaptp/start');

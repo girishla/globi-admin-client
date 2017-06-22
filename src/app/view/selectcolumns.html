@@ -11,7 +11,6 @@
         <p-dataTable [globalFilter]="filterText" [value]="sourceTableColumnList" [(selection)]="selectedCols" [paginator]="true"
             [rows]="10" [responsive]="true">
             <p-header>Available Columns</p-header>
-            <div [ngBusy]="routerEventSubscription"></div>
             <p-column [style]="{'width':'50px'}" selectionMode="multiple"></p-column>
 
 
