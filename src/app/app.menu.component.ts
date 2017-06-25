@@ -45,7 +45,6 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Infa Workflows', icon: 'android',
                 items: [
-                    { label: 'New PTP Workflow', icon: 'input', routerLink: ['/infaptp/start'] },
                     { label: 'PTP Workflows', icon: 'input', routerLink: ['/infaptp/workflows'] }
 
                 ]

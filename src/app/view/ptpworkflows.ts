@@ -3,6 +3,7 @@ import { Observable } from "rxjs/Observable";
 import { ActivatedRoute, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
 import { PTPWorkflow } from "app/shared/models/ptp-workflow.model";
+import { DatePipe } from "@angular/common/common";
 
 
 
@@ -23,6 +24,7 @@ export class PTPWorkflows implements OnInit {
                 console.log(data);
                 this.allWorkflows = data.ptpworkflows;
                 var allWorkflows$ = Observable.from(data.ptpworkflows);
+
                 allWorkflows$.map(workflow => workflow.workflowName)
                     .subscribe(workflowName => this.workflowNameList.push({ label: workflowName, value: workflowName }));
 
