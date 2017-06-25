@@ -1,27 +1,35 @@
-    export class Column {
-        sourceColumnName: string;
-        integrationIdColumn: boolean;
-        changeCaptureColumn: boolean;
-        createdDate: Date;
-        modifiedDate: Date;
-    }
+export class Column {
+    sourceColumnName: string;
+    integrationIdColumn: boolean;
+    changeCaptureColumn: boolean;
+    pguidColumn: boolean;
+    buidColumn: boolean;
+    createdDate: Date;
+    modifiedDate: Date;
+}
 
-    export class Workflow {
-        workflowName: string;
-        workflowScmUri: string;
-        workflowType: string;
-        id: number;
-        createdDate: Date;
-        modifiedDate: Date;
-    }
+export class PTPWorkflow {
+    sourceName: string;
+    sourceTableName: string;
+    sourceFilter?: any;
+    columns: Column[];
+    id: number;
+    createdDate: Date;
+    modifiedDate: Date;
+    workflowName: string;
+    workflowUri: string;
+    workflowType: string;
+    workflowStatus: string;
+    _links: Links;
+}
 
-    export class PTPWorkflow {
-        sourceName: string;
-        sourceTableName: string;
-        columns: Column[];
-        workflow: Workflow;
-        createdDate: Date;
-        modifiedDate: Date;
-    }
-
-
+export interface Links {
+    self: Self;
+    pTPWorkflow: PTPWorkflow;
+}
+export interface PTPWorkflow {
+    href: string;
+}
+export interface Self {
+    href: string;
+}

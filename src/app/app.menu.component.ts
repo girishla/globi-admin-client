@@ -1,9 +1,9 @@
-import {Component,Input,OnInit,EventEmitter,ViewChild,Inject,forwardRef} from '@angular/core';
-import {trigger,state,style,transition,animate} from '@angular/animations';
-import {Location} from '@angular/common';
-import {Router} from '@angular/router';
-import {MenuItem} from 'primeng/primeng';
-import {AppComponent} from './app.component';
+import { Component, Input, OnInit, EventEmitter, ViewChild, Inject, forwardRef } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/primeng';
+import { AppComponent } from './app.component';
 
 @Component({
     selector: 'app-menu',
@@ -20,44 +20,46 @@ export class AppMenuComponent implements OnInit {
 
     model: any[];
 
-    constructor(@Inject(forwardRef(() => AppComponent)) public app:AppComponent) {}
-    
+    constructor( @Inject(forwardRef(() => AppComponent)) public app: AppComponent) { }
+
     ngOnInit() {
         this.model = [
-            {label: 'Home', icon: 'home', routerLink: ['/']},
+            { label: 'Home', icon: 'home', routerLink: ['/'] },
             {
                 label: 'Themes', icon: 'palette',
                 items: [
-                    {label: 'Indigo - Pink', icon: 'brush', command: (event) => {this.changeTheme('indigo')}},
-                    {label: 'Brown - Green', icon: 'brush', command: (event) => {this.changeTheme('brown')}},
-                    {label: 'Blue - Amber', icon: 'brush', command: (event) => {this.changeTheme('blue')}},
-                    {label: 'Blue Grey - Green', icon: 'brush', command: (event) => {this.changeTheme('blue-grey')}},
-                    {label: 'Dark - Blue', icon: 'brush', command: (event) => {this.changeTheme('dark-blue')}},
-                    {label: 'Dark - Green', icon: 'brush', command: (event) => {this.changeTheme('dark-green')}},
-                    {label: 'Green - Yellow', icon: 'brush', command: (event) => {this.changeTheme('green')}},
-                    {label: 'Purple - Cyan', icon: 'brush', command: (event) => {this.changeTheme('purple-cyan')}},
-                    {label: 'Purple - Amber', icon: 'brush', command: (event) => {this.changeTheme('purple-amber')}},
-                    {label: 'Teal - Lime', icon: 'brush', command: (event) => {this.changeTheme('teal')}},
-                    {label: 'Cyan - Amber', icon: 'brush', command: (event) => {this.changeTheme('cyan')}},
-                    {label: 'Grey - Deep Orange', icon: 'brush', command: (event) => {this.changeTheme('grey')}}
+                    { label: 'Indigo - Pink', icon: 'brush', command: (event) => { this.changeTheme('indigo') } },
+                    { label: 'Brown - Green', icon: 'brush', command: (event) => { this.changeTheme('brown') } },
+                    { label: 'Blue - Amber', icon: 'brush', command: (event) => { this.changeTheme('blue') } },
+                    { label: 'Blue Grey - Green', icon: 'brush', command: (event) => { this.changeTheme('blue-grey') } },
+                    { label: 'Dark - Blue', icon: 'brush', command: (event) => { this.changeTheme('dark-blue') } },
+                    { label: 'Dark - Green', icon: 'brush', command: (event) => { this.changeTheme('dark-green') } },
+                    { label: 'Green - Yellow', icon: 'brush', command: (event) => { this.changeTheme('green') } },
+                    { label: 'Purple - Cyan', icon: 'brush', command: (event) => { this.changeTheme('purple-cyan') } },
+                    { label: 'Purple - Amber', icon: 'brush', command: (event) => { this.changeTheme('purple-amber') } },
+                    { label: 'Teal - Lime', icon: 'brush', command: (event) => { this.changeTheme('teal') } },
+                    { label: 'Cyan - Amber', icon: 'brush', command: (event) => { this.changeTheme('cyan') } },
+                    { label: 'Grey - Deep Orange', icon: 'brush', command: (event) => { this.changeTheme('grey') } }
                 ]
             },
             {
-                label: 'Infa Generators', icon: 'android',
+                label: 'Infa Workflows', icon: 'android',
                 items: [
-                    {label: ' Pull to Puddle', icon: 'input', routerLink: ['/infaptp/start']}
+                    { label: 'New PTP Workflow', icon: 'input', routerLink: ['/infaptp/start'] },
+                    { label: 'PTP Workflows', icon: 'input', routerLink: ['/infaptp/workflows'] }
+
                 ]
             },
-            {label: 'Documentation', icon: 'find_in_page', routerLink: ['/documentation']}
+            { label: 'Documentation', icon: 'find_in_page', routerLink: ['/documentation'] }
         ];
     }
 
     changeTheme(theme) {
-        let themeLink: HTMLLinkElement = <HTMLLinkElement> document.getElementById('theme-css');
-        let layoutLink: HTMLLinkElement = <HTMLLinkElement> document.getElementById('layout-css');
-        
-        themeLink.href = 'assets/theme/theme-' + theme +'.css';
-        layoutLink.href = 'assets/layout/css/layout-' + theme +'.css';
+        let themeLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById('theme-css');
+        let layoutLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById('layout-css');
+
+        themeLink.href = 'assets/theme/theme-' + theme + '.css';
+        layoutLink.href = 'assets/layout/css/layout-' + theme + '.css';
     }
 }
 
@@ -100,34 +102,34 @@ export class AppMenuComponent implements OnInit {
 export class AppSubMenu {
 
     @Input() item: MenuItem;
-    
+
     @Input() root: boolean;
-    
+
     @Input() visible: boolean;
 
     _reset: boolean;
-        
+
     activeIndex: number;
 
-    constructor(@Inject(forwardRef(() => AppComponent)) public app:AppComponent, public router: Router, public location: Location) {}
-        
-    itemClick(event: Event, item: MenuItem, index: number) {
+    constructor( @Inject(forwardRef(() => AppComponent)) public app: AppComponent, public router: Router, public location: Location) { }
+
+    itemClick(event: Event, item: MenuItem, index: number)  {
         //avoid processing disabled items
-        if(item.disabled) {
+        if (item.disabled) {
             event.preventDefault();
             return true;
         }
-        
+
         //activate current item and deactivate active sibling if any
         this.activeIndex = (this.activeIndex === index) ? null : index;
-                
+
         //execute command
-        if(item.command) {
-            if(!item.eventEmitter) {
+        if (item.command) {
+            if (!item.eventEmitter) {
                 item.eventEmitter = new EventEmitter();
                 item.eventEmitter.subscribe(item.command);
             }
-            
+
             item.eventEmitter.emit({
                 originalEvent: event,
                 item: item
@@ -135,22 +137,22 @@ export class AppSubMenu {
         }
 
         //prevent hash change
-        if(item.items || (!item.url && !item.routerLink)) {
+        if (item.items || (!item.url && !item.routerLink)) {
             event.preventDefault();
         }
-        
+
         //hide menu
-        if(!item.items) {
-            if(this.app.isHorizontal())
+        if (!item.items) {
+            if (this.app.isHorizontal())
                 this.app.resetMenu = true;
             else
                 this.app.resetMenu = false;
-                
+
             this.app.overlayMenuActive = false;
             this.app.staticMenuMobileActive = false;
         }
     }
-    
+
     isActive(index: number): boolean {
         return this.activeIndex === index;
     }
@@ -159,10 +161,10 @@ export class AppSubMenu {
         return this._reset;
     }
 
-    set reset(val:boolean) {
+    set reset(val: boolean) {
         this._reset = val;
 
-        if(this._reset && this.app.isHorizontal()) {
+        if (this._reset && this.app.isHorizontal()) {
             this.activeIndex = null;
         }
     }

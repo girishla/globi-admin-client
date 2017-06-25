@@ -17,9 +17,7 @@ export class PTPConfirmGenerate implements OnInit {
         this.selectedCols = this.ptpStateService.columnsList;
         if (!this.selectedCols) {
             this.router.navigateByUrl('/infaptp/start');
-
         }
-
 
     }
 

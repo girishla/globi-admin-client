@@ -31,6 +31,9 @@ import { SelectSource } from "app/view/selectsource";
 import {BusyModule} from 'angular2-busy';
 import { WaveComponent } from 'ng2-spin-kit/app/spinner/wave'
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
+import { PTPWorkflows } from "app/view/ptpworkflows";
+import { PTPWorkflowResolver } from "app/shared/services/ptp-workflow-resolver.service";
+import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
 
 
 
@@ -50,7 +53,8 @@ import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
     SelectTableColumns,
     PTPConfirmGenerate,
     SelectSource,
-    WaveComponent
+    WaveComponent,
+    PTPWorkflows
 
   ],
   imports: [
@@ -71,11 +75,14 @@ import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
     NgHttpLoaderModule
   ],
 
+
   providers: [
+    PTPWorkflowResolver,
     SourceTableResolver,
     SourceTableColumnsResolver,
     SourceTablesService,
     SourceTableColumnsService,
+    PTPWorkflowsService,
     ApiService
   ],
   bootstrap: [AppComponent]

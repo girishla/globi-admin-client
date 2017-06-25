@@ -18,10 +18,10 @@ color:#607D8B;
 
 }
 
-body .ui-listbox .ui-listbox-header .ui-listbox-filter-container .ui-inputtext{
+/*body .ui-listbox .ui-listbox-header .ui-listbox-filter-container .ui-inputtext{
     color:#000000
 
-}
+}*/
 
 
 body .ui-listbox .ui-listbox-list{
@@ -34,3 +34,4 @@ body .ui-listbox .ui-listbox-list{
 
     line-height:2.5em
 }
+

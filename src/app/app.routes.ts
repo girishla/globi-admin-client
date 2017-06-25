@@ -11,10 +11,19 @@ import { SourceTableColumnsResolver } from "app/shared/services/source-table-col
 import { SelectTableColumns } from "app/view/selectcolumns";
 import { PTPConfirmGenerate } from "app/view/confirm";
 import { SelectSource } from "app/view/selectsource";
+import { PTPWorkflows } from "app/view/ptpworkflows";
+import { PTPWorkflowResolver } from "app/shared/services/ptp-workflow-resolver.service";
+
+
 
 
 export const routes: Routes = [
     { path: '', component: Home },
+    {
+        path: 'infaptp/workflows', component: PTPWorkflows, resolve: {
+            ptpworkflows: PTPWorkflowResolver
+        }
+    },
     { path: 'documentation', component: Documentation },
     {
         path: 'infaptp', component: Infagen, data: {
@@ -22,7 +31,7 @@ export const routes: Routes = [
         }, children: [{
             path: 'start',
             component: SelectSource
-        },{
+        }, {
             path: 'datasources/:ds',
             component: SelectTable,
             resolve: {
