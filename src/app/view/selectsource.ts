@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SourceTable } from "app/shared/models/source-table.model";
 import { Observable } from "rxjs/Observable";
 import { ActivatedRoute, Router, ActivatedRouteSnapshot, NavigationStart } from '@angular/router';
+import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
 
 
 
@@ -14,20 +15,24 @@ export class SelectSource implements OnInit {
 
     ngOnInit(): void {
 
-        this.sourceSystemValue = this.sourceSystemValue || "GEN";
+        this.sourceSystemValue = this.ptpStateService.selectedSource || "GEN";
 
     }
 
 
     selecttable() {
 
+        if (!(this.ptpStateService.selectedSource == this.sourceSystemValue)) {
+            this.ptpStateService.sourceTableList = null;
+        }
+        this.ptpStateService.selectedSource = this.sourceSystemValue;
         this.router.navigateByUrl('/infaptp/datasources/' + this.sourceSystemValue.toLowerCase());
 
 
     }
 
 
-    constructor(private router: Router, private route: ActivatedRoute) {
+    constructor(private router: Router, private route: ActivatedRoute, private ptpStateService: PTPStateService) {
 
 
 

@@ -8,7 +8,7 @@ import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
 @Component({
     selector: 'pull-to-puddle-wizard',
     templateUrl: './pull-to-puddle-wizard.component.html',
-     providers: [PTPStateService]
+    //  providers: [PTPStateService]
 })
 
 export class PullToPuddleWizardComponent implements OnInit {
@@ -24,6 +24,7 @@ export class PullToPuddleWizardComponent implements OnInit {
 
     ) {
 
+
     }
 
     activeIndex: number;
@@ -35,9 +36,6 @@ export class PullToPuddleWizardComponent implements OnInit {
 
 
     onChange(label: string) {
-        // this.msgs.length = 0;
-        // this.msgs.push({ severity: 'info', summary: label });
-
 
     }
 

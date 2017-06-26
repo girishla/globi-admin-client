@@ -35,7 +35,7 @@ export const routes: Routes = [
             path: 'datasources/:ds',
             component: SelectTable,
             resolve: {
-                sourceTable: SourceTableResolver
+                sourceTableList: SourceTableResolver
             }
         }, {
             path: 'datasources/:ds/tables/:table/columns',

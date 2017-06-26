@@ -10,9 +10,12 @@
         precision: number;
         scale: number;
         integrationIdFlag: boolean;
-        changeCaptureColFlag: boolean;
+        buidIdFlag: boolean;
+        pguidFlag: boolean;
+        ccFlag: boolean;
         id?: any;
         version?: any;
         createdDate?: any;
         modifiedDate?: any;
     }
+

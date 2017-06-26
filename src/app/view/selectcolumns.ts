@@ -12,18 +12,23 @@ import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
 export class SelectTableColumns implements OnInit {
     sourceTableColumnList: SourceTableColumn[];
     selectedCols: SourceTableColumn[];
+    selectedTable: string;
     columnNameList = [];
 
 
     ngOnInit(): void {
+
+
+        this.selectedTable = this.route.snapshot.params['table'];
+
         this.route.data.subscribe(
             (data: { sourceTableColumn: SourceTableColumn[] }) => {
 
-                console.log(data);
                 this.sourceTableColumnList = data.sourceTableColumn;
                 var source = Observable.from(data.sourceTableColumn);
                 source.map(column => column.columnName)
                     .subscribe(columnName => this.columnNameList.push({ label: columnName, value: columnName }));
+
 
             }
         );
@@ -32,6 +37,14 @@ export class SelectTableColumns implements OnInit {
     constructor(private router: Router, private route: ActivatedRoute,
         private ptpStateService: PTPStateService) {
 
+
+    }
+    getColour(col: SourceTableColumn) {
+
+        if (col.integrationIdFlag) return 'blue';
+        if (col.ccFlag) return 'red';
+        if (col.buidIdFlag) return 'green';
+        if (col.pguidFlag) return 'brown';
 
     }
 
@@ -46,6 +59,15 @@ export class SelectTableColumns implements OnInit {
     selectTable() {
 
         this.router.navigateByUrl('/infaptp/datasources/' + this.route.snapshot.params['ds']);
+
+    }
+
+    selectAll() {
+        this.selectedCols = this.sourceTableColumnList.slice();
+
+    }
+    removeAll() {
+        this.selectedCols = [];
 
     }
 

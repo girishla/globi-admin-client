@@ -34,7 +34,8 @@ import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 import { PTPWorkflows } from "app/view/ptpworkflows";
 import { PTPWorkflowResolver } from "app/shared/services/ptp-workflow-resolver.service";
 import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
-
+import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
+import {DataListModule} from 'primeng/primeng';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
     DataTableModule,
     CheckboxModule,
     BusyModule,
-    NgHttpLoaderModule
+    NgHttpLoaderModule,
+    DataListModule
   ],
 
 
@@ -83,6 +85,7 @@ import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
     SourceTablesService,
     SourceTableColumnsService,
     PTPWorkflowsService,
+    PTPStateService,
     ApiService
   ],
   bootstrap: [AppComponent]

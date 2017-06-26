@@ -61,7 +61,7 @@
         <p-column field="workflowName" header="Name" [sortable]="true"></p-column>
         <p-column [style]="{'width':'100px'}" field="workflowStatus" header="Status" [sortable]="true"></p-column>
         <p-column [style]="{'width':'100px'}"  field="sourceName" header="Source" [sortable]="true"></p-column>
-        <p-column field="sourceTableName" header="Source Table" [sortable]="true"></p-column>
+        <p-column [style]="{'width':'230px'}" field="sourceTableName" header="Source Table" [sortable]="true"></p-column>
         <p-column [style]="{'width':'170px'}" field="modifiedDate" header="Updated" [sortable]="true">
                 <ng-template let-row="rowData" let-index="rowIndex" let-col pTemplate type="body">
                     <span>{{row[col.field] | date: 'dd/MM/yyyy HH:MM'}}</span>

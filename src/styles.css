@@ -24,6 +24,10 @@ color:#607D8B;
 }*/
 
 
+th .ui-chkbox-box.ui-widget.ui-corner-all.ui-state-default {
+    display:none !important;
+ }
+
 body .ui-listbox .ui-listbox-list{
 
     height:220px;

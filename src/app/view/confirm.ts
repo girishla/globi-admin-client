@@ -32,11 +32,7 @@ export class PTPConfirmGenerate implements OnInit {
 
     generate() {
 
-
-
         console.log(this.selectedCols);
-
-
 
     }
 
