@@ -1,6 +1,6 @@
 import { Component, OnInit, SimpleChanges, OnChanges } from '@angular/core';
 import { Message } from 'primeng/components/common/api';
-import { Router, ActivatedRoute, ActivatedRouteSnapshot, NavigationStart } from "@angular/router";
+import { Router, ActivatedRoute, ActivatedRouteSnapshot, NavigationStart, NavigationEnd } from "@angular/router";
 import { SourceTable } from "app/shared/models/source-table.model";
 import { SourceTablesService } from "app/shared/services/source-tables.service";
 import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
@@ -63,7 +63,7 @@ export class PullToPuddleWizardComponent implements OnInit {
         this.setCurrentIndex(this.router.url);
 
         this.router.events.subscribe((val) => {
-            if (val instanceof NavigationStart) {
+            if (val instanceof NavigationEnd) {
                 var data = this.route.snapshot.children[0] && this.route.snapshot.children[0].data;
 
                 this.setCurrentIndex(val.url);

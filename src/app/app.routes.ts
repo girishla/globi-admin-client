@@ -13,6 +13,7 @@ import { PTPConfirmGenerate } from "app/view/confirm";
 import { SelectSource } from "app/view/selectsource";
 import { PTPWorkflows } from "app/view/ptpworkflows";
 import { PTPWorkflowResolver } from "app/shared/services/ptp-workflow-resolver.service";
+import { SelectedTableColumnsResolver } from "app/shared/services/selected-table-columns-resolver.service";
 
 
 
@@ -41,7 +42,8 @@ export const routes: Routes = [
             path: 'datasources/:ds/tables/:table/columns',
             component: SelectTableColumns,
             resolve: {
-                sourceTableColumn: SourceTableColumnsResolver
+                sourceTableColumn: SourceTableColumnsResolver,
+                selectedTableColumns:SelectedTableColumnsResolver
             }
 
         }, {

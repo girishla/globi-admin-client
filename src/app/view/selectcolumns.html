@@ -6,18 +6,12 @@
 
 
             <p-dataTable [globalFilter]="filterText" [value]="sourceTableColumnList" [(selection)]="selectedCols" [paginator]="true"
-                [rows]="10" [responsive]="true">
+                [rows]="7" [responsive]="true">
                 <p-header>
                     <div class="ui-g">
-                        <!--<div class="ui-g-3">
-                            <span style="font-size:1.15em">Available Columns</span>
-                        </div>-->
                         <div class="ui-g-5">
-                            <!--<span id="table-col-search" class="md-inputfield search-item">-->
                             <input style="width:300px" placeholder="Search" #filterText type="text" pInputText>
-                            <!--<i class="topbar-icon material-icons">search</i>-->
-                            <!--<label>Search</label>-->
-                            <!--</span>-->
+
                         </div>
                           <div class="ui-g-3">
                           </div>
@@ -30,8 +24,6 @@
                     </div>
                 </p-header>
                 <p-column [style]="{'width':'50px'}" selectionMode="multiple"></p-column>
-
-
                 <p-column field="columnName" header="Name" [sortable]="true"></p-column>
                 <p-column field="columnDataType" header="Data Type" [sortable]="true"></p-column>
 
@@ -49,27 +41,38 @@
                         />
                     </ng-template>
                 </p-column>
+                <p-column [style]="{'width':'75px'}" field="buidIdFlag" header="BUID" [style]="{'width':'145px'}">
+                    <ng-template let-row="rowData" let-index="rowIndex" let-col pTemplate type="body">
+                        <input type="checkbox" id="buidIdFlag{{index}}" name="buidIdFlag" #integrationIdFlag="ngModel" [(ngModel)]="row[col.field]"
+                        />
+                    </ng-template>
+                </p-column>
+                <p-column [style]="{'width':'75px'}" field="pguidFlag" header="PGUID" [style]="{'width':'145px'}">
+                    <ng-template let-row="rowData" let-index="rowIndex" let-col pTemplate type="body">
+                        <input type="checkbox" id="pguidFlag{{index}}" name="pguidFlag" #integrationIdFlag="ngModel" [(ngModel)]="row[col.field]"
+                        />
+                    </ng-template>
+                </p-column>
 
 
             </p-dataTable>
         </div>
 
         <div style="height:27px" class="ui-g-4">
-            <p-dataList [value]="selectedCols"  [paginator]="true" [rows]="20">
+            <p-dataList [value]="selectedCols"  [paginator]="true" [rows]="15">
                 <p-header>
                     <span style="font-size:1.15em">Selected Columns</span>
                 </p-header>
                 <ng-template let-col pTemplate="item">
                     <div style="border-bottom: 1px solid #bdbdbd" class="clearfix">
-                        <span [style.color]="getColour(col)">{{col.columnName}}</span><span>{{col.integrationIdFlag==true?' (IK)':''}}</span><span>{{col.ccFlag==true?' (CC)':''}}</span>
+                        <span [style.color]="getColumnColour(col)">{{col.columnName}}</span>
+                        <span>{{col.integrationIdFlag==true?' (IK)':''}}</span>
+                        <span>{{col.ccFlag==true?' (CC)':''}}</span>
                     </div>
                 </ng-template>
             </p-dataList>
         </div>
     </div>
-
-
-
 
 </div>
 

@@ -12,10 +12,12 @@ import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
 export class PTPConfirmGenerate implements OnInit {
 
     selectedCols: SourceTableColumn[];
+    
 
     ngOnInit(): void {
-        this.selectedCols = this.ptpStateService.columnsList;
+        this.selectedCols = this.ptpStateService.selectedCols;
         if (!this.selectedCols) {
+            console.warn("redirecting to start as no selected columns found.")
             this.router.navigateByUrl('/infaptp/start');
         }
 

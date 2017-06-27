@@ -36,6 +36,7 @@ import { PTPWorkflowResolver } from "app/shared/services/ptp-workflow-resolver.s
 import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
 import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
 import {DataListModule} from 'primeng/primeng';
+import { SelectedTableColumnsResolver } from "app/shared/services/selected-table-columns-resolver.service";
 
 
 @NgModule({
@@ -82,6 +83,7 @@ import {DataListModule} from 'primeng/primeng';
     PTPWorkflowResolver,
     SourceTableResolver,
     SourceTableColumnsResolver,
+    SelectedTableColumnsResolver,
     SourceTablesService,
     SourceTableColumnsService,
     PTPWorkflowsService,

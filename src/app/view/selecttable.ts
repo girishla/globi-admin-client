@@ -43,8 +43,17 @@ export class SelectTable implements OnInit {
 
 
     selectColumns() {
-        this.ptpStateService.selectedTable = this.selectedTable;
+        
         this.ptpStateService.sourceTableList = this.sourceTableList;
+
+        if(!(this.ptpStateService.selectedTable===this.selectedTable)){
+            this.ptpStateService.selectedCols=[];
+            this.ptpStateService.sourceTableCols=[];
+            this.ptpStateService.selectedTable = this.selectedTable;
+        }
+        
+        
+
         this.router.navigateByUrl('/infaptp/datasources/' + this.route.snapshot.params['ds'] + "/tables/" + this.selectedTable.toLowerCase() + "/columns");
     }
 

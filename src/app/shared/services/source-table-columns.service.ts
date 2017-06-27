@@ -17,7 +17,9 @@ export class SourceTableColumnsService {
 
   }
 
-  queryAll(sourceName:string,tableName:string): Observable<{sourceTableColumns: SourceTableColumn[], sourceTableColumnCount: number}> {
+
+
+  queryAll(sourceName:string,tableName:string): Observable<SourceTableColumn[]> {
     // Convert any filters over to Angular's URLSearchParams
     const params: URLSearchParams = new URLSearchParams();
 
