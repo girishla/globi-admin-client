@@ -82,13 +82,13 @@ export class SelectTableColumns implements OnInit {
         wfCol.changeCaptureColumn=sourceCol.ccFlag || false;
         wfCol.integrationIdColumn=sourceCol.integrationIdFlag || false;
         wfCol.pguidColumn=sourceCol.pguidFlag || false;
+        wfCol.sourceColumnName=sourceCol.columnName ||"";
         return wfCol;
 
     }
 
     private syncSelection():void{
 
-        // this.selectedCols = this.sourceTableColumnList.slice();
         this.ptpStateService.selectedWorkflowCols=this.selectedCols.map(col => this.getWorkflowColFrom(col));
         this.ptpStateService.selectedCols = this.selectedCols;
         this.ptpStateService.sourceTableCols=this.sourceTableColumnList;
@@ -96,7 +96,7 @@ export class SelectTableColumns implements OnInit {
     }
 
     selectAll() {
-
+        this.selectedCols = this.sourceTableColumnList.slice();
         this.syncSelection();
 
     }

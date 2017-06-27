@@ -35,7 +35,7 @@ import { PTPWorkflows } from "app/view/ptpworkflows";
 import { PTPWorkflowResolver } from "app/shared/services/ptp-workflow-resolver.service";
 import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
 import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
-import {DataListModule} from 'primeng/primeng';
+import { DataListModule, SplitButtonModule, ConfirmationService, ConfirmDialogModule } from 'primeng/primeng';
 import { SelectedTableColumnsResolver } from "app/shared/services/selected-table-columns-resolver.service";
 
 
@@ -69,13 +69,15 @@ import { SelectedTableColumnsResolver } from "app/shared/services/selected-table
     WizardModule,
     GrowlModule,
     RadioButtonModule,
+    SplitButtonModule,
     ButtonModule,
     ListboxModule,
     DataTableModule,
     CheckboxModule,
     BusyModule,
     NgHttpLoaderModule,
-    DataListModule
+    DataListModule,
+    ConfirmDialogModule
   ],
 
 
@@ -88,7 +90,8 @@ import { SelectedTableColumnsResolver } from "app/shared/services/selected-table
     SourceTableColumnsService,
     PTPWorkflowsService,
     PTPStateService,
-    ApiService
+    ApiService,
+    ConfirmationService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,18 +1,12 @@
-export class Column {
-    sourceColumnName: string;
-    integrationIdColumn: boolean;
-    changeCaptureColumn: boolean;
-    pguidColumn: boolean;
-    buidColumn: boolean;
-    createdDate: Date;
-    modifiedDate: Date;
-}
+
+
+import { PTPWorkflowColumn } from "app/shared/models/ptp-workflow-cols.model";
 
 export class PTPWorkflow {
     sourceName: string;
     sourceTableName: string;
     sourceFilter?: any;
-    columns: Column[];
+    columns: PTPWorkflowColumn[];
     id: number;
     createdDate: Date;
     modifiedDate: Date;

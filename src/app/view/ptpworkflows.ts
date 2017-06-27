@@ -15,6 +15,7 @@ export class PTPWorkflows implements OnInit {
     allWorkflows: PTPWorkflow[];
     selectedWorkflows: PTPWorkflow[];
     workflowNameList = [];
+    generateActions = [];
 
 
     ngOnInit(): void {
@@ -30,6 +31,12 @@ export class PTPWorkflows implements OnInit {
 
             }
         );
+
+        this.generateActions = [
+            { label: 'Upload', icon: 'fa-angle-right', command: this.generateWorkflow({actions:"upload"})},
+            { label: 'Upload & Run', icon: 'fa-angle-double-right',  command: this.generateWorkflow({actions:"uploadAndRun"})}
+        ];
+
     }
 
     constructor(private router: Router, private route: ActivatedRoute) {
@@ -41,6 +48,22 @@ export class PTPWorkflows implements OnInit {
         console.log(this.selectedWorkflows);
         // this.router.navigateByUrl('/infaptp/datasources/' + this.route.snapshot.params['ds']
         //     + "/tables/" + this.route.snapshot.params['table'] + "/generate");
+
+    }
+
+    generateWorkflow(options: {actions:string}) {
+
+        if(options && options.actions==="upload"){
+            //Generate & Upload
+
+        }else{
+            if(options && options.actions==="uploadAndRun"){
+
+
+            //Generate, Upload & RUn
+            }
+
+        }
 
     }
 

@@ -12,7 +12,7 @@ border: none;
 
 /*to fix selected radio buttons not showing selections clearly*/
 
-body .ui-state-active .fa{
+.ga-radio .ui-state-active .fa{
 
 color:#607D8B;
 

@@ -1,29 +1,53 @@
 <div class="card card-w-title">
-    <h1>Select Columns</h1>
+
+    <p-confirmDialog width="425"></p-confirmDialog>
+    <p-growl [value]="msgs"></p-growl>
+    <h1>Confirm & Generate</h1>
 
     <div class="ui-g">
 
-        <div class="ui-g-12 ui-lg-6">
-            <!-- Right Side -->
+
+        <div class="ui-g-6">
+            <p-dataList [value]="selectedCols" [paginator]="true" [rows]="15">
+                <p-header>
+                    <span style="font-size:1.15em">Selected Columns</span>
+                </p-header>
+                <ng-template let-col pTemplate="item">
+                    <div style="border-bottom: 1px solid #bdbdbd" class="clearfix">
+                        <span [style.color]="getColumnColour(col)">{{col.columnName}}</span>
+                        <span>{{col.integrationIdFlag==true?' (IK)':''}}</span>
+                        <span>{{col.ccFlag==true?' (CC)':''}}</span>
+                    </div>
+                </ng-template>
+            </p-dataList>
+
+        </div>
+
+        <div class="ui-g-6">
             <div class="card card-w-title">
-                <h1>Checkboxes</h1>
                 <div class="ui-g">
-                    <div class="ui-g-12 ui-md-4">
-                        <p-checkbox name="cg" value="Ultima" label="Ultima" [(ngModel)]="checkboxValues"></p-checkbox>
+                    <div class="ui-g-12">
+                        <label>Workflow Name:</label>
+                        <input id="workflowNameInput" [(ngModel)]="workflowName" type="text" size="30" pInputText [disabled]="true" />
                     </div>
-                    <div class="ui-g-12 ui-md-4">
-                        <p-checkbox name="cg" value="Icarus" label="Icarus" [(ngModel)]="checkboxValues"></p-checkbox>
+                    <div class="ui-g-12 ">
+                        <p-checkbox name="cg" value="Ultima" label="Upload to Infa Repository" [(ngModel)]="upload" binary="true"></p-checkbox>
                     </div>
-                    <div class="ui-g-12 ui-md-4">
-                        <p-checkbox name="cg" value="Omega" label="Omega" [(ngModel)]="checkboxValues"></p-checkbox>
+                    <div class="ui-g-12">
+                        <p-checkbox name="cg" value="Icarus" label="Upload to Infa Repository and Run" [(ngModel)]="uploadAndRun" binary="true"></p-checkbox>
                     </div>
+
                 </div>
+
             </div>
         </div>
 
     </div>
 
+</div>
 
+
+<div class="card card-w-title">
     <div class="ui-g">
         <div class="ui-g-2">
             <button pButton type="text" (click)="selectColumns()" icon="fa-hand-o-left" iconPos="left" label="Previous"></button>
@@ -31,9 +55,8 @@
         <div class="ui-g-8">
         </div>
         <div class="ui-g-2">
-            <button pButton type="text" (click)="generate()" icon="fa-hand-o-right" iconPos="right" label="Generate"></button>
+            <button pButton class="ui-button-warning" type="text" (click)="generate()" icon="fa-check" iconPos="right" label="Generate"></button>
         </div>
 
     </div>
-
 </div>

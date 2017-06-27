@@ -39,7 +39,8 @@
         <div class="ui-g-4">
             <button pButton type="text" (click)="newworkflow()" icon="fa-plus" iconPos="right" label="New"></button>
             <button pButton type="text" (click)="editworkflow()" icon="fa-edit" iconPos="right" label="Edit"></button>
-            <button pButton type="text" (click)="editworkflow()" label="Regenerate"></button>
+            <p-splitButton styleClass="ui-button-warning" label="Regenerate" icon="fa-check" (onClick)='generateWorkflow({actions:""})' [model]="generateActions"></p-splitButton>
+
         </div>
 
     </div>
@@ -64,7 +65,7 @@
         <p-column [style]="{'width':'230px'}" field="sourceTableName" header="Source Table" [sortable]="true"></p-column>
         <p-column [style]="{'width':'170px'}" field="modifiedDate" header="Updated" [sortable]="true">
                 <ng-template let-row="rowData" let-index="rowIndex" let-col pTemplate type="body">
-                    <span>{{row[col.field] | date: 'dd/MM/yyyy HH:MM'}}</span>
+                    <span>{{row[col.field] | date: 'dd/MM/yyyy HH:mm'}}</span>
                 </ng-template>
 
         </p-column>

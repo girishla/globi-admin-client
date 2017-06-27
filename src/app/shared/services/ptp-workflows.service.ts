@@ -5,42 +5,48 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { ApiService } from './api.service';
-import { SourceTable} from '../models/source-table.model';
+import { SourceTable } from '../models/source-table.model';
 import { PTPWorkflow } from "app/shared/models/ptp-workflow.model";
 
 @Injectable()
 export class PTPWorkflowsService {
-  constructor (
+  constructor(
     private apiService: ApiService
   ) {
 
-  
+
 
   }
 
-  queryByName(workflowName:string): Observable<{ptpWorkflows: PTPWorkflow[], workflowCount: number}> {
+  queryByName(workflowName: string): Observable<{ ptpWorkflows: PTPWorkflow[], workflowCount: number }> {
     // Convert any filters over to Angular's URLSearchParams
     const params: URLSearchParams = new URLSearchParams();
 
     params.set("name", workflowName);
     return this.apiService
-    .get(
+      .get(
       '/ptpworkflows/search/findByWorkflowName',
       params
-    ).map(data => data);
+      ).map(data => data);
   }
 
 
-  queryAll(): Observable<{ptpWorkflows: PTPWorkflow[], workflowCount: number}> {
+  queryAll(): Observable<{ ptpWorkflows: PTPWorkflow[], workflowCount: number }> {
     // Convert any filters over to Angular's URLSearchParams
     const params: URLSearchParams = new URLSearchParams();
 
 
     return this.apiService
-    .get(
-      '/ptpworkflows',
+      .get(
+      '/ptpworkflows?sort=modifiedDate,desc',
       params
-    ).map(data => data._embedded.ptpworkflows);
+      ).map(data => data._embedded.ptpworkflows);
+  }
+
+  saveAll(workflow: PTPWorkflow):  Observable<PTPWorkflow[]> {
+
+    return this.apiService.post("/infagen/workflows/ptp",workflow);
+
   }
 
 
