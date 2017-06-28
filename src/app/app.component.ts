@@ -48,14 +48,14 @@ export class AppComponent implements AfterViewInit {
 
     ngOnInit() {
         this.appStateService.msgUpdated.subscribe(
-            (msg) => {
-                this.msgs=[msg];
+            (msgs) => {
+                this.msgs=msgs;
             }
         );
 
         this.appStateService.growlUpdated.subscribe(
-            (msg) => {
-                this.growls=[msg];
+            (msgs) => {
+                this.growls=msgs;
             }
         );
 

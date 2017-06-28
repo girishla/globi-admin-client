@@ -5,8 +5,9 @@ import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
 import { PTPWorkflow } from "app/shared/models/ptp-workflow.model";
 import { DatePipe } from "@angular/common/common";
 import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
-import { ConfirmationService } from "primeng/primeng";
+import { ConfirmationService, Message } from "primeng/primeng";
 import { AppStateService } from "app/shared/services/app-state.service";
+
 
 
 
@@ -77,18 +78,20 @@ export class Puddles implements OnInit {
         this.confirmationService.confirm({
             message: 'This might overwrite any existing definitions of the same workflow. Are you sure that you want to generate a new Workflow.?',
             accept: () => {
+                var msgs: Message[] = [];
 
                 this.selectedWorkflows.forEach(ptpWorkflow => {
 
                     this.workflowService.save(ptpWorkflow).subscribe(response => {
-                        Object.assign(ptpWorkflow,response);
+                        Object.assign(ptpWorkflow, response);
+                        msgs.push({ severity: 'info', summary: 'Submitted', detail: 'Workflow Generation Queued for ' + ptpWorkflow.workflowName })
 
                     });
 
 
                 });
 
-                this.appStateService.addMessage({ severity: 'info', summary: 'Submitted', detail: 'Workflow Generation Queued' });
+                this.appStateService.addMessages(msgs);
 
             }
         });
