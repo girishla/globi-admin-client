@@ -31,12 +31,13 @@ import { SelectSource } from "app/view/selectsource";
 import {BusyModule} from 'angular2-busy';
 import { WaveComponent } from 'ng2-spin-kit/app/spinner/wave'
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
-import { PTPWorkflows } from "app/view/ptpworkflows";
+import { Puddles } from "app/view/puddles";
 import { PTPWorkflowResolver } from "app/shared/services/ptp-workflow-resolver.service";
 import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
 import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
-import { DataListModule, SplitButtonModule, ConfirmationService, ConfirmDialogModule } from 'primeng/primeng';
+import { DataListModule, SplitButtonModule, ConfirmationService, ConfirmDialogModule, MessagesModule } from 'primeng/primeng';
 import { SelectedTableColumnsResolver } from "app/shared/services/selected-table-columns-resolver.service";
+import { AppStateService } from "app/shared/services/app-state.service";
 
 
 @NgModule({
@@ -56,7 +57,7 @@ import { SelectedTableColumnsResolver } from "app/shared/services/selected-table
     PTPConfirmGenerate,
     SelectSource,
     WaveComponent,
-    PTPWorkflows
+    Puddles
 
   ],
   imports: [
@@ -68,6 +69,7 @@ import { SelectedTableColumnsResolver } from "app/shared/services/selected-table
     StepsModule,
     WizardModule,
     GrowlModule,
+    MessagesModule,
     RadioButtonModule,
     SplitButtonModule,
     ButtonModule,
@@ -91,7 +93,8 @@ import { SelectedTableColumnsResolver } from "app/shared/services/selected-table
     PTPWorkflowsService,
     PTPStateService,
     ApiService,
-    ConfirmationService
+    ConfirmationService,
+    AppStateService
   ],
   bootstrap: [AppComponent]
 })

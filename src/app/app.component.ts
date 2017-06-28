@@ -1,5 +1,7 @@
-import {Component,AfterViewInit,ElementRef,Renderer,ViewChild} from '@angular/core';
-import {Spinkit} from 'ng-http-loader/spinkits'
+import { Component, AfterViewInit, ElementRef, Renderer, ViewChild } from '@angular/core';
+import { Spinkit } from 'ng-http-loader/spinkits'
+import { AppStateService } from "app/shared/services/app-state.service";
+import { Message } from "primeng/primeng";
 enum MenuOrientation {
     STATIC,
     OVERLAY,
@@ -9,14 +11,14 @@ enum MenuOrientation {
 declare var jQuery: any;
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
 
 
 export class AppComponent implements AfterViewInit {
-    
+
     layoutCompact: boolean = false;
     layoutMode: MenuOrientation = MenuOrientation.STATIC;
     darkMenu: boolean = false;
@@ -33,35 +35,54 @@ export class AppComponent implements AfterViewInit {
     activeTopbarItem: any;
     documentClickListener: Function;
     resetMenu: boolean;
-    Spinkit=Spinkit;
-    
+    Spinkit = Spinkit;
+    msgs: Message[] = [];
+    growls: Message[] = [];
+
     @ViewChild('layoutContainer') layourContainerViewChild: ElementRef;
 
     @ViewChild('layoutMenuScroller') layoutMenuScrollerViewChild: ElementRef;
 
-    constructor(public renderer: Renderer) {}
+    constructor(public renderer: Renderer, private appStateService: AppStateService) { }
+
+
+    ngOnInit() {
+        this.appStateService.msgUpdated.subscribe(
+            (msg) => {
+                this.msgs=[msg];
+            }
+        );
+
+        this.appStateService.growlUpdated.subscribe(
+            (msg) => {
+                this.growls=[msg];
+            }
+        );
+
+    }
+
 
     ngAfterViewInit() {
 
-        
-        this.layoutContainer = <HTMLDivElement> this.layourContainerViewChild.nativeElement;
+
+        this.layoutContainer = <HTMLDivElement>this.layourContainerViewChild.nativeElement;
         // this.layoutMenuScroller = <HTMLDivElement> this.layoutMenuScrollerViewChild.nativeElement;
 
         //hides the horizontal submenus or top menu if outside is clicked
-        this.documentClickListener = this.renderer.listenGlobal('body', 'click', (event) => {            
-            if(!this.topbarItemClick) {
+        this.documentClickListener = this.renderer.listenGlobal('body', 'click', (event) => {
+            if (!this.topbarItemClick) {
                 this.activeTopbarItem = null;
                 this.topbarMenuActive = false;
             }
 
-            if(!this.menuClick && this.isHorizontal()) {
+            if (!this.menuClick && this.isHorizontal()) {
                 this.resetMenu = true;
             }
 
             this.topbarItemClick = false;
             this.menuClick = false;
         });
-        
+
         // setTimeout(() => {
         //     jQuery(this.layoutMenuScroller).nanoScroller({flash:true});
         // }, 10);
@@ -71,11 +92,11 @@ export class AppComponent implements AfterViewInit {
         this.rotateMenuButton = !this.rotateMenuButton;
         this.topbarMenuActive = false;
 
-        if(this.layoutMode === MenuOrientation.OVERLAY) {
+        if (this.layoutMode === MenuOrientation.OVERLAY) {
             this.overlayMenuActive = !this.overlayMenuActive;
         }
         else {
-            if(this.isDesktop())
+            if (this.isDesktop())
                 this.staticMenuDesktopInactive = !this.staticMenuDesktopInactive;
             else
                 this.staticMenuMobileActive = !this.staticMenuMobileActive;
@@ -98,20 +119,20 @@ export class AppComponent implements AfterViewInit {
     onTopbarMenuButtonClick(event) {
         this.topbarItemClick = true;
         this.topbarMenuActive = !this.topbarMenuActive;
-        
-        if(this.overlayMenuActive || this.staticMenuMobileActive) {
+
+        if (this.overlayMenuActive || this.staticMenuMobileActive) {
             this.rotateMenuButton = false;
             this.overlayMenuActive = false;
             this.staticMenuMobileActive = false;
         }
-        
+
         event.preventDefault();
     }
 
     onTopbarItemClick(event, item) {
         this.topbarItemClick = true;
 
-        if(this.activeTopbarItem === item)
+        if (this.activeTopbarItem === item)
             this.activeTopbarItem = null;
         else
             this.activeTopbarItem = item;
@@ -153,9 +174,9 @@ export class AppComponent implements AfterViewInit {
     }
 
     ngOnDestroy() {
-        if(this.documentClickListener) {
+        if (this.documentClickListener) {
             this.documentClickListener();
-        }  
+        }
 
         // jQuery(this.layoutMenuScroller).nanoScroller({flash:true});
     }

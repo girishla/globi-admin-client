@@ -1,32 +1,5 @@
 <div class="card card-w-title">
-    <!--<div class="ui-g">
-
-        <div class="ui-g-4">
-            <div class="ui-g-2">
-                <button pButton type="text" (click)="newworkflow()" icon="fa-hand-o-right" iconPos="right" label="New PTP Workflow"></button>
-            </div>
-        </div>
-        <div class="ui-g-4">
-
-        </div>
-        <div class="ui-g-4">
-        </div>
-
-    </div>
-    <div class="ui-g">
-        <div class="ui-g-8">
-        </div>
-
-    </div>
--->
-
-
-
-
-
-
-
-
+        <p-confirmDialog width="425"></p-confirmDialog>
     <div class="ui-g">
         <div class="ui-g-3">
             <span id="table-col-search" class="md-inputfield search-item ">
@@ -38,8 +11,13 @@
         <div class="ui-g-5"></div>
         <div class="ui-g-4">
             <button pButton type="text" (click)="newworkflow()" icon="fa-plus" iconPos="right" label="New"></button>
-            <button pButton type="text" (click)="editworkflow()" icon="fa-edit" iconPos="right" label="Edit"></button>
-            <p-splitButton styleClass="ui-button-warning" label="Regenerate" icon="fa-check" (onClick)='generateWorkflow({actions:""})' [model]="generateActions"></p-splitButton>
+            <button pButton [disabled]="selectedWorkflows==null || selectedWorkflows.length!=1" type="text" (click)="editworkflow()" icon="fa-edit" iconPos="right" label="Edit"></button>
+            <!--<p-splitButton [disabled]="selectedWorkflows==null || selectedWorkflows.length==0" styleClass="ui-button-warning" 
+            label="Regenerate" icon="fa-check" (onClick)="generateWorkflow()"  [model]="generateActions"></p-splitButton>-->
+
+            <button class="ui-button-warning" pButton [disabled]="selectedWorkflows==null || selectedWorkflows.length==0" 
+            type="text" (click)="generateWorkflow()" icon="fa-check" iconPos="right" label="Regenerate"></button>
+
 
         </div>
 
@@ -55,28 +33,21 @@
                     <span class="fa fa-search form-control-feedback"></span>
                 </div>
             </div>-->
-            <span>PTP Workflows</span>
+            <span>Puddles</span>
         </p-header>
         <p-column [style]="{'width':'50px'}" selectionMode="multiple"></p-column>
         <p-column [style]="{'width':'50px'}" field="id" header="Id" [sortable]="true"></p-column>
         <p-column field="workflowName" header="Name" [sortable]="true"></p-column>
         <p-column [style]="{'width':'100px'}" field="workflowStatus" header="Status" [sortable]="true"></p-column>
-        <p-column [style]="{'width':'100px'}"  field="sourceName" header="Source" [sortable]="true"></p-column>
+        <p-column [style]="{'width':'100px'}" field="sourceName" header="Source" [sortable]="true"></p-column>
         <p-column [style]="{'width':'230px'}" field="sourceTableName" header="Source Table" [sortable]="true"></p-column>
         <p-column [style]="{'width':'170px'}" field="modifiedDate" header="Updated" [sortable]="true">
-                <ng-template let-row="rowData" let-index="rowIndex" let-col pTemplate type="body">
-                    <span>{{row[col.field] | date: 'dd/MM/yyyy HH:mm'}}</span>
-                </ng-template>
+            <ng-template let-row="rowData" let-index="rowIndex" let-col pTemplate type="body">
+                <span>{{row[col.field] | date: 'dd/MM/yyyy HH:mm'}}</span>
+            </ng-template>
 
         </p-column>
 
-
-
     </p-dataTable>
-
-
-
-
-
 
 </div>

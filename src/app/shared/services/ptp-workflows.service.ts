@@ -43,7 +43,7 @@ export class PTPWorkflowsService {
       ).map(data => data._embedded.ptpworkflows);
   }
 
-  saveAll(workflow: PTPWorkflow):  Observable<PTPWorkflow[]> {
+  save(workflow: PTPWorkflow):  Observable<PTPWorkflow> {
 
     return this.apiService.post("/infagen/workflows/ptp",workflow);
 

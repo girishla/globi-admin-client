@@ -11,7 +11,7 @@ import { SourceTableColumnsResolver } from "app/shared/services/source-table-col
 import { SelectTableColumns } from "app/view/selectcolumns";
 import { PTPConfirmGenerate } from "app/view/confirm";
 import { SelectSource } from "app/view/selectsource";
-import { PTPWorkflows } from "app/view/ptpworkflows";
+import { Puddles } from "app/view/puddles";
 import { PTPWorkflowResolver } from "app/shared/services/ptp-workflow-resolver.service";
 import { SelectedTableColumnsResolver } from "app/shared/services/selected-table-columns-resolver.service";
 
@@ -21,7 +21,7 @@ import { SelectedTableColumnsResolver } from "app/shared/services/selected-table
 export const routes: Routes = [
     { path: '', component: Home },
     {
-        path: 'infaptp/workflows', component: PTPWorkflows, resolve: {
+        path: 'infaptp/puddles', component: Puddles, resolve: {
             ptpworkflows: PTPWorkflowResolver
         }
     },

@@ -7,6 +7,7 @@ import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
 import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
 import { PTPWorkflow } from "app/shared/models/ptp-workflow.model";
 import { ConfirmationService, Message } from "primeng/primeng";
+import { AppStateService } from "app/shared/services/app-state.service";
 
 
 @Component({
@@ -20,7 +21,6 @@ export class PTPConfirmGenerate implements OnInit {
     sourceFilter: string;
     workflowName: string;
     ptpWorkflow: PTPWorkflow;
-    msgs: Message[] = [];
 
 
 
@@ -41,7 +41,8 @@ export class PTPConfirmGenerate implements OnInit {
         private route: ActivatedRoute,
         private confirmationService: ConfirmationService,
         private ptpStateService: PTPStateService,
-        private workflowService: PTPWorkflowsService) {
+        private workflowService: PTPWorkflowsService,
+        private appStateService: AppStateService) {
 
     }
 
@@ -71,11 +72,16 @@ export class PTPConfirmGenerate implements OnInit {
                 this.ptpWorkflow.workflowName = this.workflowName;
                 this.ptpWorkflow.columns = this.ptpStateService.selectedWorkflowCols;
 
-                this.workflowService.saveAll(this.ptpWorkflow).subscribe(response => {
+                this.workflowService.save(this.ptpWorkflow).subscribe(response => {
 
                     console.log(response);
-                    this.msgs = [{ severity: 'info', summary: 'Submitted', detail: 'Workflow Generation Queued' }];
-                    this.router.navigateByUrl('/infaptp/workflows');
+                    this.appStateService.addMessage({ severity: 'info', summary: 'Submitted', detail: 'Workflow Generation Queued' });
+                    this.router.navigateByUrl('/infaptp/puddles');
+                }, error => {
+                    console.log(error);
+                    this.appStateService.addMessage({ severity: 'error', summary: 'Submission Error -', detail: error.userMessage })
+
+
                 });
 
             }
