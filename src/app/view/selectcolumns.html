@@ -13,8 +13,8 @@
                             <input style="width:300px" placeholder="Search" #filterText type="text" pInputText>
 
                         </div>
-                          <div class="ui-g-3">
-                          </div>
+                        <div class="ui-g-3">
+                        </div>
                         <div class="ui-g-2">
                             <button pButton type="text" (click)="selectAll()" label="All"></button>
                         </div>
@@ -37,13 +37,12 @@
 
                 <p-column [style]="{'width':'75px'}" field="ccFlag" header="CC" [style]="{'width':'145px'}">
                     <ng-template let-row="rowData" let-index="rowIndex" let-col pTemplate type="body">
-                        <input type="checkbox" id="ccFlag{{index}}" name="ccFlag" #integrationIdFlag="ngModel" [(ngModel)]="row[col.field]"
-                        />
+                        <input type="checkbox" id="ccFlag{{index}}" name="ccFlag" #integrationIdFlag="ngModel" [(ngModel)]="row[col.field]" />
                     </ng-template>
                 </p-column>
-                <p-column [style]="{'width':'75px'}" field="buidIdFlag" header="BUID" [style]="{'width':'145px'}">
+                <p-column [style]="{'width':'75px'}" field="buidFlag" header="BUID" [style]="{'width':'145px'}">
                     <ng-template let-row="rowData" let-index="rowIndex" let-col pTemplate type="body">
-                        <input type="checkbox" id="buidIdFlag{{index}}" name="buidIdFlag" #integrationIdFlag="ngModel" [(ngModel)]="row[col.field]"
+                        <input type="checkbox" id="buidFlag{{index}}" name="buidFlag" #integrationIdFlag="ngModel" [(ngModel)]="row[col.field]"
                         />
                     </ng-template>
                 </p-column>
@@ -59,7 +58,7 @@
         </div>
 
         <div style="height:27px" class="ui-g-4">
-            <p-dataList [value]="selectedCols"  [paginator]="true" [rows]="15">
+            <p-dataList [value]="selectedCols" [paginator]="true" [rows]="15">
                 <p-header>
                     <span style="font-size:1.15em">Selected Columns</span>
                 </p-header>
@@ -68,6 +67,8 @@
                         <span [style.color]="getColumnColour(col)">{{col.columnName}}</span>
                         <span>{{col.integrationIdFlag==true?' (IK)':''}}</span>
                         <span>{{col.ccFlag==true?' (CC)':''}}</span>
+                        <span>{{col.buidFlag==true? '(BUID)':''}}</span>
+                        <span>{{col.pguidFlag==true? '(PGUID)':''}}</span>
                     </div>
                 </ng-template>
             </p-dataList>
@@ -77,7 +78,7 @@
 </div>
 
 <div class="card card-w-title">
-        <div class="ui-g">
+    <div class="ui-g">
         <div class="ui-g-2">
             <button pButton type="text" (click)="selectTable()" icon="fa-hand-o-left" iconPos="left" label="Previous"></button>
         </div>

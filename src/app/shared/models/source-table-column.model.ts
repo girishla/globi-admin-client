@@ -10,7 +10,7 @@
         precision: number;
         scale: number;
         integrationIdFlag: boolean;
-        buidIdFlag: boolean;
+        buidFlag: boolean;
         pguidFlag: boolean;
         ccFlag: boolean;
         id?: any;

@@ -8,6 +8,7 @@ import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
 import { PTPWorkflow } from "app/shared/models/ptp-workflow.model";
 import { ConfirmationService, Message } from "primeng/primeng";
 import { AppStateService } from "app/shared/services/app-state.service";
+import { ErrorAPIResponse } from "app/shared/models/api-error.model";
 
 
 @Component({
@@ -30,8 +31,8 @@ export class PTPConfirmGenerate implements OnInit {
         this.workflowName = "PTP_" + this.ptpStateService.selectedSource + "_" + this.ptpStateService.selectedTable;
 
 
-        if (!this.selectedCols) {
-            console.warn("redirecting to start as no selected columns found.");
+        if (!this.selectedCols || !this.ptpStateService.selectedSource || !this.ptpStateService.selectedTable) {
+            console.warn("redirecting to start as required data not found.");
             this.router.navigateByUrl('/infaptp/start');
         }
 
@@ -51,7 +52,7 @@ export class PTPConfirmGenerate implements OnInit {
 
         if (col.integrationIdFlag) return 'blue';
         if (col.ccFlag) return 'red';
-        if (col.buidIdFlag) return 'green';
+        if (col.buidFlag) return 'green';
         if (col.pguidFlag) return 'brown';
 
     }
@@ -75,12 +76,21 @@ export class PTPConfirmGenerate implements OnInit {
                 this.workflowService.save(this.ptpWorkflow).subscribe(response => {
 
                     console.log(response);
-                    this.appStateService.addMessage({ severity: 'info', summary: 'Submitted', detail: 'Workflow Generation Queued' });
+                    this.appStateService.addMessage({ severity: 'info', summary: 'Submitted', detail: 'Workflow Generation Queued for ' + this.workflowName });
                     this.router.navigateByUrl('/infaptp/puddles');
-                }, error => {
+                }, (error: ErrorAPIResponse) => {
                     console.log(error);
-                    this.appStateService.addMessage({ severity: 'error', summary: 'Submission Error -', detail: error.userMessage })
+                    var msgs: Message[]=[];
 
+                    if (error.validationErrors && error.validationErrors.length > 0) {
+                        error.validationErrors.forEach(validationError => msgs.push({ severity: 'error', summary: 'Validation Failed :', detail: validationError.message }))
+                    }
+
+                    if (msgs.length > 0){
+                        this.appStateService.addMessages(msgs);
+                    }else{
+                        this.appStateService.addMessage({ severity: 'error', summary: 'Submission Error :', detail: error.userMessage })
+                    }
 
                 });
 

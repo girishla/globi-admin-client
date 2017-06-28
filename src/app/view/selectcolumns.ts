@@ -51,7 +51,7 @@ export class SelectTableColumns implements OnInit {
 
         if (col.integrationIdFlag) return 'blue';
         if (col.ccFlag) return 'red';
-        if (col.buidIdFlag) return 'green';
+        if (col.buidFlag) return 'green';
         if (col.pguidFlag) return 'brown';
 
     }
@@ -78,7 +78,7 @@ export class SelectTableColumns implements OnInit {
     private getWorkflowColFrom(sourceCol:SourceTableColumn):PTPWorkflowColumn{
 
         var wfCol = new PTPWorkflowColumn() 
-        wfCol.buidColumn=sourceCol.buidIdFlag || false;
+        wfCol.buidColumn=sourceCol.buidFlag || false;
         wfCol.changeCaptureColumn=sourceCol.ccFlag || false;
         wfCol.integrationIdColumn=sourceCol.integrationIdFlag || false;
         wfCol.pguidColumn=sourceCol.pguidFlag || false;

@@ -8,7 +8,7 @@
 
 
         <div class="ui-g-6">
-            <p-dataList [value]="selectedCols" [paginator]="true" [rows]="15">
+            <p-dataList [value]="selectedCols" [paginator]="true" [rows]="12">
                 <p-header>
                     <span style="font-size:1.15em">Selected Columns</span>
                 </p-header>
@@ -17,6 +17,8 @@
                         <span [style.color]="getColumnColour(col)">{{col.columnName}}</span>
                         <span>{{col.integrationIdFlag==true?' (IK)':''}}</span>
                         <span>{{col.ccFlag==true?' (CC)':''}}</span>
+                        <span>{{col.buidFlag==true? '(BUID)':''}}</span>
+                        <span>{{col.pguidFlag==true? '(PGUID)':''}}</span>
                     </div>
                 </ng-template>
             </p-dataList>

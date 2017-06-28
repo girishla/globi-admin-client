@@ -27,7 +27,7 @@ export class SelectedTableColumnsResolver implements Resolve<SourceTableColumn[]
 
         this.ptpStateService.selectedWorkflowCols.filter(col => col.sourceColumnName === sourceCol.columnName).forEach(col => {
 
-          sourceCol.buidIdFlag = col.buidColumn;
+          sourceCol.buidFlag = col.buidColumn;
           sourceCol.ccFlag = col.changeCaptureColumn;
           sourceCol.integrationIdFlag = col.integrationIdColumn;
           sourceCol.pguidFlag = col.pguidColumn;
