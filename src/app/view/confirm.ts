@@ -87,9 +87,9 @@ export class PTPConfirmGenerate implements OnInit {
                     }
 
                     if (msgs.length > 0){
-                        this.appStateService.addMessages(msgs);
+                        this.appStateService.addGrowls(msgs);
                     }else{
-                        this.appStateService.addMessage({ severity: 'error', summary: 'Submission Error :', detail: error.userMessage })
+                        this.appStateService.addGrowl({ severity: 'error', summary: 'Submission Error :', detail: error.userMessage })
                     }
 
                 });
