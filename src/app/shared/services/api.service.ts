@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {HttpInterceptorService} from 'ng-http-loader/http-interceptor.service';
+import { AppStateService } from "app/shared/services/app-state.service";
 
 
 @Injectable()
@@ -25,6 +26,7 @@ export class ApiService {
   }
 
   private formatErrors(error: any) {
+
      return Observable.throw(error.json());
   }
 

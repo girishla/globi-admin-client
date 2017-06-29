@@ -38,7 +38,7 @@ export class PTPWorkflowsService {
 
     return this.apiService
       .get(
-      '/ptpworkflows?sort=modifiedDate,desc',
+      '/ptpworkflows?page=0&size=300&sort=modifiedDate,desc',
       params
       ).map(data => data._embedded.ptpworkflows);
   }

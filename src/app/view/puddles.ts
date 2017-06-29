@@ -34,7 +34,11 @@ export class Puddles implements OnInit {
                     .subscribe(workflowName => this.workflowNameList.push({ label: workflowName, value: workflowName }));
 
             }
-        );
+            , (error) => {
+                console.log(error);
+                this.appStateService.addMessage({ severity: 'error', summary: 'Server Error :', detail: error });
+
+            });
 
         // this.generateActions = [
         //     { label: 'Upload', icon: 'fa-angle-right', command: this.generateWorkflow({ actions: "upload" }) },

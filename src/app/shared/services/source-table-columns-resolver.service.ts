@@ -6,6 +6,7 @@ import { SourceTableColumnsService } from "app/shared/services/source-table-colu
 import { SourceTableColumn } from "app/shared/models/source-table-column.model";
 import { PTPWorkflowColumn } from "app/shared/models/ptp-workflow-cols.model";
 import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
+import { AppStateService } from "app/shared/services/app-state.service";
 
 
 @Injectable()
@@ -13,7 +14,8 @@ export class SourceTableColumnsResolver implements Resolve<SourceTableColumn[]> 
   constructor(
     private sourceTableColumnsService: SourceTableColumnsService,
     private router: Router,
-    private ptpStateService: PTPStateService
+    private ptpStateService: PTPStateService,
+    private appStateService: AppStateService
   ) { }
 
 
@@ -22,12 +24,18 @@ export class SourceTableColumnsResolver implements Resolve<SourceTableColumn[]> 
     state: RouterStateSnapshot
   ): Observable<any> {
 
-    if (this.ptpStateService.sourceTableCols && this.ptpStateService.sourceTableCols.length>0) {
+    if (this.ptpStateService.sourceTableCols && this.ptpStateService.sourceTableCols.length > 0) {
       return Observable.of(this.ptpStateService.sourceTableCols)
     }
     else {
       return this.sourceTableColumnsService.queryAll(route.params['ds'], route.params['table'])
-        .catch((err) => this.router.navigateByUrl('/'));
+        .catch((err) => {
+
+          console.info(err);
+          this.appStateService.addGrowl({ severity: 'error', summary: 'Server Error :', detail: "The server has responded with an error. Please contact your Administrator" });
+
+          return this.router.navigateByUrl('/')
+        });
     }
   }
 
