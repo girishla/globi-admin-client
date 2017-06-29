@@ -37,18 +37,18 @@
 
                 <p-column [style]="{'width':'75px'}" field="ccFlag" header="CC" [style]="{'width':'145px'}">
                     <ng-template let-row="rowData" let-index="rowIndex" let-col pTemplate type="body">
-                        <input type="checkbox" id="ccFlag{{index}}" name="ccFlag" #integrationIdFlag="ngModel" [(ngModel)]="row[col.field]" />
+                        <input type="checkbox" id="ccFlag{{index}}" name="ccFlag" #ccFlag="ngModel" [(ngModel)]="row[col.field]" />
                     </ng-template>
                 </p-column>
                 <p-column [style]="{'width':'75px'}" field="buidFlag" header="BUID" [style]="{'width':'145px'}">
                     <ng-template let-row="rowData" let-index="rowIndex" let-col pTemplate type="body">
-                        <input type="checkbox" id="buidFlag{{index}}" name="buidFlag" #integrationIdFlag="ngModel" [(ngModel)]="row[col.field]"
+                        <input type="checkbox" id="buidFlag{{index}}" name="buidFlag" #buidFlag="ngModel" [(ngModel)]="row[col.field]"
                         />
                     </ng-template>
                 </p-column>
                 <p-column [style]="{'width':'75px'}" field="pguidFlag" header="PGUID" [style]="{'width':'145px'}">
                     <ng-template let-row="rowData" let-index="rowIndex" let-col pTemplate type="body">
-                        <input type="checkbox" id="pguidFlag{{index}}" name="pguidFlag" #integrationIdFlag="ngModel" [(ngModel)]="row[col.field]"
+                        <input type="checkbox" id="pguidFlag{{index}}" name="pguidFlag" #pguidFlag="ngModel" [(ngModel)]="row[col.field]"
                         />
                     </ng-template>
                 </p-column>

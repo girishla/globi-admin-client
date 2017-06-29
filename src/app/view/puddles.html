@@ -36,6 +36,12 @@
             <span>Puddles</span>
         </p-header>
         <p-column [style]="{'width':'50px'}" selectionMode="multiple"></p-column>
+                <p-column [style]="{'width':'75px'}" field="id" header="Edit">
+                    <ng-template let-row="rowData" let-index="rowIndex" let-col pTemplate type="body">
+                        <button pButton type="button" class="ui-button-icon ui-button-info" (click)="print(row[col.field])" icon="fa-edit"></button>
+                    </ng-template>
+                </p-column>
+                
         <p-column [style]="{'width':'70px'}" field="id" header="Id" [sortable]="true"></p-column>
         <p-column field="workflowName" header="Name" [sortable]="true"></p-column>
         <p-column [style]="{'width':'100px'}" field="workflowStatus" header="Status" [sortable]="true"></p-column>

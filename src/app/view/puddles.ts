@@ -47,6 +47,13 @@ export class Puddles implements OnInit {
 
     }
 
+
+    print(stuff) {
+
+        console.log(stuff);
+
+    }
+
     constructor(private router: Router,
         private route: ActivatedRoute,
         private confirmationService: ConfirmationService,
