@@ -26,11 +26,24 @@ export class SelectTableColumns implements OnInit {
         }
 
         this.route.data.subscribe(
-            (data: { sourceTableColumn: SourceTableColumn[],selectedTableColumns:SourceTableColumn[] }) => {
+            (data: { sourceTableColumn: SourceTableColumn[], selectedTableColumns: SourceTableColumn[] }) => {
 
-                console.log(data.selectedTableColumns);
 
-                this.selectedCols=data.selectedTableColumns;
+
+              this.selectedCols=[];
+
+               data.sourceTableColumn.forEach((sourceCol) => {
+
+                let selCol=data.selectedTableColumns.find((selectedCol) => selectedCol.columnName === sourceCol.columnName);
+                    if (selCol) {
+                        Object.assign(sourceCol,selCol);
+                        console.log("found ",sourceCol)
+                        this.selectedCols.push(sourceCol);
+                    }
+
+                })
+
+
 
                 this.sourceTableColumnList = data.sourceTableColumn;
                 var source = Observable.from(data.sourceTableColumn);
@@ -57,11 +70,11 @@ export class SelectTableColumns implements OnInit {
     }
 
     confirm() {
-        
 
-         this.syncSelection();
-        
-        let confirmationPageroute='/infaptp/datasources/' + this.route.snapshot.params['ds']
+
+        this.syncSelection();
+
+        let confirmationPageroute = '/infaptp/datasources/' + this.route.snapshot.params['ds']
             + "/tables/" + this.route.snapshot.params['table'] + "/generate";
         this.router.navigateByUrl(confirmationPageroute);
 
@@ -75,23 +88,23 @@ export class SelectTableColumns implements OnInit {
     }
 
 
-    private getWorkflowColFrom(sourceCol:SourceTableColumn):PTPWorkflowColumn{
+    private getWorkflowColFrom(sourceCol: SourceTableColumn): PTPWorkflowColumn {
 
-        var wfCol = new PTPWorkflowColumn() 
-        wfCol.buidColumn=sourceCol.buidFlag || false;
-        wfCol.changeCaptureColumn=sourceCol.ccFlag || false;
-        wfCol.integrationIdColumn=sourceCol.integrationIdFlag || false;
-        wfCol.pguidColumn=sourceCol.pguidFlag || false;
-        wfCol.sourceColumnName=sourceCol.columnName ||"";
+        var wfCol = new PTPWorkflowColumn()
+        wfCol.buidColumn = sourceCol.buidFlag || false;
+        wfCol.changeCaptureColumn = sourceCol.ccFlag || false;
+        wfCol.integrationIdColumn = sourceCol.integrationIdFlag || false;
+        wfCol.pguidColumn = sourceCol.pguidFlag || false;
+        wfCol.sourceColumnName = sourceCol.columnName || "";
         return wfCol;
 
     }
 
-    private syncSelection():void{
+    private syncSelection(): void {
 
-        this.ptpStateService.selectedWorkflowCols=this.selectedCols.map(col => this.getWorkflowColFrom(col));
+        this.ptpStateService.selectedWorkflowCols = this.selectedCols.map(col => this.getWorkflowColFrom(col));
         this.ptpStateService.selectedCols = this.selectedCols;
-        this.ptpStateService.sourceTableCols=this.sourceTableColumnList;
+        this.ptpStateService.sourceTableCols = this.sourceTableColumnList;
 
     }
 
@@ -103,7 +116,7 @@ export class SelectTableColumns implements OnInit {
     removeAll() {
         this.selectedCols = [];
         this.syncSelection();
-        
+
     }
 
 

@@ -23,21 +23,21 @@ export class SelectedTableColumnsResolver implements Resolve<SourceTableColumn[]
 
     sourceCols = sourceCols.filter(col => this.existsInSelectedCols(col.columnName));
 
-    sourceCols.forEach(sourceCol => {
+
+    sourceCols.forEach((sourceCol) =>  {
 
       if (this.ptpStateService.selectedWorkflowCols) {
 
-        this.ptpStateService.selectedWorkflowCols.filter(col => col.sourceColumnName === sourceCol.columnName).forEach(col => {
 
-          sourceCol.buidFlag = col.buidColumn;
-          sourceCol.ccFlag = col.changeCaptureColumn;
-          sourceCol.integrationIdFlag = col.integrationIdColumn;
-          sourceCol.pguidFlag = col.pguidColumn;
+        let selectedWorkflowColMatched = this.ptpStateService.selectedWorkflowCols.filter(col => col.sourceColumnName === sourceCol.columnName)[0];
 
-        })
+        sourceCol.buidFlag = selectedWorkflowColMatched.buidColumn;
+        sourceCol.ccFlag = selectedWorkflowColMatched.changeCaptureColumn;
+        sourceCol.integrationIdFlag = selectedWorkflowColMatched.integrationIdColumn;
+        sourceCol.pguidFlag = selectedWorkflowColMatched.pguidColumn;
+
 
       }
-
 
     });
 
@@ -50,7 +50,7 @@ export class SelectedTableColumnsResolver implements Resolve<SourceTableColumn[]
 
     let exists = false;
     if (this.ptpStateService.selectedWorkflowCols) {
-      exists = this.ptpStateService.selectedWorkflowCols.find(wfCol => wfCol.sourceColumnName === colName) != null
+      exists = this.ptpStateService.selectedWorkflowCols.filter(wfCol => wfCol.sourceColumnName === colName).length > 0
     }
 
     return exists;
@@ -70,7 +70,6 @@ export class SelectedTableColumnsResolver implements Resolve<SourceTableColumn[]
     else {
       return this.sourceTableColumnsService.queryAll(route.params['ds'], route.params['table'])
         .map(cols => this.getMappedSourceCols(cols))
-        .do(col => console.log(col))
         .catch((err) => {
 
           console.info(err);

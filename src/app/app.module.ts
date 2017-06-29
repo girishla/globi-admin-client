@@ -35,7 +35,7 @@ import { Puddles } from "app/view/puddles";
 import { PTPWorkflowResolver } from "app/shared/services/ptp-workflow-resolver.service";
 import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
 import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
-import { DataListModule, SplitButtonModule, ConfirmationService, ConfirmDialogModule, MessagesModule } from 'primeng/primeng';
+import { DataListModule, SplitButtonModule, ConfirmationService, ConfirmDialogModule, MessagesModule, DialogModule } from 'primeng/primeng';
 import { SelectedTableColumnsResolver } from "app/shared/services/selected-table-columns-resolver.service";
 import { AppStateService } from "app/shared/services/app-state.service";
 
@@ -79,7 +79,8 @@ import { AppStateService } from "app/shared/services/app-state.service";
     BusyModule,
     NgHttpLoaderModule,
     DataListModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    DialogModule
   ],
 
 

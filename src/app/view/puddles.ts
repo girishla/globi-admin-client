@@ -20,6 +20,7 @@ export class Puddles implements OnInit {
     selectedWorkflows: PTPWorkflow[];
     workflowNameList = [];
     generateActions = [];
+    showColumnsDialog: Boolean = false;
 
 
     ngOnInit(): void {
@@ -58,15 +59,31 @@ export class Puddles implements OnInit {
         private route: ActivatedRoute,
         private confirmationService: ConfirmationService,
         private workflowService: PTPWorkflowsService,
+        private ptpStateService: PTPStateService,
         private appStateService: AppStateService) {
 
 
     }
 
-    editworkflow() {
-        console.log(this.selectedWorkflows);
-        // this.router.navigateByUrl('/infaptp/datasources/' + this.route.snapshot.params['ds']
-        //     + "/tables/" + this.route.snapshot.params['table'] + "/generate");
+    editworkflow(workflowId) {
+        console.log(workflowId);
+
+
+        let editWorkflow = this.allWorkflows.filter(wf => wf.id == workflowId)[0];
+
+        console.log("editWorkflow.columns",editWorkflow.columns);
+
+        // this.ptpStateService.selectedCols=null;
+        this.ptpStateService.selectedWorkflowCols = editWorkflow.columns;
+        this.ptpStateService.selectedTable = editWorkflow.sourceTableName;
+        this.ptpStateService.selectedSource = editWorkflow.sourceName;
+
+
+        this.showColumnsDialog = true;
+
+        this.router.navigateByUrl('/infaptp/puddles/' + workflowId + '/' + editWorkflow.sourceName.toLowerCase() + '/' + editWorkflow.sourceTableName.toLowerCase() + '/columns');
+
+        //   this.router.navigate(['/infaptp/puddles/100//columns', id]);
 
     }
 

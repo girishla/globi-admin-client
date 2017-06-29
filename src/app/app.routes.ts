@@ -23,7 +23,14 @@ export const routes: Routes = [
     {
         path: 'infaptp/puddles', component: Puddles, resolve: {
             ptpworkflows: PTPWorkflowResolver
-        }
+        }, children: [{
+            path: ':id/:ds/:table/columns',
+            component: SelectTableColumns,
+            resolve: {
+                sourceTableColumn: SourceTableColumnsResolver,
+                selectedTableColumns: SelectedTableColumnsResolver
+            }
+        }]
     },
     { path: 'documentation', component: Documentation },
     {
@@ -43,7 +50,7 @@ export const routes: Routes = [
             component: SelectTableColumns,
             resolve: {
                 sourceTableColumn: SourceTableColumnsResolver,
-                selectedTableColumns:SelectedTableColumnsResolver
+                selectedTableColumns: SelectedTableColumnsResolver
             }
 
         }, {
