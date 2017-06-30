@@ -65,6 +65,14 @@ export class SelectTableColumns implements OnInit {
         );
     }
 
+    ngOnDestroy(): void {
+
+        this.ptpStateService.clearState();
+
+
+    }
+
+
     constructor(private router: Router, private route: ActivatedRoute,
         private ptpStateService: PTPStateService,
         private workflowService: PTPWorkflowsService) {
@@ -139,7 +147,15 @@ export class SelectTableColumns implements OnInit {
         ptpWorkflow.workflowName = this.ptpStateService.getWorkflowName().toUpperCase();
         ptpWorkflow.columns = this.ptpStateService.selectedWorkflowCols;
 
-        this.workflowService.generate(ptpWorkflow).subscribe(generated => this.router.navigateByUrl("/infaptp/puddles"));
+        this.workflowService.generate(ptpWorkflow).subscribe(generated => {
+
+            if (generated) {
+                this.router.navigateByUrl("/infaptp/puddles")
+            }
+        }
+
+
+        );
 
 
     }
