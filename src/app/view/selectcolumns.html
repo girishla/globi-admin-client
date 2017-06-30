@@ -6,7 +6,7 @@
 
 
             <p-dataTable [globalFilter]="filterText" [value]="sourceTableColumnList" [(selection)]="selectedCols" [paginator]="true"
-                [rows]="7" [responsive]="true">
+                [rows]="7" [responsive]="true" [resizableColumns]="true">
                 <p-header>
                     <div class="ui-g">
                         <div class="ui-g-5">
@@ -24,8 +24,8 @@
                     </div>
                 </p-header>
                 <p-column [style]="{'width':'50px'}" selectionMode="multiple"></p-column>
-                <p-column field="columnName" header="Name" [sortable]="true"></p-column>
-                <p-column field="columnDataType" header="Data Type" [sortable]="true"></p-column>
+                <p-column [style]="{'width':'200px'}" field="columnName" header="Name" [sortable]="true"></p-column>
+                <p-column [style]="{'width':'120px'}" field="columnDataType" header="Data Type" [sortable]="true"></p-column>
 
                 <p-column [style]="{'width':'75px'}" field="integrationIdFlag" header="Int Id" [style]="{'width':'145px'}">
                     <ng-template let-row="rowData" let-index="rowIndex" let-col pTemplate type="body">
@@ -77,7 +77,7 @@
 
 </div>
 
-<div class="card card-w-title">
+<div *ngIf="inWizardContext" class="card card-w-title">
     <div class="ui-g">
         <div class="ui-g-2">
             <button pButton type="text" (click)="selectTable()" icon="fa-hand-o-left" iconPos="left" label="Previous"></button>
@@ -86,6 +86,17 @@
         </div>
         <div class="ui-g-2">
             <button pButton type="text" (click)="confirm()" icon="fa-hand-o-right" iconPos="right" label="Next"></button>
+        </div>
+
+    </div>
+</div>
+
+<div *ngIf="inWizardContext===false">
+    <div class="ui-g">
+        <div class="ui-g-10">
+        </div>
+        <div class="ui-g-2">
+            <button class="ui-button-warning" pButton type="text" (click)="saveAndGenerate()" icon="fa-check" iconPos="right" label="Save"></button>
         </div>
 
     </div>

@@ -20,7 +20,7 @@ export class PullToPuddleWizardComponent implements OnInit {
         private stService: SourceTablesService,
         private router: Router,
         private route: ActivatedRoute,
-        private ptpStateService:PTPStateService
+        private ptpStateService: PTPStateService
 
     ) {
 
@@ -48,13 +48,21 @@ export class PullToPuddleWizardComponent implements OnInit {
         else if (((url.startsWith("/infaptp/datasources")) && (url.indexOf("tables") === -1))) {
             this.activeIndex = 1;
         }
-        else if ((url.indexOf("tables") > 0)  && (url.indexOf("generate") === -1)) {
+        else if ((url.indexOf("tables") > 0) && (url.indexOf("generate") === -1)) {
             this.activeIndex = 2;
         }
         else if (url.indexOf("generate") > 0) {
             this.activeIndex = 3;
         }
 
+
+    }
+
+
+
+    ngOnDestroy(): void {
+
+        this.ptpStateService.clearState();
 
     }
 
@@ -73,7 +81,7 @@ export class PullToPuddleWizardComponent implements OnInit {
         });
 
 
-     this.stepsItems = [
+        this.stepsItems = [
             {
                 label: 'Source'
             },

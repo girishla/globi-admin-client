@@ -5,6 +5,8 @@ import { ActivatedRoute, Router, ActivatedRouteSnapshot } from '@angular/router'
 import { SourceTableColumn } from "app/shared/models/source-table-column.model";
 import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
 import { PTPWorkflowColumn } from "app/shared/models/ptp-workflow-cols.model";
+import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
+import { PTPWorkflow } from "app/shared/models/ptp-workflow.model";
 
 
 @Component({
@@ -14,12 +16,21 @@ export class SelectTableColumns implements OnInit {
     sourceTableColumnList: SourceTableColumn[];
     selectedCols: SourceTableColumn[];
     selectedTable: string;
+    selectedSource: string;
     columnNameList = [];
+    inWizardContext: Boolean = true;
+
 
 
     ngOnInit(): void {
 
+        //To hide wizard buttons when accessed as a child route of Puddles view
+        if (this.router.url.includes("puddles", 0)) {
+            this.inWizardContext = false;
+        }
+
         this.selectedTable = this.route.snapshot.params['table'];
+        this.selectedSource = this.route.snapshot.params['ds'];
 
         if (this.ptpStateService.selectedCols) {
             this.selectedCols = this.ptpStateService.selectedCols;
@@ -30,14 +41,13 @@ export class SelectTableColumns implements OnInit {
 
 
 
-              this.selectedCols=[];
+                this.selectedCols = [];
 
-               data.sourceTableColumn.forEach((sourceCol) => {
+                data.sourceTableColumn.forEach((sourceCol) => {
 
-                let selCol=data.selectedTableColumns.find((selectedCol) => selectedCol.columnName === sourceCol.columnName);
+                    let selCol = data.selectedTableColumns.find((selectedCol) => selectedCol.columnName === sourceCol.columnName);
                     if (selCol) {
-                        Object.assign(sourceCol,selCol);
-                        console.log("found ",sourceCol)
+                        Object.assign(sourceCol, selCol);
                         this.selectedCols.push(sourceCol);
                     }
 
@@ -56,7 +66,8 @@ export class SelectTableColumns implements OnInit {
     }
 
     constructor(private router: Router, private route: ActivatedRoute,
-        private ptpStateService: PTPStateService) {
+        private ptpStateService: PTPStateService,
+        private workflowService: PTPWorkflowsService) {
 
 
     }
@@ -116,6 +127,20 @@ export class SelectTableColumns implements OnInit {
     removeAll() {
         this.selectedCols = [];
         this.syncSelection();
+
+    }
+
+
+    saveAndGenerate() {
+        this.syncSelection();
+        let ptpWorkflow = new PTPWorkflow();
+        ptpWorkflow.sourceName = this.selectedSource.toUpperCase();
+        ptpWorkflow.sourceTableName = this.selectedTable.toUpperCase();
+        ptpWorkflow.workflowName = this.ptpStateService.getWorkflowName().toUpperCase();
+        ptpWorkflow.columns = this.ptpStateService.selectedWorkflowCols;
+
+        this.workflowService.generate(ptpWorkflow).subscribe(generated => this.router.navigateByUrl("/infaptp/puddles"));
+
 
     }
 

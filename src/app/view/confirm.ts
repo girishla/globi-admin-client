@@ -80,15 +80,15 @@ export class PTPConfirmGenerate implements OnInit {
                     this.router.navigateByUrl('/infaptp/puddles');
                 }, (error: ErrorAPIResponse) => {
                     console.log(error);
-                    var msgs: Message[]=[];
+                    var msgs: Message[] = [];
 
                     if (error.validationErrors && error.validationErrors.length > 0) {
                         error.validationErrors.forEach(validationError => msgs.push({ severity: 'error', summary: 'Validation Failed :', detail: validationError.message }))
                     }
 
-                    if (msgs.length > 0){
+                    if (msgs.length > 0) {
                         this.appStateService.addGrowls(msgs);
-                    }else{
+                    } else {
                         this.appStateService.addGrowl({ severity: 'error', summary: 'Submission Error :', detail: error.userMessage })
                     }
 

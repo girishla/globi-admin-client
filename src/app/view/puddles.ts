@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs/Observable";
-import { ActivatedRoute, Router, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRoute, Router, ActivatedRouteSnapshot, NavigationEnd } from '@angular/router';
 import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
 import { PTPWorkflow } from "app/shared/models/ptp-workflow.model";
 import { DatePipe } from "@angular/common/common";
@@ -24,6 +24,9 @@ export class Puddles implements OnInit {
 
 
     ngOnInit(): void {
+
+
+
         this.route.data.subscribe(
             (data: { ptpworkflows: PTPWorkflow[] }) => {
 
@@ -41,6 +44,16 @@ export class Puddles implements OnInit {
 
             });
 
+
+     //to reset child columns dialog on reentry to route
+        this.router.events
+            .subscribe((event) => {
+                if (event instanceof NavigationEnd && event.url === "/infaptp/puddles") {
+                    this.showColumnsDialog = false;
+                }
+                
+            });
+
         // this.generateActions = [
         //     { label: 'Upload', icon: 'fa-angle-right', command: this.generateWorkflow({ actions: "upload" }) },
         //     { label: 'Upload & Run', icon: 'fa-angle-double-right', command: this.generateWorkflow({ actions: "uploadAndRun" }) }
@@ -49,11 +62,6 @@ export class Puddles implements OnInit {
     }
 
 
-    print(stuff) {
-
-        console.log(stuff);
-
-    }
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -66,12 +74,10 @@ export class Puddles implements OnInit {
     }
 
     editworkflow(workflowId) {
-        console.log(workflowId);
-
 
         let editWorkflow = this.allWorkflows.filter(wf => wf.id == workflowId)[0];
 
-        console.log("editWorkflow.columns",editWorkflow.columns);
+        console.log("editWorkflow.columns", editWorkflow.columns);
 
         // this.ptpStateService.selectedCols=null;
         this.ptpStateService.selectedWorkflowCols = editWorkflow.columns;
@@ -84,6 +90,12 @@ export class Puddles implements OnInit {
         this.router.navigateByUrl('/infaptp/puddles/' + workflowId + '/' + editWorkflow.sourceName.toLowerCase() + '/' + editWorkflow.sourceTableName.toLowerCase() + '/columns');
 
         //   this.router.navigate(['/infaptp/puddles/100//columns', id]);
+
+    }
+
+    hideColumnsDialog() {
+
+        this.router.navigateByUrl('/infaptp/puddles');
 
     }
 

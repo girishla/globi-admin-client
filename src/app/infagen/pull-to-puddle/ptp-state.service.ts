@@ -5,10 +5,31 @@ import { PTPWorkflowColumn } from "app/shared/models/ptp-workflow-cols.model";
 
 @Injectable()
 export class PTPStateService {
-  selectedSource:string;
-  selectedTable:string;
+  selectedSource: string;
+  selectedTable: string;
   sourceTableList: SourceTable[];
   sourceTableCols: SourceTableColumn[];
-  selectedCols:SourceTableColumn[];
-  selectedWorkflowCols:PTPWorkflowColumn[];
+  selectedCols: SourceTableColumn[];
+  selectedWorkflowCols: PTPWorkflowColumn[];
+
+  public clearState() {
+
+    console.info("clearing PTP state on destroy")
+
+    this.selectedSource=null;
+    this.selectedCols=null;
+    this.selectedSource=null;
+    this.selectedWorkflowCols=null;
+    this.sourceTableCols=null;
+    this.sourceTableList=null;
+
+
+  }
+
+  getWorkflowName(){
+
+    return "PTP_" + this.selectedSource + "_" + this.selectedTable
+
+  }
+
 }
