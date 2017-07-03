@@ -46,19 +46,38 @@
 
 
         <p-column [style]="{'width':'70px'}" field="id" header="Id" [sortable]="true"></p-column>
-<!--
-        <p-column  [style]="{'width':'250px'}"  field="workflowName" header="Name" [sortable]="true">
-                <ng-template let-col let-data="rowData" pTemplate="body">
-                <span><a href="javascript:void(0)" (click)="editworkflow(data['id'])" >{{data["workflowName"]}}</a></span>
 
-            </ng-template>
-        </p-column>-->
 
 
         <p-column [style]="{'width':'250px'}" field="workflowName" header="Name" [sortable]="true"></p-column>
 
 
-        <p-column [style]="{'width':'100px'}" field="workflowStatus" header="Status" [sortable]="true"></p-column>
+
+
+        <!--<p-column [style]="{'width':'100px'}" field="workflowStatus" header="Status" [sortable]="true"></p-column>-->
+
+        <p-column  [style]="{'width':'100px','text-align': 'center'}"  field="workflowStatus" header="Status" [sortable]="true">
+                <ng-template let-col let-data="rowData" pTemplate="body">
+                <!--<span><a href="javascript:void(0)" (click)="editworkflow(data['id'])" >{{data["workflowStatus"]}}</a></span>-->
+
+                <!--<span *ngIf='data["workflowStatus"]!="Processing"'>{{data["workflowStatus"]}}</span>-->
+
+                 <!--<i *ngIf='data["workflowStatus"]!="Processing"' class="fa fa-check icon" aria-hidden="true" title="Processed"></i>-->
+
+
+
+                <span *ngIf='data["workflowStatus"]=="Queued"'>{{data["workflowStatus"]}}</span>
+
+                <button  *ngIf='data["workflowStatus"]=="Processed"' [disabled]="'true'" pButton type="button" class="ui-button-icon ui-button-success" title="Processed" icon="fa-check"></button>
+
+
+                <p-progressBar *ngIf='data["workflowStatus"]=="Processing"' [value]="50"></p-progressBar>
+
+            </ng-template>
+        </p-column>
+
+
+
         <p-column [style]="{'width':'100px'}" field="sourceName" header="Source" [sortable]="true"></p-column>
         <p-column [style]="{'width':'230px'}" field="sourceTableName" header="Source Table" [sortable]="true"></p-column>
         <p-column [style]="{'width':'170px'}" field="modifiedDate" header="Updated" [sortable]="true">
