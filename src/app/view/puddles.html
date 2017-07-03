@@ -2,14 +2,14 @@
     <p-confirmDialog width="425"></p-confirmDialog>
 
     <div class="ui-g">
-        <div class="ui-g-3">
+        <div class="ui-g-4">
             <span id="table-col-search" class="md-inputfield search-item">
-                            <input placeholder="Search..." size="35" style="line-height: 25px;" #filterText  type="text" pInputText>
+                            <input placeholder="Search..." size="30" style="line-height: 25px;" #filterText  type="text" pInputText>
                             <!--<label>Search</label>-->
                             <i  class="topbar-icon material-icons">search</i>
                         </span>
         </div>
-        <div class="ui-g-5"></div>
+        <div class="ui-g-4"></div>
         <div class="ui-g-4">
             <button pButton type="text" (click)="newworkflow()" icon="fa-plus" iconPos="right" label="New"></button>
             <!--<button pButton [disabled]="selectedWorkflows==null || selectedWorkflows.length!=1" type="text" (click)="editworkflow()"
@@ -25,7 +25,7 @@
 
     </div>
 
-    <p-dialog header="Edit Puddle Columns" [width]="1200" [height]="800" [appendTo]="'body'" [modal]="true" [(visible)]="showColumnsDialog"
+    <p-dialog header="Edit Puddle Columns" [width]="1200" [height]="600" [appendTo]="'body'" [modal]="true" [(visible)]="showColumnsDialog"
         (onHide)="hideColumnsDialog()" [responsive]="true" [draggable]="false">
         <router-outlet></router-outlet>
     </p-dialog>
@@ -46,13 +46,16 @@
 
 
         <p-column [style]="{'width':'70px'}" field="id" header="Id" [sortable]="true"></p-column>
-
+<!--
         <p-column  [style]="{'width':'250px'}"  field="workflowName" header="Name" [sortable]="true">
                 <ng-template let-col let-data="rowData" pTemplate="body">
                 <span><a href="javascript:void(0)" (click)="editworkflow(data['id'])" >{{data["workflowName"]}}</a></span>
 
             </ng-template>
-        </p-column>
+        </p-column>-->
+
+
+        <p-column [style]="{'width':'250px'}" field="workflowName" header="Name" [sortable]="true"></p-column>
 
 
         <p-column [style]="{'width':'100px'}" field="workflowStatus" header="Status" [sortable]="true"></p-column>
@@ -66,7 +69,7 @@
         </p-column>
         <p-column [style]="{'width':'75px'}" field="id" header="Edit">
             <ng-template let-row="rowData" let-index="rowIndex" let-col pTemplate type="body">
-                <button pButton type="button" class="ui-button-icon ui-button-info" (click)="editworkflow(row[col.field])" icon="fa-edit"></button>
+                <button pButton type="button" class="ui-button-icon ui-button-primary" (click)="editworkflow(row[col.field])" icon="fa-edit"></button>
             </ng-template>
         </p-column>
     </p-dataTable>

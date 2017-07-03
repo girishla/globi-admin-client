@@ -67,7 +67,10 @@ export class SelectTableColumns implements OnInit {
 
     ngOnDestroy(): void {
 
-        this.ptpStateService.clearState();
+        if(!this.inWizardContext){
+            this.ptpStateService.clearState();
+        }
+        
 
 
     }

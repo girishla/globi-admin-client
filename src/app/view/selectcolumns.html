@@ -1,20 +1,20 @@
-<div id="available-columns-table" class="card card-w-title">
-    <h4>Select Columns: {{selectedTable | uppercase}}</h4>
+<div id="available-columns-table" >
+
 
     <div class="ui-g">
         <div class="ui-g-8">
 
-
             <p-dataTable [globalFilter]="filterText" [value]="sourceTableColumnList" [(selection)]="selectedCols" [paginator]="true"
-                [rows]="7" [responsive]="true" [resizableColumns]="true">
+                [rows]="6" [responsive]="true" [resizableColumns]="true">
                 <p-header>
                     <div class="ui-g">
-                        <div class="ui-g-5">
-                            <input style="width:300px" placeholder="Search" #filterText type="text" pInputText>
+                        <div class="ui-g-8">
+                            <label>{{selectedTable | uppercase}}</label>
+                            <input size="30" style="line-height: 25px;" placeholder="Search columns" #filterText type="text" pInputText>
 
                         </div>
-                        <div class="ui-g-3">
-                        </div>
+                        <!--<div class="ui-g-3">
+                        </div>-->
                         <div class="ui-g-2">
                             <button pButton type="text" (click)="selectAll()" label="All"></button>
                         </div>
@@ -58,7 +58,7 @@
         </div>
 
         <div style="height:27px" class="ui-g-4">
-            <p-dataList [value]="selectedCols" [paginator]="true" [rows]="15">
+            <p-dataList [value]="selectedCols" [paginator]="true" [rows]="14">
                 <p-header>
                     <span style="font-size:1.15em">Selected Columns</span>
                 </p-header>
