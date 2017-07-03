@@ -2,6 +2,7 @@ import { Component, AfterViewInit, ElementRef, Renderer, ViewChild } from '@angu
 import { Spinkit } from 'ng-http-loader/spinkits'
 import { AppStateService } from "app/shared/services/app-state.service";
 import { Message } from "primeng/primeng";
+import { Observable } from "rxjs/Observable";
 enum MenuOrientation {
     STATIC,
     OVERLAY,
@@ -49,13 +50,16 @@ export class AppComponent implements AfterViewInit {
     ngOnInit() {
         this.appStateService.msgUpdated.subscribe(
             (msgs) => {
-                this.msgs=msgs;
+                this.msgs = msgs;
+                Observable.timer(5000).subscribe(i => {
+                    this.msgs = [];
+                })
             }
         );
 
         this.appStateService.growlUpdated.subscribe(
             (msgs) => {
-                this.growls=msgs;
+                this.growls = msgs;
             }
         );
 

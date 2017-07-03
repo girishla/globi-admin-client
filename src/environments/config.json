@@ -1,0 +1,16 @@
+{
+    "host": "localhost",
+    "port": 9704,
+    "https": false,
+
+    "user": "username",
+    "pass": "changeme",
+
+    "subscribe": ["/topic/hello"],
+    "publish": ["/topic/hellopub"],
+
+    "heartbeat_in": 0,
+    "heartbeat_out": 20000,
+
+    "debug": true
+}

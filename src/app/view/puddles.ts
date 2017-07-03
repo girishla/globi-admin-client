@@ -7,7 +7,10 @@ import { DatePipe } from "@angular/common/common";
 import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
 import { ConfirmationService, Message } from "primeng/primeng";
 import { AppStateService } from "app/shared/services/app-state.service";
-
+import { ConfigService } from "app/shared/services/stomp/config/config.service";
+import { STOMPService } from "app/shared/services/stomp";
+import { PuddleNotificationMessage } from "app/shared/models/puddle-notification.model";
+import { Message as StompMessage } from 'stompjs';
 
 
 
@@ -21,10 +24,20 @@ export class Puddles implements OnInit {
     workflowNameList = [];
     generateActions = [];
     showColumnsDialog: Boolean = false;
+    public messages: Observable<any>;
 
 
     ngOnInit(): void {
 
+
+        // Get configuration from config service...
+        this._configService.getConfig().then(
+            config => {
+                // ... then pass it to (and connect) STOMP:
+                this._stompService.configure(config);
+                this._stompService.try_connect().then(this.on_connect);
+            }
+        );
 
 
         this.route.data.subscribe(
@@ -45,13 +58,13 @@ export class Puddles implements OnInit {
             });
 
 
-     //to reset child columns dialog on reentry to route
+        //to reset child columns dialog on reentry to route
         this.router.events
             .subscribe((event) => {
                 if (event instanceof NavigationEnd && event.url === "/infaptp/puddles") {
                     this.showColumnsDialog = false;
                 }
-                
+
             });
 
         // this.generateActions = [
@@ -68,7 +81,8 @@ export class Puddles implements OnInit {
         private confirmationService: ConfirmationService,
         private workflowService: PTPWorkflowsService,
         private ptpStateService: PTPStateService,
-        private appStateService: AppStateService) {
+        private appStateService: AppStateService, private _stompService: STOMPService,
+        private _configService: ConfigService) {
 
 
     }
@@ -145,6 +159,49 @@ export class Puddles implements OnInit {
 
         this.router.navigateByUrl('/infaptp/start');
 
+    }
+
+    /** Callback on_connect to queue */
+    public on_connect = () => {
+
+        // Store local reference to Observable
+        // for use with template ( | async )
+        this.messages = this._stompService.messages;
+
+        // Subscribe a function to be run on_next message
+        this.messages.subscribe(this.on_next);
+    }
+
+    /** Consume a message from the _stompService */
+    public on_next = (msg: StompMessage) => {
+
+        // Store message in "historic messages" queue
+        // this.mq.push(message.body + '\n');
+
+        // Count it
+        // this.count++;
+
+        let puddleMessage: PuddleNotificationMessage = JSON.parse(msg.body);
+
+        console.log(puddleMessage);
+
+
+        Observable.from(this.allWorkflows)//
+            .find(wf => wf.id === puddleMessage.puddleId)
+            .subscribe(wf => {
+                if (puddleMessage.puddleStatus) {
+                    wf.workflowStatus=puddleMessage.puddleStatus;
+                }
+            });
+
+        // this.allWorkflows.forEach(wf=>{
+
+        //     if
+
+        // });
+
+        // Log it to the console
+        console.log(this.messages);
     }
 
 
