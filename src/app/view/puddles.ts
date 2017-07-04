@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { ActivatedRoute, Router, ActivatedRouteSnapshot, NavigationEnd } from '@angular/router';
 import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
-import { PTPWorkflow } from "app/shared/models/ptp-workflow.model";
+import { PTPWorkflow, MessageObject } from "app/shared/models/ptp-workflow.model";
 import { DatePipe } from "@angular/common/common";
 import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
 import { ConfirmationService, Message } from "primeng/primeng";
@@ -25,6 +25,8 @@ export class Puddles implements OnInit {
     generateActions = [];
     showColumnsDialog: Boolean = false;
     public messages: Observable<any>;
+    showWorkflowMessage: Boolean = false;
+    currentWorkflowMessage: string;
 
 
     ngOnInit(): void {
@@ -87,6 +89,22 @@ export class Puddles implements OnInit {
 
     }
 
+    showMessage(messageObject: MessageObject) {
+
+
+
+        if (messageObject && messageObject.statusMessage) {
+            this.showWorkflowMessage = true;
+            this.currentWorkflowMessage = messageObject.statusMessage;
+        } else {
+            this.showWorkflowMessage = true;
+            this.currentWorkflowMessage = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+        }
+
+
+
+    }
+
     editworkflow(workflowId) {
 
         let editWorkflow = this.allWorkflows.filter(wf => wf.id == workflowId)[0];
@@ -139,6 +157,7 @@ export class Puddles implements OnInit {
                     this.workflowService.save(ptpWorkflow).subscribe(response => {
                         Object.assign(ptpWorkflow, response);
                         msgs.push({ severity: 'info', summary: 'Submitted', detail: 'Workflow Generation Queued for ' + ptpWorkflow.workflowName })
+                        this.selectedWorkflows = [];
 
                     });
 
@@ -190,8 +209,15 @@ export class Puddles implements OnInit {
             .find(wf => wf.id === puddleMessage.puddleId)
             .subscribe(wf => {
                 if (puddleMessage.puddleStatus) {
-                    wf.workflowStatus=puddleMessage.puddleStatus;
+                    wf.workflowStatus = puddleMessage.puddleStatus;
                 }
+
+                if (puddleMessage.puddleStatus === "Processed") {
+                    this.appStateService.addGrowl({ severity: 'Success', summary: 'Processing Completed', detail: 'Workflow Generation Successful for ' + wf.workflowName })
+
+                }
+
+
             });
 
         // this.allWorkflows.forEach(wf=>{

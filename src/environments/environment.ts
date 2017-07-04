@@ -5,9 +5,9 @@
 
 export const environment = {
   production: false,
-  // api_url: 'http://lngoxfappd072:9704'
+   api_url: 'http://lngoxfappd072:9704'
   
-  api_url: 'http://localhost:9704'
+  //  api_url: 'http://localhost:9704'
 };
 
 

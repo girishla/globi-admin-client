@@ -14,6 +14,7 @@ export class PTPWorkflow {
     workflowUri: string;
     workflowType: string;
     workflowStatus: string;
+    messageObject: MessageObject;
     _links: Links;
 }
 
@@ -26,4 +27,10 @@ export interface PTPWorkflow {
 }
 export interface Self {
     href: string;
+}
+
+export interface MessageObject {
+    createdDate: Date;
+    modifiedDate: Date;
+    statusMessage: string;
 }

@@ -18,12 +18,12 @@ export class ConfigService {
 
   /** Constructor */
   constructor(private _http: Http) { }
-
+//lngoxfappd072
 
   public getConfig(): Promise<StompConfig> {
     return new Promise((resolve, reject) => {
       resolve({
-        "host": "localhost",
+        "host": "lngoxfappd072",
         "port": 9704,
         "https": false,
 

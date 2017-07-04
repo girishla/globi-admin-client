@@ -16,7 +16,6 @@
                 icon="fa-edit" iconPos="right" label="Edit"></button>-->
             <!--<p-splitButton [disabled]="selectedWorkflows==null || selectedWorkflows.length==0" styleClass="ui-button-warning" 
             label="Regenerate" icon="fa-check" (onClick)="generateWorkflow()"  [model]="generateActions"></p-splitButton>-->
-
             <button class="ui-button-warning" pButton [disabled]="selectedWorkflows==null || selectedWorkflows.length==0" type="text"
                 (click)="generateWorkflow()" icon="fa-check" iconPos="right" label="Regenerate"></button>
 
@@ -28,6 +27,14 @@
     <p-dialog header="Edit Puddle Columns" [width]="1200" [height]="600" [appendTo]="'body'" [modal]="true" [(visible)]="showColumnsDialog"
         (onHide)="hideColumnsDialog()" [responsive]="true" [draggable]="false">
         <router-outlet></router-outlet>
+    </p-dialog>
+
+    <p-dialog header="Workflow Messages" [(visible)]="showWorkflowMessage" [width]="600" [height]="600" [appendTo]="'body'" [modal]="true" [responsive]="true">
+        <div class="card card-w-title">
+            <p>
+                {{currentWorkflowMessage}}
+            </p>
+        </div>
     </p-dialog>
 
 
@@ -56,22 +63,21 @@
 
         <!--<p-column [style]="{'width':'100px'}" field="workflowStatus" header="Status" [sortable]="true"></p-column>-->
 
-        <p-column  [style]="{'width':'100px','text-align': 'center'}"  field="workflowStatus" header="Status" [sortable]="true">
-                <ng-template let-col let-data="rowData" pTemplate="body">
+        <p-column [style]="{'width':'100px','text-align': 'center'}" field="workflowStatus" header="Status" [sortable]="true">
+            <ng-template let-col let-data="rowData" pTemplate="body">
                 <!--<span><a href="javascript:void(0)" (click)="editworkflow(data['id'])" >{{data["workflowStatus"]}}</a></span>-->
 
                 <!--<span *ngIf='data["workflowStatus"]!="Processing"'>{{data["workflowStatus"]}}</span>-->
 
-                 <!--<i *ngIf='data["workflowStatus"]!="Processing"' class="fa fa-check icon" aria-hidden="true" title="Processed"></i>-->
-
-
-
+                <!--<i *ngIf='data["workflowStatus"]!="Processing"' class="fa fa-check icon" aria-hidden="true" title="Processed"></i>-->
                 <span *ngIf='data["workflowStatus"]=="Queued"'>{{data["workflowStatus"]}}</span>
 
-                <button  *ngIf='data["workflowStatus"]=="Processed"' [disabled]="'true'" pButton type="button" class="ui-button-icon ui-button-success" title="Processed" icon="fa-check"></button>
-
-
+                <button *ngIf='data["workflowStatus"]=="Error"' (click)="showMessage(data['messageObject'])" pButton type="button" class="ui-button-icon ui-button-error"
+                    title="Error" icon="fa-warning"></button>
+                <button *ngIf='data["workflowStatus"]=="Processed"' (click)="showMessage(data['messageObject'])" pButton type="button" class="ui-button-icon ui-button-success"
+                    title="Processed" icon="fa-check"></button>
                 <p-progressBar *ngIf='data["workflowStatus"]=="Processing"' [value]="50"></p-progressBar>
+
 
             </ng-template>
         </p-column>
