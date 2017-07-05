@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { ActivatedRoute, Router, ActivatedRouteSnapshot, NavigationEnd } from '@angular/router';
 import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
-import { PTPWorkflow, MessageObject } from "app/shared/models/ptp-workflow.model";
+import { PTPWorkflow } from "app/shared/models/ptp-workflow.model";
 import { DatePipe } from "@angular/common/common";
 import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
 import { ConfirmationService, Message } from "primeng/primeng";
 import { AppStateService } from "app/shared/services/app-state.service";
 import { ConfigService } from "app/shared/services/stomp/config/config.service";
 import { STOMPService } from "app/shared/services/stomp";
-import { PuddleNotificationMessage } from "app/shared/models/puddle-notification.model";
+import { WorkflowNotificationMessage } from "app/shared/models/workflow-notification.model";
 import { Message as StompMessage } from 'stompjs';
 
 
@@ -21,12 +21,14 @@ import { Message as StompMessage } from 'stompjs';
 export class Puddles implements OnInit {
     allWorkflows: PTPWorkflow[];
     selectedWorkflows: PTPWorkflow[];
-    workflowNameList = [];
+    // workflowNameList = [];
     generateActions = [];
     showColumnsDialog: Boolean = false;
     public messages: Observable<any>;
     showWorkflowMessage: Boolean = false;
-    currentWorkflowMessage: string;
+    dialogMessages: string[];
+    workflowMessages: { [key: string]: string[] } = {};
+    selectedWorkflow;
 
 
     ngOnInit(): void {
@@ -45,17 +47,26 @@ export class Puddles implements OnInit {
         this.route.data.subscribe(
             (data: { ptpworkflows: PTPWorkflow[] }) => {
 
-                console.log(data);
                 this.allWorkflows = data.ptpworkflows;
                 var allWorkflows$ = Observable.from(data.ptpworkflows);
 
-                allWorkflows$.map(workflow => workflow.workflowName)
-                    .subscribe(workflowName => this.workflowNameList.push({ label: workflowName, value: workflowName }));
+                // allWorkflows$.map(workflow => workflow.workflowName)
+                //     .subscribe(workflowName => this.workflowNameList.push({ label: workflowName, value: workflowName }));
+
+                allWorkflows$.map(workflow => {
+                    return { "id": workflow.id, "message": workflow.message };
+                }).subscribe(wf => {
+
+                    // wf.message=wf.message && wf.message.replace(/\r\n/g, '$$$').replace(/[\r\n]/g, '$$$');
+                    this.workflowMessages[wf.id] = wf.message && wf.message.split("\n")
+
+
+                });
 
             }
             , (error) => {
                 console.log(error);
-                this.appStateService.addMessage({ severity: 'error', summary: 'Server Error :', detail: error });
+                this.showError(error);
 
             });
 
@@ -84,24 +95,36 @@ export class Puddles implements OnInit {
         private workflowService: PTPWorkflowsService,
         private ptpStateService: PTPStateService,
         private appStateService: AppStateService, private _stompService: STOMPService,
-        private _configService: ConfigService) {
+        private _configService: ConfigService, private element: ElementRef) {
 
 
     }
 
-    showMessage(messageObject: MessageObject) {
 
+    private showError(error) {
+        this.appStateService.addMessage({ severity: 'error', summary: 'Server Error :', detail: error })
+    }
 
-
-        if (messageObject && messageObject.statusMessage) {
-            this.showWorkflowMessage = true;
-            this.currentWorkflowMessage = messageObject.statusMessage;
-        } else {
-            this.showWorkflowMessage = true;
-            this.currentWorkflowMessage = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+    showDialogMessage(id: string) {
+        if (this.workflowMessages && this.workflowMessages[id]) {
+            this.dialogMessages = this.workflowMessages[id];
         }
+        else {
+            this.dialogMessages = ['No Messages'];
+        }
+        this.selectedWorkflow = id;
+        this.showWorkflowMessage = true;
+    }
 
-
+    showMessage(id: string) {
+        if (this.workflowMessages && this.workflowMessages[id]) {
+            this.dialogMessages = this.workflowMessages[id];
+        }
+        else {
+            this.dialogMessages = ['No Messages'];
+        }
+        this.selectedWorkflow = id;
+        this.showWorkflowMessage = true;
 
     }
 
@@ -151,15 +174,17 @@ export class Puddles implements OnInit {
             message: 'This might overwrite any existing definitions of the same workflow. Are you sure that you want to generate a new Workflow.?',
             accept: () => {
                 var msgs: Message[] = [];
-
+                this.dialogMessages = [];
                 this.selectedWorkflows.forEach(ptpWorkflow => {
 
                     this.workflowService.save(ptpWorkflow).subscribe(response => {
                         Object.assign(ptpWorkflow, response);
+                        ptpWorkflow.message = "";
                         msgs.push({ severity: 'info', summary: 'Submitted', detail: 'Workflow Generation Queued for ' + ptpWorkflow.workflowName })
                         this.selectedWorkflows = [];
+                        this.workflowMessages[ptpWorkflow.id] = [];
 
-                    });
+                    }, error => this.showError(error));
 
 
                 });
@@ -200,19 +225,26 @@ export class Puddles implements OnInit {
         // Count it
         // this.count++;
 
-        let puddleMessage: PuddleNotificationMessage = JSON.parse(msg.body);
+        let puddleMessage: WorkflowNotificationMessage = JSON.parse(msg.body);
 
         console.log(puddleMessage);
 
 
         Observable.from(this.allWorkflows)//
-            .find(wf => wf.id === puddleMessage.puddleId)
+            .find(wf => wf.id === puddleMessage.workflowId)
             .subscribe(wf => {
-                if (puddleMessage.puddleStatus) {
-                    wf.workflowStatus = puddleMessage.puddleStatus;
+                if (!this.workflowMessages || !this.workflowMessages[wf.id]) {
+                    this.workflowMessages = {};
+                    this.workflowMessages[wf.id] = [];
+                }
+                this.workflowMessages[wf.id].push(...(puddleMessage.messageStr && puddleMessage.messageStr.split("\n")));
+
+
+                if (puddleMessage.workflowStatus) {
+                    wf.workflowStatus = puddleMessage.workflowStatus;
                 }
 
-                if (puddleMessage.puddleStatus === "Processed") {
+                if (puddleMessage.workflowStatus === "Processed") {
                     this.appStateService.addGrowl({ severity: 'Success', summary: 'Processing Completed', detail: 'Workflow Generation Successful for ' + wf.workflowName })
 
                 }
@@ -220,16 +252,9 @@ export class Puddles implements OnInit {
 
             });
 
-        // this.allWorkflows.forEach(wf=>{
-
-        //     if
-
-        // });
-
         // Log it to the console
         console.log(this.messages);
     }
-
 
 
 }

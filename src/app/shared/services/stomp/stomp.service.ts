@@ -79,7 +79,7 @@ export class STOMPService {
     }
 
     // Attempt connection, passing in a callback
-    this.client = Stomp.client(`${scheme}://${this.config.host}:${this.config.port}/puddles/websocket`);
+    this.client = Stomp.client(`${scheme}://${this.config.host}:${this.config.port}/workflows/websocket`);
 
     // Configure client heartbeating
     this.client.heartbeat.incoming = this.config.heartbeat_in;

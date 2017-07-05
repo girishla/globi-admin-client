@@ -30,8 +30,8 @@ export class ConfigService {
         "user": "username",
         "pass": "changeme",
 
-        "subscribe": ["/topic/puddles"],
-        "publish": ["/topic/puddles"],
+        "subscribe": ["/topic/workflows"],
+        "publish": ["/topic/workflows"],
 
         "heartbeat_in": 0,
         "heartbeat_out": 20000,
