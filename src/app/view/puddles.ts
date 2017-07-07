@@ -105,16 +105,16 @@ export class Puddles implements OnInit {
         this.appStateService.addMessage({ severity: 'error', summary: 'Server Error :', detail: error })
     }
 
-    showDialogMessage(id: string) {
-        if (this.workflowMessages && this.workflowMessages[id]) {
-            this.dialogMessages = this.workflowMessages[id];
-        }
-        else {
-            this.dialogMessages = ['No Messages'];
-        }
-        this.selectedWorkflow = id;
-        this.showWorkflowMessage = true;
-    }
+    // showDialogMessage(id: string) {
+    //     if (this.workflowMessages && this.workflowMessages[id]) {
+    //         this.dialogMessages = this.workflowMessages[id];
+    //     }
+    //     else {
+    //         this.dialogMessages = ['No Messages'];
+    //     }
+    //     this.selectedWorkflow = id;
+    //     this.showWorkflowMessage = true;
+    // }
 
     showMessage(id: string) {
         if (this.workflowMessages && this.workflowMessages[id]) {

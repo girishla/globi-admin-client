@@ -17,7 +17,7 @@
             <!--<p-splitButton [disabled]="selectedWorkflows==null || selectedWorkflows.length==0" styleClass="ui-button-warning" 
             label="Regenerate" icon="fa-check" (onClick)="generateWorkflow()"  [model]="generateActions"></p-splitButton>-->
             <button class="ui-button-warning" pButton [disabled]="selectedWorkflows==null || selectedWorkflows.length==0" type="text"
-                (click)="generateWorkflow()" icon="fa-check" iconPos="right" label="Regenerate"></button>
+                (click)="generateWorkflow()" icon="fa-sitemap" iconPos="right" label="Regenerate"></button>
 
 
         </div>
@@ -29,25 +29,21 @@
         <router-outlet></router-outlet>
     </p-dialog>
 
-    <p-dialog *ngIf="selectedWorkflow" [contentStyle]="{'overflow':'auto','max-height':'200px'}" header="Generator Messages"
+
+    <p-dialog *ngIf="selectedWorkflow" header="Generator Messages"
         [(visible)]="showWorkflowMessage" [width]="600" [appendTo]="'body'" [modal]="true" [responsive]="true">
-            <ul class="workflow-messages-list" style="list-style: none;">
-                <li *ngFor="let message of workflowMessages[selectedWorkflow]; let i = index">
-                    {{message}}
-                    <hr *ngIf="message.length>3">
-                </li>
-            </ul>
+
+        <scrolling-list [messages]="workflowMessages[selectedWorkflow] || ['No Messages to Show']"></scrolling-list>
+
+
     </p-dialog>
+
+
 
     <p-dataTable styleClass="workflowsTable" [globalFilter]="filterText" [value]="allWorkflows" [(selection)]="selectedWorkflows"
         [paginator]="true" [rows]="10" [responsive]="true" [resizableColumns]="true">
         <p-header>
-            <!--<div class="ui-widget-header">
-                <div class="has-feedback">
-                    <input #filterText type="text" class="form-control" placeholder="Search">
-                    <span class="fa fa-search form-control-feedback"></span>
-                </div>
-            </div>-->
+
             <span>Puddles</span>
         </p-header>
         <p-column [style]="{'width':'50px'}" selectionMode="multiple"></p-column>
@@ -76,8 +72,9 @@
                 <button *ngIf='data["workflowStatus"]=="Processed"' (click)="showMessage(data['id'])" pButton type="button" class="ui-button-icon ui-button-success"
                     title="Processed" icon="fa-check"></button>
                 <div style="cursor: pointer;">
-                    <p-progressBar *ngIf='data["workflowStatus"]=="Processing"' (click)="showDialogMessage(data['id'])" [value]="50"></p-progressBar>
+                    <p-progressBar *ngIf='data["workflowStatus"]=="Processing"' (click)="showMessage(data['id'])" [value]="50"></p-progressBar>
                 </div>
+
 
             </ng-template>
         </p-column>

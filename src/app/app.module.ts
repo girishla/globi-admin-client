@@ -40,6 +40,7 @@ import { SelectedTableColumnsResolver } from "app/shared/services/selected-table
 import { AppStateService } from "app/shared/services/app-state.service";
 import { ConfigService } from "app/shared/services/stomp/config/config.service";
 import { STOMPService } from "app/shared/services/stomp";
+import { ScrollingListComponent } from "app/infagen/scrolling-list.component";
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { STOMPService } from "app/shared/services/stomp";
     PTPConfirmGenerate,
     SelectSource,
     WaveComponent,
-    Puddles
+    Puddles,
+    ScrollingListComponent
 
   ],
   imports: [
