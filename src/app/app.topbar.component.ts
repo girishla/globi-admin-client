@@ -61,26 +61,8 @@ import {AppComponent} from './app.component';
                         <ul class="ultima-menu animated fadeInDown">
                             <li role="menuitem">
                                 <a href="#">
-                                    <i class="material-icons">palette</i>
-                                    <span>Change Theme</span>
-                                </a>
-                            </li>
-                            <li role="menuitem">
-                                <a href="#">
-                                    <i class="material-icons">favorite_border</i>
-                                    <span>Favorites</span>
-                                </a>
-                            </li>
-                            <li role="menuitem">
-                                <a href="#">
-                                    <i class="material-icons">lock</i>
-                                    <span>Lock Screen</span>
-                                </a>
-                            </li>
-                            <li role="menuitem">
-                                <a href="#">
-                                    <i class="material-icons">wallpaper</i>
-                                    <span>Wallpaper</span>
+                                   <i class="material-icons">power_settings_new</i>
+                                    <span>Sign Out</span>
                                 </a>
                             </li>
                         </ul>
@@ -94,7 +76,7 @@ import {AppComponent} from './app.component';
                         </a>
                         <ul class="ultima-menu animated fadeInDown">
                             <li role="menuitem" *ngFor="let themeItem of themeItems">
-                                <a href="#" (click)="themeItem.command($event)"  >
+                                <a (click)="themeItem.command($event)"  >
                                     <i class="material-icons">brush</i>
                                     <span>{{themeItem.label}}</span>
                                 </a>
