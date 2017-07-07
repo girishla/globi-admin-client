@@ -85,39 +85,27 @@ import {AppComponent} from './app.component';
                             </li>
                         </ul>
                     </li>
-                    <li #notifications [ngClass]="{'active-top-menu':app.activeTopbarItem === notifications}">
-                        <a href="#" (click)="app.onTopbarItemClick($event,notifications)"> 
-                            <i class="topbar-icon material-icons">timer</i>
-                            <span class="topbar-badge animated rubberBand">4</span>
-                            <span class="topbar-item-name">Notifications</span>
+
+                    <li #themes [ngClass]="{'active-top-menu':app.activeTopbarItem === themes}">
+                        <a href="#" (click)="app.onTopbarItemClick($event,themes)"> 
+                            <i class="topbar-icon material-icons">palette</i>
+
+                            <span class="topbar-item-name">Themes</span>
                         </a>
                         <ul class="ultima-menu animated fadeInDown">
-                            <li role="menuitem">
-                                <a href="#">
-                                    <i class="material-icons">bug_report</i>
-                                    <span>Pending tasks</span>
+                            <li role="menuitem" *ngFor="let themeItem of themeItems">
+                                <a href="#" (click)="themeItem.command($event)"  >
+                                    <i class="material-icons">brush</i>
+                                    <span>{{themeItem.label}}</span>
                                 </a>
+
                             </li>
-                            <li role="menuitem">
-                                <a href="#">
-                                    <i class="material-icons">event</i>
-                                    <span>Meeting today at 3pm</span>
-                                </a>
-                            </li>
-                            <li role="menuitem">
-                                <a href="#">
-                                    <i class="material-icons">file_download</i>
-                                    <span>Download documents</span>
-                                </a>
-                            </li>
-                            <li role="menuitem">
-                                <a href="#">
-                                    <i class="material-icons">flight</i>
-                                    <span>Book flight</span>
-                                </a>
-                            </li>
+
                         </ul>
                     </li>
+
+
+
                     <li #search class="search-item" [ngClass]="{'active-top-menu':app.activeTopbarItem === search}"
                         (click)="app.onTopbarItemClick($event,search)">
                         <span class="md-inputfield">
@@ -133,6 +121,28 @@ import {AppComponent} from './app.component';
 })
 export class AppTopBar {
 
+  themeItems = [
+                    { label: 'Indigo - Pink', icon: 'brush', command: (event) => { this.changeTheme('indigo') } },
+                    { label: 'Brown - Green', icon: 'brush', command: (event) => { this.changeTheme('brown') } },
+                    { label: 'Blue - Amber', icon: 'brush', command: (event) => { this.changeTheme('blue') } },
+                    { label: 'Blue Grey - Green', icon: 'brush', command: (event) => { this.changeTheme('blue-grey') } },
+                    { label: 'Dark - Blue', icon: 'brush', command: (event) => { this.changeTheme('dark-blue') } },
+                    { label: 'Dark - Green', icon: 'brush', command: (event) => { this.changeTheme('dark-green') } },
+                    { label: 'Green - Yellow', icon: 'brush', command: (event) => { this.changeTheme('green') } },
+                    { label: 'Purple - Cyan', icon: 'brush', command: (event) => { this.changeTheme('purple-cyan') } },
+                    { label: 'Purple - Amber', icon: 'brush', command: (event) => { this.changeTheme('purple-amber') } },
+                    { label: 'Teal - Lime', icon: 'brush', command: (event) => { this.changeTheme('teal') } },
+                    { label: 'Cyan - Amber', icon: 'brush', command: (event) => { this.changeTheme('cyan') } },
+                    { label: 'Grey - Deep Orange', icon: 'brush', command: (event) => { this.changeTheme('grey') } }
+                ];
+
     constructor(@Inject(forwardRef(() => AppComponent)) public app:AppComponent) {}
 
+    changeTheme(theme) {
+        let themeLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById('theme-css');
+        let layoutLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById('layout-css');
+
+        themeLink.href = 'assets/theme/theme-' + theme + '.css';
+        layoutLink.href = 'assets/layout/css/layout-' + theme + '.css';
+    }
 }

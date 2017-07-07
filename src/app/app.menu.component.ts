@@ -26,23 +26,6 @@ export class AppMenuComponent implements OnInit {
         this.model = [
             { label: 'Home', icon: 'home', routerLink: ['/'] },
             {
-                label: 'Themes', icon: 'palette',
-                items: [
-                    { label: 'Indigo - Pink', icon: 'brush', command: (event) => { this.changeTheme('indigo') } },
-                    { label: 'Brown - Green', icon: 'brush', command: (event) => { this.changeTheme('brown') } },
-                    { label: 'Blue - Amber', icon: 'brush', command: (event) => { this.changeTheme('blue') } },
-                    { label: 'Blue Grey - Green', icon: 'brush', command: (event) => { this.changeTheme('blue-grey') } },
-                    { label: 'Dark - Blue', icon: 'brush', command: (event) => { this.changeTheme('dark-blue') } },
-                    { label: 'Dark - Green', icon: 'brush', command: (event) => { this.changeTheme('dark-green') } },
-                    { label: 'Green - Yellow', icon: 'brush', command: (event) => { this.changeTheme('green') } },
-                    { label: 'Purple - Cyan', icon: 'brush', command: (event) => { this.changeTheme('purple-cyan') } },
-                    { label: 'Purple - Amber', icon: 'brush', command: (event) => { this.changeTheme('purple-amber') } },
-                    { label: 'Teal - Lime', icon: 'brush', command: (event) => { this.changeTheme('teal') } },
-                    { label: 'Cyan - Amber', icon: 'brush', command: (event) => { this.changeTheme('cyan') } },
-                    { label: 'Grey - Deep Orange', icon: 'brush', command: (event) => { this.changeTheme('grey') } }
-                ]
-            },
-            {
                 label: 'Infa Generators', icon: 'android',
                 items: [
                     { label: 'Puddles', icon: 'input', routerLink: ['/infaptp/puddles'] }
