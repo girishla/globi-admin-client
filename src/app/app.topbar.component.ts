@@ -68,6 +68,8 @@ import {AppComponent} from './app.component';
                         </ul>
                     </li>
 
+
+
                     <li #themes [ngClass]="{'active-top-menu':app.activeTopbarItem === themes}">
                         <a href="#" (click)="app.onTopbarItemClick($event,themes)"> 
                             <i class="topbar-icon material-icons">palette</i>

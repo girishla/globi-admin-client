@@ -11,8 +11,8 @@ import { ConfigService } from "app/shared/services/stomp/config/config.service";
 import { STOMPService } from "app/shared/services/stomp";
 import { WorkflowNotificationMessage } from "app/shared/models/workflow-notification.model";
 import { Message as StompMessage } from 'stompjs';
-
-
+import { Subject } from "rxjs/Subject";
+import  find from "lodash/find";
 
 
 @Component({
@@ -29,6 +29,9 @@ export class Puddles implements OnInit {
     dialogMessages: string[];
     workflowMessages: { [key: string]: string[] } = {};
     selectedWorkflow;
+
+    //to deal with updates via selectcolumns child component
+    public static returned: Subject<any> = new Subject();
 
 
     ngOnInit(): void {
@@ -57,7 +60,7 @@ export class Puddles implements OnInit {
                     return { "id": workflow.id, "message": workflow.message };
                 }).subscribe(wf => {
 
-                    // wf.message=wf.message && wf.message.replace(/\r\n/g, '$$$').replace(/[\r\n]/g, '$$$');
+
                     this.workflowMessages[wf.id] = wf.message && wf.message.split("\n")
 
 
@@ -98,6 +101,16 @@ export class Puddles implements OnInit {
         private _configService: ConfigService, private element: ElementRef) {
 
 
+        //process update when changes made in selectcolumns child component
+        Puddles.returned.subscribe(workflowName => {
+            this.workflowService.queryByName(workflowName).subscribe(res => {
+                let modifiedWf=find(this.allWorkflows,{id:res.id})
+                console.log("Refreshing workflow as it was modified from a child component...." ,modifiedWf)
+                modifiedWf.columns=res.columns;
+
+            })
+        });
+
     }
 
 
@@ -105,16 +118,6 @@ export class Puddles implements OnInit {
         this.appStateService.addMessage({ severity: 'error', summary: 'Server Error :', detail: error })
     }
 
-    // showDialogMessage(id: string) {
-    //     if (this.workflowMessages && this.workflowMessages[id]) {
-    //         this.dialogMessages = this.workflowMessages[id];
-    //     }
-    //     else {
-    //         this.dialogMessages = ['No Messages'];
-    //     }
-    //     this.selectedWorkflow = id;
-    //     this.showWorkflowMessage = true;
-    // }
 
     showMessage(id: string) {
         if (this.workflowMessages && this.workflowMessages[id]) {
@@ -144,7 +147,7 @@ export class Puddles implements OnInit {
 
         this.router.navigateByUrl('/infaptp/puddles/' + workflowId + '/' + editWorkflow.sourceName.toLowerCase() + '/' + editWorkflow.sourceTableName.toLowerCase() + '/columns');
 
-        //   this.router.navigate(['/infaptp/puddles/100//columns', id]);
+
 
     }
 
@@ -156,21 +159,7 @@ export class Puddles implements OnInit {
 
     generateWorkflow(options: { actions }) {
 
-        if (options && options.actions === "upload") {
-
-
-        } else {
-            if (options && options.actions === "uploadAndRun") {
-
-
-                //Generate, Upload & RUn
-            }
-
-        }
-
-
-
-        this.confirmationService.confirm({
+           this.confirmationService.confirm({
             message: 'This might overwrite any existing definitions of the same workflow. Are you sure that you want to generate a new Workflow.?',
             accept: () => {
                 var msgs: Message[] = [];
@@ -219,11 +208,6 @@ export class Puddles implements OnInit {
     /** Consume a message from the _stompService */
     public on_next = (msg: StompMessage) => {
 
-        // Store message in "historic messages" queue
-        // this.mq.push(message.body + '\n');
-
-        // Count it
-        // this.count++;
 
         let puddleMessage: WorkflowNotificationMessage = JSON.parse(msg.body);
 
@@ -252,8 +236,6 @@ export class Puddles implements OnInit {
 
             });
 
-        // Log it to the console
-        console.log(this.messages);
     }
 
 

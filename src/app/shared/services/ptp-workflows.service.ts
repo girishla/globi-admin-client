@@ -24,14 +24,26 @@ export class PTPWorkflowsService {
 
   }
 
-  queryByName(workflowName: string): Observable<{ ptpWorkflows: PTPWorkflow[], workflowCount: number }> {
+  queryByName(workflowName: string): Observable<PTPWorkflow> {
     // Convert any filters over to Angular's URLSearchParams
     const params: URLSearchParams = new URLSearchParams();
 
-    params.set("name", workflowName);
+    params.set("workflowName", workflowName);
     return this.apiService
       .get(
       '/ptpworkflows/search/findByWorkflowName',
+      params
+      ).map(data => data);
+  }
+
+  queryById(Id: string): Observable<PTPWorkflow> {
+    // Convert any filters over to Angular's URLSearchParams
+    const params: URLSearchParams = new URLSearchParams();
+
+    params.set("name", Id);
+    return this.apiService
+      .get(
+      '/ptpworkflows/' + Id,
       params
       ).map(data => data);
   }
