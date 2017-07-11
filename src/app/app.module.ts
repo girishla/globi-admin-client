@@ -41,6 +41,11 @@ import { AppStateService } from "app/shared/services/app-state.service";
 import { ConfigService } from "app/shared/services/stomp/config/config.service";
 import { STOMPService } from "app/shared/services/stomp";
 import { ScrollingListComponent } from "app/infagen/scrolling-list.component";
+import { AuthModule } from "app/auth/auth.module";
+import { UserService } from "app/shared/services/user.service";
+import { JwtService } from "app/shared/services/jwt.service";
+import { AuthComponent } from "app/auth/auth.component";
+import { ShowAuthedDirective } from "app/shared/directives/show-authed.directive";
 
 
 @NgModule({
@@ -61,7 +66,10 @@ import { ScrollingListComponent } from "app/infagen/scrolling-list.component";
     SelectSource,
     WaveComponent,
     Puddles,
-    ScrollingListComponent
+    ScrollingListComponent,
+    AuthComponent,
+    ShowAuthedDirective
+    
 
   ],
   imports: [
@@ -102,7 +110,9 @@ import { ScrollingListComponent } from "app/infagen/scrolling-list.component";
     ConfirmationService,
     AppStateService,
     STOMPService,
-    ConfigService
+    ConfigService,
+    UserService,
+    JwtService
   ],
   bootstrap: [AppComponent]
 })

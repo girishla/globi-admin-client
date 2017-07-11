@@ -1,0 +1,51 @@
+
+@import "../node_modules/angular2-busy/build/style/busy.css";
+
+/* You can add global styles to this file, and also import other style files */
+
+
+
+/*to fix border appearing around step headings*/
+.ui-steps .ui-steps-item.ui-state-default {
+border: none;
+}
+
+/*to fix selected radio buttons not showing selections clearly*/
+
+.ga-radio .ui-state-active .fa{
+
+color:#607D8B;
+
+}
+
+/*body .ui-listbox .ui-listbox-header .ui-listbox-filter-container .ui-inputtext{
+    color:#000000
+
+}*/
+
+
+th .ui-chkbox-box.ui-widget.ui-corner-all.ui-state-default {
+    display:none !important;
+ }
+
+body .ui-listbox .ui-listbox-list{
+
+    height:220px;
+    overflow:auto
+}
+
+#table-col-search{
+
+    line-height:2.5em
+}
+
+.auth-page .logo {
+
+    display: inline-block;
+    vertical-align: middle;
+    width: 200px;
+    height: 30px;
+    background: url(/assets/layout/images/logo2x.png) top left no-repeat;
+    background-size: 200px 30px;
+
+}

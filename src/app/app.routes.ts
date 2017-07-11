@@ -14,12 +14,19 @@ import { SelectSource } from "app/view/selectsource";
 import { Puddles } from "app/view/puddles";
 import { PTPWorkflowResolver } from "app/shared/services/ptp-workflow-resolver.service";
 import { SelectedTableColumnsResolver } from "app/shared/services/selected-table-columns-resolver.service";
+import { AuthComponent } from "app/auth/auth.component";
+import { NoAuthGuard } from "app/auth/no-auth-guard.service";
 
 
 
 
 export const routes: Routes = [
     { path: '', component: Home },
+    {
+        path: 'login',
+        component: AuthComponent
+        // canActivate: [NoAuthGuard]
+    },
     {
         path: 'infaptp/puddles', component: Puddles, resolve: {
             ptpworkflows: PTPWorkflowResolver

@@ -1,11 +1,14 @@
-import {Component,Inject,forwardRef} from '@angular/core';
-import {AppComponent} from './app.component';
+import { Component, Inject, forwardRef } from '@angular/core';
+import { AppComponent } from './app.component';
 
 @Component({
     selector: 'app-topbar',
     template: `
+        
+        <div *showAuthed="true">
         <div class="topbar clearfix">
-            <div class="topbar-left">            
+        
+            <div  class="topbar-left">            
                 <div class="logo"></div>
             </div>
 
@@ -18,41 +21,6 @@ import {AppComponent} from './app.component';
                     <i class="material-icons">menu</i>
                 </a>
                 <ul class="topbar-items animated fadeInDown" [ngClass]="{'topbar-items-visible': app.topbarMenuActive}">
-                    <li #profile class="profile-item" *ngIf="app.profileMode==='top'||app.isHorizontal()"
-                        [ngClass]="{'active-top-menu':app.activeTopbarItem === profile}">
-
-                        <a href="#" (click)="app.onTopbarItemClick($event,profile)">                            
-                            <div class="profile-image"></div>
-                            <span class="topbar-item-name">Jane Williams</span>
-                        </a>
-                        
-                        <ul class="ultima-menu animated fadeInDown">
-                            <li role="menuitem">
-                                <a href="#">
-                                    <i class="material-icons">person</i>
-                                    <span>Profile</span>
-                                </a>
-                            </li>
-                            <li role="menuitem">
-                                <a href="#">
-                                    <i class="material-icons">security</i>
-                                    <span>Privacy</span>
-                                </a>
-                            </li>
-                            <li role="menuitem">
-                                <a href="#">
-                                    <i class="material-icons">settings_applications</i>
-                                    <span>Settings</span>
-                                </a>
-                            </li>
-                            <li role="menuitem">
-                                <a href="#">
-                                    <i class="material-icons">power_settings_new</i>
-                                    <span>Logout</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
                     <li #settings [ngClass]="{'active-top-menu':app.activeTopbarItem === settings}">
                         <a href="#" (click)="app.onTopbarItemClick($event,settings)"> 
                             <i class="topbar-icon material-icons">settings</i>
@@ -101,26 +69,27 @@ import {AppComponent} from './app.component';
                 </ul>
             </div>
         </div>
+        </div>
     `
 })
 export class AppTopBar {
 
-  themeItems = [
-                    { label: 'Indigo - Pink', icon: 'brush', command: (event) => { this.changeTheme('indigo') } },
-                    { label: 'Brown - Green', icon: 'brush', command: (event) => { this.changeTheme('brown') } },
-                    { label: 'Blue - Amber', icon: 'brush', command: (event) => { this.changeTheme('blue') } },
-                    { label: 'Blue Grey - Green', icon: 'brush', command: (event) => { this.changeTheme('blue-grey') } },
-                    { label: 'Dark - Blue', icon: 'brush', command: (event) => { this.changeTheme('dark-blue') } },
-                    { label: 'Dark - Green', icon: 'brush', command: (event) => { this.changeTheme('dark-green') } },
-                    { label: 'Green - Yellow', icon: 'brush', command: (event) => { this.changeTheme('green') } },
-                    { label: 'Purple - Cyan', icon: 'brush', command: (event) => { this.changeTheme('purple-cyan') } },
-                    { label: 'Purple - Amber', icon: 'brush', command: (event) => { this.changeTheme('purple-amber') } },
-                    { label: 'Teal - Lime', icon: 'brush', command: (event) => { this.changeTheme('teal') } },
-                    { label: 'Cyan - Amber', icon: 'brush', command: (event) => { this.changeTheme('cyan') } },
-                    { label: 'Grey - Deep Orange', icon: 'brush', command: (event) => { this.changeTheme('grey') } }
-                ];
+    themeItems = [
+        { label: 'Indigo - Pink', icon: 'brush', command: (event) => { this.changeTheme('indigo') } },
+        { label: 'Brown - Green', icon: 'brush', command: (event) => { this.changeTheme('brown') } },
+        { label: 'Blue - Amber', icon: 'brush', command: (event) => { this.changeTheme('blue') } },
+        { label: 'Blue Grey - Green', icon: 'brush', command: (event) => { this.changeTheme('blue-grey') } },
+        { label: 'Dark - Blue', icon: 'brush', command: (event) => { this.changeTheme('dark-blue') } },
+        { label: 'Dark - Green', icon: 'brush', command: (event) => { this.changeTheme('dark-green') } },
+        { label: 'Green - Yellow', icon: 'brush', command: (event) => { this.changeTheme('green') } },
+        { label: 'Purple - Cyan', icon: 'brush', command: (event) => { this.changeTheme('purple-cyan') } },
+        { label: 'Purple - Amber', icon: 'brush', command: (event) => { this.changeTheme('purple-amber') } },
+        { label: 'Teal - Lime', icon: 'brush', command: (event) => { this.changeTheme('teal') } },
+        { label: 'Cyan - Amber', icon: 'brush', command: (event) => { this.changeTheme('cyan') } },
+        { label: 'Grey - Deep Orange', icon: 'brush', command: (event) => { this.changeTheme('grey') } }
+    ];
 
-    constructor(@Inject(forwardRef(() => AppComponent)) public app:AppComponent) {}
+    constructor( @Inject(forwardRef(() => AppComponent)) public app: AppComponent) { }
 
     changeTheme(theme) {
         let themeLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById('theme-css');

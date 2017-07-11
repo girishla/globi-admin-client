@@ -63,6 +63,9 @@ export class AppComponent implements AfterViewInit {
             }
         );
 
+
+        //added to adjust spacing for login form
+        this.staticMenuDesktopInactive =true;
     }
 
 
@@ -86,6 +89,8 @@ export class AppComponent implements AfterViewInit {
             this.topbarItemClick = false;
             this.menuClick = false;
         });
+
+
 
         // setTimeout(() => {
         //     jQuery(this.layoutMenuScroller).nanoScroller({flash:true});

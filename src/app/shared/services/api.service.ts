@@ -6,13 +6,15 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {HttpInterceptorService} from 'ng-http-loader/http-interceptor.service';
 import { AppStateService } from "app/shared/services/app-state.service";
+import { JwtService } from "app/shared/services/jwt.service";
 
 
 @Injectable()
 export class ApiService {
   constructor(
     private http: Http,
-    private httpService:HttpInterceptorService
+    private httpService:HttpInterceptorService,
+    private jwtService: JwtService
 
   ) {}
 
@@ -21,6 +23,10 @@ export class ApiService {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     };
+
+    if (this.jwtService.getToken()) {
+      headersConfig['x-auth-token'] = `${this.jwtService.getToken()}`;
+    }
 
     return new Headers(headersConfig);
   }
