@@ -46,6 +46,8 @@ import { UserService } from "app/shared/services/user.service";
 import { JwtService } from "app/shared/services/jwt.service";
 import { AuthComponent } from "app/auth/auth.component";
 import { ShowAuthedDirective } from "app/shared/directives/show-authed.directive";
+import { AuthGuard } from "app/shared/services/auth-guard.service";
+import { NoAuthGuard } from "app/auth/no-auth-guard.service";
 
 
 @NgModule({
@@ -112,7 +114,9 @@ import { ShowAuthedDirective } from "app/shared/directives/show-authed.directive
     STOMPService,
     ConfigService,
     UserService,
-    JwtService
+    JwtService,
+    AuthGuard,
+    NoAuthGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -3,6 +3,7 @@ import { Spinkit } from 'ng-http-loader/spinkits'
 import { AppStateService } from "app/shared/services/app-state.service";
 import { Message } from "primeng/primeng";
 import { Observable } from "rxjs/Observable";
+import { UserService } from "app/shared/services/user.service";
 enum MenuOrientation {
     STATIC,
     OVERLAY,
@@ -44,7 +45,9 @@ export class AppComponent implements AfterViewInit {
 
     @ViewChild('layoutMenuScroller') layoutMenuScrollerViewChild: ElementRef;
 
-    constructor(public renderer: Renderer, private appStateService: AppStateService) { }
+    constructor(public renderer: Renderer,
+    private appStateService: AppStateService,
+    private userService: UserService) { }
 
 
     ngOnInit() {
@@ -65,7 +68,13 @@ export class AppComponent implements AfterViewInit {
 
 
         //added to adjust spacing for login form
-        this.staticMenuDesktopInactive =true;
+        this.staticMenuDesktopInactive = true;
+
+
+
+        this.userService.populate();
+
+
     }
 
 

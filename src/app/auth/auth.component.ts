@@ -15,7 +15,8 @@ export class AuthComponent implements OnInit {
   authType: String = '';
   title: String = '';
   isSubmitting = false;
-  authForm: FormGroup;
+  userName: String;
+  password: String
 
   constructor(
     private route: ActivatedRoute,
@@ -45,7 +46,7 @@ export class AuthComponent implements OnInit {
     this.isSubmitting = true;
 
 
-    const credentials = this.authForm.value;
+    const credentials = {username:this.userName,password:this.password};
     this.userService
     .attemptAuth(this.authType, credentials)
     .subscribe(

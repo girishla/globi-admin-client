@@ -1,5 +1,7 @@
 import { Component, Inject, forwardRef } from '@angular/core';
 import { AppComponent } from './app.component';
+import { UserService } from "app/shared/services/user.service";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'app-topbar',
@@ -28,7 +30,7 @@ import { AppComponent } from './app.component';
                         </a>
                         <ul class="ultima-menu animated fadeInDown">
                             <li role="menuitem">
-                                <a href="#">
+                                <a href="#" (click)="logout()">
                                    <i class="material-icons">power_settings_new</i>
                                     <span>Sign Out</span>
                                 </a>
@@ -89,7 +91,13 @@ export class AppTopBar {
         { label: 'Grey - Deep Orange', icon: 'brush', command: (event) => { this.changeTheme('grey') } }
     ];
 
-    constructor( @Inject(forwardRef(() => AppComponent)) public app: AppComponent) { }
+    constructor( @Inject(forwardRef(() => AppComponent)) public app: AppComponent,
+    private userService:UserService,private router:Router) { }
+
+    logout() {
+        this.userService.purgeAuth();
+        this.router.navigateByUrl('/login');
+    }
 
     changeTheme(theme) {
         let themeLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById('theme-css');

@@ -1,7 +1,6 @@
-export class User {
-  email: string;
-  token: string;
-  username: string;
-  bio: string;
-  image: string;
-}
+    export class User {
+        id: number;
+        username: string;
+        email: string;
+        enabled: boolean;
+    }
