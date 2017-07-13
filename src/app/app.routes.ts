@@ -17,13 +17,17 @@ import { SelectedTableColumnsResolver } from "app/shared/services/selected-table
 import { AuthComponent } from "app/auth/auth.component";
 import { NoAuthGuard } from "app/auth/no-auth-guard.service";
 import { AuthGuard } from "app/shared/services/auth-guard.service";
+import { MeasuresResolver } from "app/shared/services/measures-resolver.service";
+
 
 
 
 
 export const routes: Routes = [
     {
-        path: '', component: Home
+        path: '', component: Home, resolve: {
+            measureResp: MeasuresResolver
+        }
         , canActivate: [AuthGuard]
     },
     {

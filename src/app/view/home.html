@@ -1,9 +1,94 @@
-<div class="ui-g">
+<div class="ui-g dashboard">
     <div class="ui-g-12">
-        <div class="card">
-            <h1>Welcome to GLOBI Automation tools</h1>
-            <p>The objective of this toolset is to automate dev tasks as much as possible - allowing the team to iterate and deliver business value on shorter timescales.</p>
+
+
+        <div class="ui-g-12">
+
+            <div class="ui-g-12">
+                <div class="card">
+                    <h1>Welcome to GLOBI Automation tools</h1>
+                    <p>The objective of this toolset is to automate dev tasks as much as possible - allowing the team to iterate
+                        and deliver business value on shorter timescales.</p>
+                </div>
+            </div>
+
         </div>
+
+        <div class="ui-g-12">
+
+
+            <div class="ui-g-12 ui-md-6 ui-lg-4">
+                <div class="ui-g card colorbox colorbox-2">
+                    <div class="ui-g-4">
+                        <i class="material-icons">check_circle</i>
+                    </div>
+                    <div class="ui-g-8">
+                        <span class="colorbox-name"># Puddles</span>
+                        <span class="colorbox-count">{{puddleCount}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-6 ui-lg-4">
+                <div class="ui-g card colorbox colorbox-1">
+                    <div class="ui-g-4">
+                        <i class="material-icons">report</i>
+                    </div>
+                    <div class="ui-g-8">
+                        <span class="colorbox-name">Data Lake Size (GB)</span>
+                        <span class="colorbox-count">{{puddleSize}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-6 ui-lg-4">
+                <div class="ui-g card colorbox colorbox-4">
+                    <div class="ui-g-4">
+                        <i class="material-icons">toc</i>
+                    </div>
+                    <div class="ui-g-8">
+                        <span class="colorbox-name"># Data Sources </span>
+                        <span class="colorbox-count">{{sourceCount}}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="ui-g-12">
+            <div class="ui-g-12 ui-md-6 ui-lg-4">
+
+                <div class="card">
+                    <h1 class="centerText">Top 10 data sources by storage size</h1>
+                    <p-chart type="horizontalBar" [data]="sizeBySource" height="250" [options]="barChartOptions"></p-chart>
+                </div>
+            </div>
+
+
+            <div class="ui-g-12 ui-md-6 ui-lg-4">
+                <div class="card">
+                    <p-dataTable [value]="top10Tables" [style]="{'margin-bottom':'20px'}">
+                        <p-header>Top 10 puddles by Record Count (Million)</p-header>
+                        <p-column field="dimension" header="Table Name"></p-column>
+                        <p-column [style]="{'width':'100px'}" field="measure" header="# Millions"></p-column>
+                    </p-dataTable>
+                </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-6 ui-lg-4">
+                <div class="card">
+                    <p-dataTable [value]="top10TablesBySize" [style]="{'margin-bottom':'20px'}">
+                        <p-header>Top 10 puddles by Storage Size (GB)</p-header>
+                        <p-column field="dimension" header="Table Name"></p-column>
+                        <p-column [style]="{'width':'90px'}" field="measure" header="GB"></p-column>
+                    </p-dataTable>
+                </div>
+            </div>
+
+        </div>
+
+
+
     </div>
 </div>
-
