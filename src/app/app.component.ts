@@ -24,7 +24,7 @@ export class AppComponent implements AfterViewInit {
     layoutCompact: boolean = false;
     layoutMode: MenuOrientation = MenuOrientation.STATIC;
     darkMenu: boolean = false;
-    profileMode: string = 'inline';
+    profileMode: string = 'top';
     rotateMenuButton: boolean;
     topbarMenuActive: boolean;
     overlayMenuActive: boolean;
@@ -40,6 +40,7 @@ export class AppComponent implements AfterViewInit {
     Spinkit = Spinkit;
     msgs: Message[] = [];
     growls: Message[] = [];
+    loggedInUserName:String;
 
     @ViewChild('layoutContainer') layourContainerViewChild: ElementRef;
 
@@ -70,10 +71,7 @@ export class AppComponent implements AfterViewInit {
         //added to adjust spacing for login form
         this.staticMenuDesktopInactive = true;
 
-
-
         this.userService.populate();
-
 
     }
 

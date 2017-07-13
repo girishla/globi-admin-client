@@ -3,6 +3,8 @@ import { AppComponent } from './app.component';
 import { UserService } from "app/shared/services/user.service";
 import { Router } from "@angular/router";
 
+
+
 @Component({
     selector: 'app-topbar',
     template: `
@@ -23,21 +25,24 @@ import { Router } from "@angular/router";
                     <i class="material-icons">menu</i>
                 </a>
                 <ul class="topbar-items animated fadeInDown" [ngClass]="{'topbar-items-visible': app.topbarMenuActive}">
-                    <li #settings [ngClass]="{'active-top-menu':app.activeTopbarItem === settings}">
-                        <a href="#" (click)="app.onTopbarItemClick($event,settings)"> 
-                            <i class="topbar-icon material-icons">settings</i>
-                            <span class="topbar-item-name">Settings</span>
+                   
+                
+                <li #profile class="profile-item" *ngIf="app.profileMode==='top'||app.isHorizontal()"
+                        [ngClass]="{'active-top-menu':app.activeTopbarItem === profile}">
+
+                        <a href="#" (click)="app.onTopbarItemClick($event,profile)">                            
+                            <ngx-avatar size="36" [name]="profileUserName"></ngx-avatar>
                         </a>
+                        
                         <ul class="ultima-menu animated fadeInDown">
                             <li role="menuitem">
                                 <a href="#" (click)="logout()">
-                                   <i class="material-icons">power_settings_new</i>
-                                    <span>Sign Out</span>
+                                    <i class="material-icons">power_settings_new</i>
+                                    <span>Logout</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
-
 
 
                     <li #themes [ngClass]="{'active-top-menu':app.activeTopbarItem === themes}">
@@ -76,6 +81,8 @@ import { Router } from "@angular/router";
 })
 export class AppTopBar {
 
+    profileUserName: String;
+
     themeItems = [
         { label: 'Indigo - Pink', icon: 'brush', command: (event) => { this.changeTheme('indigo') } },
         { label: 'Brown - Green', icon: 'brush', command: (event) => { this.changeTheme('brown') } },
@@ -92,7 +99,13 @@ export class AppTopBar {
     ];
 
     constructor( @Inject(forwardRef(() => AppComponent)) public app: AppComponent,
-    private userService:UserService,private router:Router) { }
+        private userService: UserService, private router: Router) { }
+
+    ngOnInit() {
+        this.userService.currentUser.subscribe(user => { this.profileUserName = user.username });
+
+    }
+
 
     logout() {
         this.userService.purgeAuth();

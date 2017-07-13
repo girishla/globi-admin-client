@@ -48,6 +48,7 @@ import { AuthComponent } from "app/auth/auth.component";
 import { ShowAuthedDirective } from "app/shared/directives/show-authed.directive";
 import { AuthGuard } from "app/shared/services/auth-guard.service";
 import { NoAuthGuard } from "app/auth/no-auth-guard.service";
+import { AvatarModule } from 'ngx-avatar';
 
 
 @NgModule({
@@ -95,7 +96,8 @@ import { NoAuthGuard } from "app/auth/no-auth-guard.service";
     DataListModule,
     ConfirmDialogModule,
     DialogModule,
-    ProgressBarModule
+    ProgressBarModule,
+    AvatarModule
   ],
 
 
