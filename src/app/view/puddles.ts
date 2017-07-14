@@ -60,8 +60,7 @@ export class Puddles implements OnInit {
                     return { "id": workflow.id, "message": workflow.message };
                 }).subscribe(wf => {
 
-
-                    this.workflowMessages[wf.id] = wf.message && wf.message.split("\n")
+                   this.workflowMessages[wf.id] = wf.message && wf.message.split("\n")
 
 
                 });

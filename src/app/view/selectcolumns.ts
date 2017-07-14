@@ -147,8 +147,8 @@ export class SelectTableColumns implements OnInit {
         this.syncSelection();
         let ptpWorkflow = new PTPWorkflow();
         ptpWorkflow.sourceName = this.selectedSource.toUpperCase();
-        ptpWorkflow.sourceTableName = this.selectedTable.toUpperCase();
-        ptpWorkflow.workflowName = this.ptpStateService.getWorkflowName().toUpperCase();
+        ptpWorkflow.sourceTableName = this.selectedTable;
+        ptpWorkflow.workflowName = this.ptpStateService.getWorkflowName();
         ptpWorkflow.columns = this.ptpStateService.selectedWorkflowCols;
 
         this.workflowService.generate(ptpWorkflow).subscribe(generated => {

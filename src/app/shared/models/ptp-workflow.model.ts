@@ -6,6 +6,7 @@ export class PTPWorkflow {
     sourceName: string;
     sourceTableName: string;
     sourceFilter?: any;
+    targetTableName:string;
     columns: PTPWorkflowColumn[];
     id: number;
     createdDate: Date;

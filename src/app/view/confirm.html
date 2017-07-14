@@ -32,6 +32,10 @@
                         <label>Workflow Name:</label>
                         <input id="workflowNameInput" [(ngModel)]="workflowName" type="text" size="30" pInputText [disabled]="true" />
                     </div>
+                    <div class="ui-g-12">
+                        <label>Target Table:</label>
+                        <input id="targetTableInput" [(ngModel)]="targetTableName" type="text" size="30" pInputText [disabled]="false" />
+                    </div>
                     <div class="ui-g-12 ">
                         <p-checkbox name="cg" value="Ultima" label="Upload to Infa Repository" [(ngModel)]="upload" binary="true"></p-checkbox>
                     </div>

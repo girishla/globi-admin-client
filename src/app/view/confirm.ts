@@ -21,6 +21,7 @@ export class PTPConfirmGenerate implements OnInit {
     uploadAndRun: Boolean = true;
     sourceFilter: string;
     workflowName: string;
+    targetTableName:string;
     ptpWorkflow: PTPWorkflow;
 
 
@@ -29,7 +30,7 @@ export class PTPConfirmGenerate implements OnInit {
     ngOnInit(): void {
         this.selectedCols = this.ptpStateService.selectedCols;
         this.workflowName = "PTP_" + this.ptpStateService.selectedSource + "_" + this.ptpStateService.selectedTable;
-
+        this.targetTableName=(this.ptpStateService.selectedSource + "_" + this.ptpStateService.selectedTable).toUpperCase();
 
         if (!this.selectedCols || !this.ptpStateService.selectedSource || !this.ptpStateService.selectedTable) {
             console.warn("redirecting to start as required data not found.");
@@ -72,6 +73,7 @@ export class PTPConfirmGenerate implements OnInit {
                 this.ptpWorkflow.sourceTableName = this.ptpStateService.selectedTable;
                 this.ptpWorkflow.workflowName = this.workflowName;
                 this.ptpWorkflow.columns = this.ptpStateService.selectedWorkflowCols;
+                this.ptpWorkflow.targetTableName=this.targetTableName;
 
                 this.workflowService.save(this.ptpWorkflow).subscribe(response => {
 
