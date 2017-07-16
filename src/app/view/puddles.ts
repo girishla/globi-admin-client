@@ -130,6 +130,22 @@ export class Puddles implements OnInit {
 
     }
 
+
+    editWizard(workflowId){
+        let editWorkflow = this.allWorkflows.filter(wf => wf.id == workflowId)[0];
+
+        console.log("editWorkflow.columns", editWorkflow.columns);
+
+        // this.ptpStateService.selectedCols=null;
+        this.ptpStateService.selectedWorkflowCols = editWorkflow.columns;
+        this.ptpStateService.selectedTable = editWorkflow.sourceTableName;
+        this.ptpStateService.selectedSource = editWorkflow.sourceName;
+        this.ptpStateService.targetTableName=editWorkflow.targetTableName;
+
+        this.router.navigateByUrl('/infaptp/datasources/' +  editWorkflow.sourceName.toLowerCase() + "/tables/" + editWorkflow.sourceTableName.toLowerCase() + "/columns?mode=edit");
+
+    }
+
     editworkflow(workflowId) {
 
         let editWorkflow = this.allWorkflows.filter(wf => wf.id == workflowId)[0];

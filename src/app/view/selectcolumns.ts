@@ -20,6 +20,7 @@ export class SelectTableColumns implements OnInit {
     selectedSource: string;
     columnNameList = [];
     inWizardContext: Boolean = true;
+    editMode: Boolean = false;
 
 
 
@@ -33,9 +34,26 @@ export class SelectTableColumns implements OnInit {
         this.selectedTable = this.route.snapshot.params['table'];
         this.selectedSource = this.route.snapshot.params['ds'];
 
+
+
+
+        this.route.queryParams.subscribe(params => {
+            if (params['mode'] === "edit") {
+                this.editMode = true;
+                this.ptpStateService.editMode=true;
+            }
+
+        })
+
+        //back and forth navigation
+        if(this.ptpStateService.editMode===true){
+            this.editMode=true;
+        }
+
         if (this.ptpStateService.selectedCols) {
             this.selectedCols = this.ptpStateService.selectedCols;
         }
+
 
         this.route.data.subscribe(
             (data: { sourceTableColumn: SourceTableColumn[], selectedTableColumns: SourceTableColumn[] }) => {
@@ -68,10 +86,10 @@ export class SelectTableColumns implements OnInit {
 
     ngOnDestroy(): void {
 
-        if(!this.inWizardContext){
+        if (!this.inWizardContext) {
             this.ptpStateService.clearState();
         }
-        
+
 
 
     }
@@ -125,6 +143,7 @@ export class SelectTableColumns implements OnInit {
 
     private syncSelection(): void {
 
+        this.ptpStateService.selectedSource = this.selectedSource.toUpperCase();
         this.ptpStateService.selectedWorkflowCols = this.selectedCols.map(col => this.getWorkflowColFrom(col));
         this.ptpStateService.selectedCols = this.selectedCols;
         this.ptpStateService.sourceTableCols = this.sourceTableColumnList;

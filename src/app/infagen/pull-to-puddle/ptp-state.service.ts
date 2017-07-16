@@ -11,6 +11,8 @@ export class PTPStateService {
   sourceTableCols: SourceTableColumn[];
   selectedCols: SourceTableColumn[];
   selectedWorkflowCols: PTPWorkflowColumn[];
+  editMode:Boolean=false;
+  targetTableName:string;
 
   public clearState() {
 
@@ -22,6 +24,9 @@ export class PTPStateService {
     this.selectedWorkflowCols=null;
     this.sourceTableCols=null;
     this.sourceTableList=null;
+    this.targetTableName=null;
+
+    this.editMode=false;
 
 
   }

@@ -30,10 +30,10 @@ export class PTPConfirmGenerate implements OnInit {
     ngOnInit(): void {
         this.selectedCols = this.ptpStateService.selectedCols;
         this.workflowName = "PTP_" + this.ptpStateService.selectedSource + "_" + this.ptpStateService.selectedTable;
-        this.targetTableName=(this.ptpStateService.selectedSource + "_" + this.ptpStateService.selectedTable).toUpperCase();
+        this.targetTableName=this.ptpStateService.targetTableName || (this.ptpStateService.selectedSource + "_" + this.ptpStateService.selectedTable).toUpperCase();
 
         if (!this.selectedCols || !this.ptpStateService.selectedSource || !this.ptpStateService.selectedTable) {
-            console.warn("redirecting to start as required data not found.");
+            console.warn("redirecting to start as required data not found.",this.selectedCols,this.ptpStateService.selectedSource,this.ptpStateService.selectedTable);
             this.router.navigateByUrl('/infaptp/start');
         }
 

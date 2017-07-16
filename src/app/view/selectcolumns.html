@@ -77,9 +77,10 @@
 
 </div>
 
-<div *ngIf="inWizardContext" class="card card-w-title">
+
+<div *ngIf="true" class="card card-w-title">
     <div class="ui-g">
-        <div class="ui-g-2">
+        <div  *ngIf="editMode===false" class="ui-g-2">
             <button pButton type="text" (click)="selectTable()" icon="fa-hand-o-left" iconPos="left" label="Previous"></button>
         </div>
         <div class="ui-g-8">
@@ -91,7 +92,7 @@
     </div>
 </div>
 
-<div *ngIf="inWizardContext===false">
+<div *ngIf="false">
     <div class="ui-g">
         <div class="ui-g-10">
         </div>

@@ -91,7 +91,7 @@
         </p-column>
         <p-column [style]="{'width':'75px'}" field="id" header="Edit">
             <ng-template let-row="rowData" let-index="rowIndex" let-col pTemplate type="body">
-                <button pButton type="button" class="ui-button-icon ui-button-primary" (click)="editworkflow(row[col.field])" icon="fa-edit"></button>
+                <button pButton type="button" class="ui-button-icon ui-button-primary" (click)="editWizard(row[col.field])" icon="fa-edit"></button>
             </ng-template>
         </p-column>
     </p-dataTable>
