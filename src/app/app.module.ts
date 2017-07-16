@@ -69,7 +69,7 @@ import { MeasuresService } from "app/shared/services/measures.service";
     SelectTableColumns,
     PTPConfirmGenerate,
     SelectSource,
-    WaveComponent,
+    // WaveComponent,
     Puddles,
     ScrollingListComponent,
     AuthComponent,
@@ -102,6 +102,7 @@ import { MeasuresService } from "app/shared/services/measures.service";
     AvatarModule,
     ChartModule
   ],
+
 
 
   providers: [
