@@ -54,7 +54,7 @@ export class SelectTable implements OnInit {
         
         
 
-        this.router.navigateByUrl('/infaptp/datasources/' + this.route.snapshot.params['ds'] + "/tables/" + this.selectedTable.toLowerCase() + "/columns");
+        this.router.navigateByUrl('/infaptp/datasources/' + this.route.snapshot.params['ds'] + "/tables/" + this.selectedTable + "/columns");
     }
 
     selectSource() {
