@@ -19,22 +19,14 @@ export class SelectTableColumns implements OnInit {
     selectedTable: string;
     selectedSource: string;
     columnNameList = [];
-    inWizardContext: Boolean = true;
     editMode: Boolean = false;
 
 
 
     ngOnInit(): void {
 
-        //To hide wizard buttons when accessed as a child route of Puddles view
-        if (this.router.url.includes("puddles", 0)) {
-            this.inWizardContext = false;
-        }
-
         this.selectedTable = this.route.snapshot.params['table'];
         this.selectedSource = this.route.snapshot.params['ds'];
-
-
 
 
         this.route.queryParams.subscribe(params => {
@@ -85,11 +77,6 @@ export class SelectTableColumns implements OnInit {
     }
 
     ngOnDestroy(): void {
-
-        if (!this.inWizardContext) {
-            this.ptpStateService.clearState();
-        }
-
 
 
     }
@@ -161,30 +148,6 @@ export class SelectTableColumns implements OnInit {
 
     }
 
-
-    saveAndGenerate() {
-        this.syncSelection();
-        let ptpWorkflow = new PTPWorkflow();
-        ptpWorkflow.sourceName = this.selectedSource.toUpperCase();
-        ptpWorkflow.sourceTableName = this.selectedTable;
-        ptpWorkflow.workflowName = this.ptpStateService.getWorkflowName();
-        ptpWorkflow.columns = this.ptpStateService.selectedWorkflowCols;
-
-        this.workflowService.generate(ptpWorkflow).subscribe(generated => {
-
-            if (generated) {
-
-                Puddles.returned.next(ptpWorkflow.workflowName);
-
-                this.router.navigateByUrl("/infaptp/puddles")
-            }
-        }
-
-
-        );
-
-
-    }
 
 
 

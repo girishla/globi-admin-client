@@ -5,14 +5,15 @@ import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
 import { PTPWorkflow } from "app/shared/models/ptp-workflow.model";
 import { DatePipe } from "@angular/common/common";
 import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
-import { ConfirmationService, Message } from "primeng/primeng";
+import { ConfirmationService, Message as GrowlMessage } from "primeng/primeng";
 import { AppStateService } from "app/shared/services/app-state.service";
 import { ConfigService } from "app/shared/services/stomp/config/config.service";
-import { STOMPService } from "app/shared/services/stomp";
+import { STOMPService, STOMPState } from "app/shared/services/stomp";
 import { WorkflowNotificationMessage } from "app/shared/models/workflow-notification.model";
-import { Message as StompMessage } from 'stompjs';
+import { Message as StompMessage, Message } from 'stompjs';
 import { Subject } from "rxjs/Subject";
-import  find from "lodash/find";
+import find from "lodash/find";
+import { Subscription } from "rxjs/Subscription";
 
 
 @Component({
@@ -21,17 +22,13 @@ import  find from "lodash/find";
 export class Puddles implements OnInit {
     allWorkflows: PTPWorkflow[];
     selectedWorkflows: PTPWorkflow[];
-    // workflowNameList = [];
     generateActions = [];
     showColumnsDialog: Boolean = false;
-    public messages: Observable<any>;
-    showWorkflowMessage: Boolean = false;
-    dialogMessages: string[];
+    public messages: Subject<Message>;
+    showMessagesFlag: Boolean = false;
     workflowMessages: { [key: string]: string[] } = {};
     selectedWorkflow;
-
-    //to deal with updates via selectcolumns child component
-    public static returned: Subject<any> = new Subject();
+    messageSubscription:Subscription;
 
 
     ngOnInit(): void {
@@ -41,8 +38,13 @@ export class Puddles implements OnInit {
         this._configService.getConfig().then(
             config => {
                 // ... then pass it to (and connect) STOMP:
-                this._stompService.configure(config);
-                this._stompService.try_connect().then(this.on_connect);
+
+                if (this._stompService.state.getValue() === STOMPState.CLOSED) {
+                    this._stompService.configure(config);
+                    this._stompService.try_connect().then(this.on_connect);
+                }
+
+
             }
         );
 
@@ -53,14 +55,11 @@ export class Puddles implements OnInit {
                 this.allWorkflows = data.ptpworkflows;
                 var allWorkflows$ = Observable.from(data.ptpworkflows);
 
-                // allWorkflows$.map(workflow => workflow.workflowName)
-                //     .subscribe(workflowName => this.workflowNameList.push({ label: workflowName, value: workflowName }));
-
                 allWorkflows$.map(workflow => {
                     return { "id": workflow.id, "message": workflow.message };
                 }).subscribe(wf => {
 
-                   this.workflowMessages[wf.id] = wf.message && wf.message.split("\n")
+                    this.workflowMessages[wf.id] = wf.message && wf.message.split("\n")
 
 
                 });
@@ -71,21 +70,6 @@ export class Puddles implements OnInit {
                 this.showError(error);
 
             });
-
-
-        //to reset child columns dialog on reentry to route
-        this.router.events
-            .subscribe((event) => {
-                if (event instanceof NavigationEnd && event.url === "/infaptp/puddles") {
-                    this.showColumnsDialog = false;
-                }
-
-            });
-
-        // this.generateActions = [
-        //     { label: 'Upload', icon: 'fa-angle-right', command: this.generateWorkflow({ actions: "upload" }) },
-        //     { label: 'Upload & Run', icon: 'fa-angle-double-right', command: this.generateWorkflow({ actions: "uploadAndRun" }) }
-        // ];
 
     }
 
@@ -100,16 +84,6 @@ export class Puddles implements OnInit {
         private _configService: ConfigService, private element: ElementRef) {
 
 
-        //process update when changes made in selectcolumns child component
-        Puddles.returned.subscribe(workflowName => {
-            this.workflowService.queryByName(workflowName).subscribe(res => {
-                let modifiedWf=find(this.allWorkflows,{id:res.id})
-                console.log("Refreshing workflow as it was modified from a child component...." ,modifiedWf)
-                modifiedWf.columns=res.columns;
-
-            })
-        });
-
     }
 
 
@@ -118,67 +92,40 @@ export class Puddles implements OnInit {
     }
 
 
-    showMessage(id: string) {
-        if (this.workflowMessages && this.workflowMessages[id]) {
-            this.dialogMessages = this.workflowMessages[id];
-        }
-        else {
-            this.dialogMessages = ['No Messages'];
-        }
+    showMessagesDialog(id: string) {
+
         this.selectedWorkflow = id;
-        this.showWorkflowMessage = true;
+        this.showMessagesFlag = true;
 
     }
 
 
-    editWizard(workflowId){
+    editWizard(workflowId) {
         let editWorkflow = this.allWorkflows.filter(wf => wf.id == workflowId)[0];
 
-        console.log("editWorkflow.columns", editWorkflow.columns);
+        // to avoid processing messages unnecessarily
+        this._stompService.disconnect();
 
         // this.ptpStateService.selectedCols=null;
         this.ptpStateService.selectedWorkflowCols = editWorkflow.columns;
         this.ptpStateService.selectedTable = editWorkflow.sourceTableName;
         this.ptpStateService.selectedSource = editWorkflow.sourceName;
-        this.ptpStateService.targetTableName=editWorkflow.targetTableName;
+        this.ptpStateService.targetTableName = editWorkflow.targetTableName;
 
-        this.router.navigateByUrl('/infaptp/datasources/' +  editWorkflow.sourceName.toLowerCase() + "/tables/" + editWorkflow.sourceTableName.toLowerCase() + "/columns?mode=edit");
-
-    }
-
-    editworkflow(workflowId) {
-
-        let editWorkflow = this.allWorkflows.filter(wf => wf.id == workflowId)[0];
-
-        console.log("editWorkflow.columns", editWorkflow.columns);
-
-        // this.ptpStateService.selectedCols=null;
-        this.ptpStateService.selectedWorkflowCols = editWorkflow.columns;
-        this.ptpStateService.selectedTable = editWorkflow.sourceTableName;
-        this.ptpStateService.selectedSource = editWorkflow.sourceName;
-
-
-        this.showColumnsDialog = true;
-
-        this.router.navigateByUrl('/infaptp/puddles/' + workflowId + '/' + editWorkflow.sourceName.toLowerCase() + '/' + editWorkflow.sourceTableName.toLowerCase() + '/columns');
-
-
+        this.router.navigateByUrl('/infaptp/datasources/' + editWorkflow.sourceName.toLowerCase() + "/tables/" + editWorkflow.sourceTableName.toLowerCase() + "/columns?mode=edit");
 
     }
 
-    hideColumnsDialog() {
 
-        this.router.navigateByUrl('/infaptp/puddles');
 
-    }
 
     generateWorkflow(options: { actions }) {
 
-           this.confirmationService.confirm({
+        this.confirmationService.confirm({
             message: 'This might overwrite any existing definitions of the same workflow. Are you sure that you want to generate a new Workflow.?',
             accept: () => {
-                var msgs: Message[] = [];
-                this.dialogMessages = [];
+                var msgs: GrowlMessage[] = [];
+
                 this.selectedWorkflows.forEach(ptpWorkflow => {
 
                     this.workflowService.save(ptpWorkflow).subscribe(response => {
@@ -224,32 +171,36 @@ export class Puddles implements OnInit {
     public on_next = (msg: StompMessage) => {
 
 
-        let puddleMessage: WorkflowNotificationMessage = JSON.parse(msg.body);
+        let norificationMsg: WorkflowNotificationMessage = JSON.parse(msg.body);
 
-        console.log(puddleMessage);
+        console.log('message received...', norificationMsg);
 
 
-        Observable.from(this.allWorkflows)//
-            .find(wf => wf.id === puddleMessage.workflowId)
+         Observable.from(this.allWorkflows)//
+            .find(wf => wf.id === norificationMsg.workflowId)
             .subscribe(wf => {
+
+                console.log("found workflow",wf.id)
                 if (!this.workflowMessages || !this.workflowMessages[wf.id]) {
                     this.workflowMessages = {};
                     this.workflowMessages[wf.id] = [];
                 }
-                this.workflowMessages[wf.id].push(...(puddleMessage.messageStr && puddleMessage.messageStr.split("\n")));
+                this.workflowMessages[wf.id].push(...(norificationMsg.messageStr && norificationMsg.messageStr.split("\n")));
 
 
-                if (puddleMessage.workflowStatus) {
-                    wf.workflowStatus = puddleMessage.workflowStatus;
+                if (norificationMsg.workflowStatus) {
+                    wf.workflowStatus = norificationMsg.workflowStatus;
                 }
 
-                if (puddleMessage.workflowStatus === "Processed") {
+                if (norificationMsg.workflowStatus === "Processed") {
                     this.appStateService.addGrowl({ severity: 'Success', summary: 'Processing Completed', detail: 'Workflow Generation Successful for ' + wf.workflowName })
 
                 }
 
 
             });
+
+   
 
     }
 
