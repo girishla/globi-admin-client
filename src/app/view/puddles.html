@@ -2,23 +2,36 @@
     <p-confirmDialog width="425"></p-confirmDialog>
 
     <div class="ui-g">
-        <div class="ui-g-4">
-            <span id="table-col-search" class="md-inputfield search-item">
-                            <input placeholder="Search..." size="30" style="line-height: 25px;" #filterText  type="text" pInputText>
-                            <!--<label>Search</label>-->
-                            <i  class="topbar-icon material-icons">search</i>
-                        </span>
-        </div>
-        <div class="ui-g-4"></div>
-        <div class="ui-g-4">
-            <button pButton type="text" (click)="newworkflow()" icon="fa-plus" iconPos="right" label="New"></button>
+        <div class="ui-g-12">
+
+
+            <!-- <button pButton type="text" (click)="newworkflow()" icon="fa-plus" iconPos="right" label="New"></button> -->
             <!--<button pButton [disabled]="selectedWorkflows==null || selectedWorkflows.length!=1" type="text" (click)="editworkflow()"
                 icon="fa-edit" iconPos="right" label="Edit"></button>-->
             <!--<p-splitButton [disabled]="selectedWorkflows==null || selectedWorkflows.length==0" styleClass="ui-button-warning" 
             label="Regenerate" icon="fa-check" (onClick)="generateWorkflow()"  [model]="generateActions"></p-splitButton>-->
-            <button class="ui-button-warning" pButton [disabled]="selectedWorkflows==null || selectedWorkflows.length==0" type="text"
-                (click)="generateWorkflow()" icon="fa-sitemap" iconPos="right" label="Regenerate"></button>
+            <!-- <button class="ui-button-warning" pButton [disabled]="selectedWorkflows==null || selectedWorkflows.length==0" type="text"
+                (click)="generateWorkflow()" icon="fa-sitemap" iconPos="right" label="Regenerate"></button> -->
 
+            <p-toolbar [styleClass]="'table-header-toolbar'">
+
+                <div class="ui-toolbar-group-left">
+
+                    <span id="table-col-search" class="md-inputfield search-item">
+                            <input placeholder="Search..." size="30" style="line-height: 25px;" #filterText  type="text" pInputText>
+                            <!--<label>Search</label>-->
+                            <i  class="topbar-icon material-icons">search</i>
+                        </span>
+                </div>
+
+                <div class="ui-toolbar-group-right">
+                    <button pButton type="button" (click)="newworkflow()" label="New" icon="fa-plus"></button>
+                    <button class="ui-button-warning" pButton type="button" [disabled]="selectedWorkflows==null || selectedWorkflows.length==0"
+                        (click)="generateWorkflow()" label="Regenerate" icon="fa-sitemap"></button>
+
+                </div>
+
+            </p-toolbar>
 
         </div>
 
@@ -34,11 +47,11 @@
 
 
 
+
     <p-dataTable styleClass="workflowsTable" [globalFilter]="filterText" [value]="allWorkflows" [(selection)]="selectedWorkflows"
         [paginator]="true" [rows]="10" [responsive]="true" [resizableColumns]="true">
         <p-header>
-
-            <span>Puddles</span>
+            <span>Puddles List</span>
         </p-header>
         <p-column [style]="{'width':'50px'}" selectionMode="multiple"></p-column>
 

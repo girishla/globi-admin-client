@@ -173,14 +173,12 @@ export class Puddles implements OnInit {
 
         let norificationMsg: WorkflowNotificationMessage = JSON.parse(msg.body);
 
-        console.log('message received...', norificationMsg);
 
 
          Observable.from(this.allWorkflows)//
             .find(wf => wf.id === norificationMsg.workflowId)
             .subscribe(wf => {
 
-                console.log("found workflow",wf.id)
                 if (!this.workflowMessages || !this.workflowMessages[wf.id]) {
                     this.workflowMessages = {};
                     this.workflowMessages[wf.id] = [];

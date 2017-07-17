@@ -49,3 +49,61 @@ body .ui-listbox .ui-listbox-list{
     background-size: 200px 30px;
 
 }
+
+.table-header-toolbar  {
+
+     background-color: transparent !important;
+     padding:0em !important;
+     box-shadow:0em !important;
+     border:none !important;
+
+}
+
+
+.app-breadcrumb {
+
+  background-color: transparent !important;
+ border:none !important;
+
+
+
+
+}
+
+
+.app-breadcrumb .fa-chevron-right:before {
+
+color: grey;
+
+}
+
+
+// .app-breadcrumb .ui-menuitem-text{
+
+//     color: grey;
+//     padding:0.3em;
+
+// }
+.app-breadcrumb .ui-menuitem-link{
+
+    color: #048ec6 !important;
+    padding:0.3em;
+    
+}
+
+.app-breadcrumb .ui-breadcrumb-home span{
+
+    color: #048ec6 !important;
+    padding:0.3em;
+    
+}
+
+.app-breadcrumb .ui-menuitem-link.ui-state-active{
+
+    color: black !important;
+    padding:0.3em;
+    background-color: transparent!important;
+    cursor:pointer !important;
+}
+
+

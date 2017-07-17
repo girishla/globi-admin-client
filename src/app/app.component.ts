@@ -1,9 +1,10 @@
 import { Component, AfterViewInit, ElementRef, Renderer, ViewChild } from '@angular/core';
 import { Spinkit } from 'ng-http-loader/spinkits'
 import { AppStateService } from "app/shared/services/app-state.service";
-import { Message } from "primeng/primeng";
+import { Message, MenuItem } from "primeng/primeng";
 import { Observable } from "rxjs/Observable";
 import { UserService } from "app/shared/services/user.service";
+import { Router, NavigationEnd } from "@angular/router";
 enum MenuOrientation {
     STATIC,
     OVERLAY,
@@ -40,15 +41,17 @@ export class AppComponent implements AfterViewInit {
     Spinkit = Spinkit;
     msgs: Message[] = [];
     growls: Message[] = [];
-    loggedInUserName:String;
+    loggedInUserName: String;
 
     @ViewChild('layoutContainer') layourContainerViewChild: ElementRef;
 
     @ViewChild('layoutMenuScroller') layoutMenuScrollerViewChild: ElementRef;
 
     constructor(public renderer: Renderer,
-    private appStateService: AppStateService,
-    private userService: UserService) { }
+        private appStateService: AppStateService,
+        private userService: UserService,
+        private router: Router) { }
+
 
 
     ngOnInit() {
@@ -72,6 +75,8 @@ export class AppComponent implements AfterViewInit {
         this.staticMenuDesktopInactive = true;
 
         this.userService.populate();
+
+
 
     }
 

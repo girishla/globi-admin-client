@@ -22,8 +22,9 @@
             </div>
         </div>
 
-        
+
         <div class="layout-main">
+            <app-breadcrumb></app-breadcrumb>
             <spinner [backgroundColor]="'#ff0000'" [spinner]="Spinkit.skWave"></spinner>
             <p-growl [value]="growls" life="3000"></p-growl>
             <p-messages [(value)]="msgs"></p-messages>
