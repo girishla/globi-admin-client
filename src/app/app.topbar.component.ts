@@ -40,7 +40,11 @@ import { Router } from "@angular/router";
                         [ngClass]="{'active-top-menu':app.activeTopbarItem === profile}">
 
                         <a href="#" (click)="app.onTopbarItemClick($event,profile)">                            
-                            <ngx-avatar size="36" [name]="profileUserName"></ngx-avatar>
+                            <div class="avatar-circle-sm">
+                            <span class="initials">
+                                {{profileUserName.charAt(0)}}
+                            </span>
+                         </div>
                         </a>
 
                                                

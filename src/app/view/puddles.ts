@@ -119,7 +119,7 @@ export class Puddles implements OnInit {
 
 
 
-    generateWorkflow(options: { actions }) {
+    generateWorkflow() {
 
         this.confirmationService.confirm({
             message: 'This might overwrite any existing definitions of the same workflow. Are you sure that you want to generate a new Workflow.?',

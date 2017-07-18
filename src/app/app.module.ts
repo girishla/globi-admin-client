@@ -29,7 +29,6 @@ import { SourceTableColumnsService } from "app/shared/services/source-table-colu
 import { PTPConfirmGenerate } from "app/view/confirm";
 import { SelectSource } from "app/view/selectsource";
 import {BusyModule} from 'angular2-busy';
-import { WaveComponent } from 'ng2-spin-kit/app/spinner/wave'
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 import { Puddles } from "app/view/puddles";
 import { PTPWorkflowResolver } from "app/shared/services/ptp-workflow-resolver.service";
@@ -41,14 +40,12 @@ import { AppStateService } from "app/shared/services/app-state.service";
 import { ConfigService } from "app/shared/services/stomp/config/config.service";
 import { STOMPService } from "app/shared/services/stomp";
 import { ScrollingListComponent } from "app/infagen/scrolling-list.component";
-import { AuthModule } from "app/auth/auth.module";
 import { UserService } from "app/shared/services/user.service";
 import { JwtService } from "app/shared/services/jwt.service";
 import { AuthComponent } from "app/auth/auth.component";
 import { ShowAuthedDirective } from "app/shared/directives/show-authed.directive";
 import { AuthGuard } from "app/shared/services/auth-guard.service";
 import { NoAuthGuard } from "app/auth/no-auth-guard.service";
-import { AvatarModule } from 'ngx-avatar';
 import { MeasuresResolver } from "app/shared/services/measures-resolver.service";
 import { MeasuresService } from "app/shared/services/measures.service";
 import { BreadcrumbService } from "app/shared/services/breadcrumb.service";
@@ -71,7 +68,6 @@ import { BreadcrumbComponent } from "app/app.breadcrumb.component";
     SelectTableColumns,
     PTPConfirmGenerate,
     SelectSource,
-    // WaveComponent,
     Puddles,
     ScrollingListComponent,
     AuthComponent,
@@ -102,7 +98,6 @@ import { BreadcrumbComponent } from "app/app.breadcrumb.component";
     ConfirmDialogModule,
     DialogModule,
     ProgressBarModule,
-    AvatarModule,
     ChartModule,
     BreadcrumbModule,
     ToolbarModule
