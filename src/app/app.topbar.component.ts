@@ -50,7 +50,7 @@ import { Router } from "@angular/router";
                                                
                         <ul class="ultima-menu animated fadeInDown">
                             <li role="menuitem">
-                                <a href="#" (click)="logout()">
+                                <a (click)="logout()">
                                     <i class="material-icons">power_settings_new</i>
                                     <span>Logout</span>
                                 </a>
