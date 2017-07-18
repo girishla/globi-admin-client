@@ -8,13 +8,8 @@ import { BehaviorSubject } from "rxjs/BehaviorSubject";
 @Injectable()
 export class AppStateService {
 
-
-
     msgUpdated: EventEmitter<Message[]> = new EventEmitter();
     growlUpdated: EventEmitter<Message[]> = new EventEmitter();
-
-
-
 
     addMessage(msg: Message) {
 

@@ -43,7 +43,6 @@ export class BreadcrumbComponent implements OnInit, OnChanges {
 
                 this._urls.length = 0; //Fastest way to clear out array
 
-                console.log("generating crumbs...")
                 this.generateBreadcrumbTrail(navigationEnd.urlAfterRedirects ? navigationEnd.urlAfterRedirects : navigationEnd.url);
 
 
@@ -71,7 +70,6 @@ export class BreadcrumbComponent implements OnInit, OnChanges {
 
         this._urls.length = 0;
         this.generateBreadcrumbTrail(this.router.url);
-        console.log("processing changes....adding crumbs", this._urls)
         this._urls.forEach(url => this.addCrumb({ label: 'this.friendlyName(url)', icon: '', routerLink: [url] }));
 
 
