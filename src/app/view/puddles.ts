@@ -28,7 +28,7 @@ export class Puddles implements OnInit {
     showMessagesFlag: Boolean = false;
     workflowMessages: { [key: string]: string[] } = {};
     selectedWorkflow;
-    messageSubscription:Subscription;
+    messageSubscription: Subscription;
 
 
     ngOnInit(): void {
@@ -74,6 +74,10 @@ export class Puddles implements OnInit {
     }
 
 
+    ngOnDestroy(): void {
+        // to avoid processing messages unnecessarily
+        this._stompService.disconnect();
+    }
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -103,8 +107,7 @@ export class Puddles implements OnInit {
     editWizard(workflowId) {
         let editWorkflow = this.allWorkflows.filter(wf => wf.id == workflowId)[0];
 
-        // to avoid processing messages unnecessarily
-        this._stompService.disconnect();
+
 
         // this.ptpStateService.selectedCols=null;
         this.ptpStateService.selectedWorkflowCols = editWorkflow.columns;
@@ -175,7 +178,7 @@ export class Puddles implements OnInit {
 
 
 
-         Observable.from(this.allWorkflows)//
+        Observable.from(this.allWorkflows)//
             .find(wf => wf.id === norificationMsg.workflowId)
             .subscribe(wf => {
 
@@ -198,7 +201,7 @@ export class Puddles implements OnInit {
 
             });
 
-   
+
 
     }
 
