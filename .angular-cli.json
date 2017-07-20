@@ -9,7 +9,7 @@
       "outDir": "../server/src/main/resources/static",
       "assets": [
         "assets",
-        "favicon.ico"
+        "favi.ico"
       ],
       "index": "index.html",
       "main": "main.ts",
