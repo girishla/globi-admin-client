@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { ActivatedRoute, Router, ActivatedRouteSnapshot, NavigationEnd } from '@angular/router';
 import { SILStateService } from "app/infagen/sil/sil-state.service";
-import { SILWorkflow } from "app/shared/models/sil-workflow.model";
+import { SILWorkflow, SILTopDownRequest } from "app/shared/models/sil-workflow.model";
 import { DatePipe } from "@angular/common/common";
 import { SILWorkflowsService } from "app/shared/services/sil-workflows.service";
 import { ConfirmationService, Message as GrowlMessage } from "primeng/primeng";
@@ -114,10 +114,19 @@ export class SILWorkflows implements OnInit {
             message: 'This will recreate any existing definitions of the same workflow using current Top-down metadata. Do you wish to proceed ?',
             accept: () => {
                 var msgs: GrowlMessage[] = [];
+                let topDownRequests: SILTopDownRequest[]=[];
 
                 this.selectedWorkflows.forEach(silWorkflow => {
 
-                    this.workflowService.save(silWorkflow).subscribe(response => {
+
+                    let topDownRequestItem = new SILTopDownRequest();
+
+                    topDownRequestItem.loadType = silWorkflow.loadType;
+                    topDownRequestItem.tableName = silWorkflow.tableBaseName;
+                    topDownRequests.push(topDownRequestItem)
+
+
+                    this.workflowService.regenerate(topDownRequests).subscribe(response => {
                         Object.assign(SILWorkflow, response);
                         silWorkflow.message = "";
                         msgs.push({ severity: 'info', summary: 'Submitted', detail: 'Workflow Generation Queued for ' + silWorkflow.workflowName })

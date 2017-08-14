@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 
 import { ApiService } from './api.service';
 import { SourceTable } from '../models/source-table.model';
-import { SILWorkflow } from "app/shared/models/sil-workflow.model";
+import { SILWorkflow, SILTopDownRequest } from "app/shared/models/sil-workflow.model";
 import { AppStateService } from "app/shared/services/app-state.service";
 import { ErrorAPIResponse } from "app/shared/models/api-error.model";
 import { Message, ConfirmationService } from "primeng/primeng";
@@ -68,51 +68,18 @@ export class SILWorkflowsService {
   }
 
 
-  generate(silWorkflow: SILWorkflow):Observable<Boolean> {
+  regenerate(topDownRequests: SILTopDownRequest[]) {
 
 
-    return Observable.create((observer: Observer<boolean>) => {
-
-      this.confirmationService.confirm({
-        message: 'This might overwrite any existing definitions of the same workflow. Are you sure that you want to generate a new Workflow.?',
-        accept: () => {
-
-          this.save(silWorkflow).subscribe(response => {
-
-            this.appStateService.addMessage({ severity: 'info', summary: 'Submitted', detail: 'Workflow Generation Queued for ' + silWorkflow.workflowName });
-            observer.next(true);
-            observer.complete();
-          }, (error: ErrorAPIResponse) => {
-            console.log(error);
-            var msgs: Message[] = [];
-
-            if (error.validationErrors && error.validationErrors.length > 0) {
-              error.validationErrors.forEach(validationError => msgs.push({ severity: 'error', summary: 'Validation Failed :', detail: validationError.message }))
-            }
-
-            if (msgs.length > 0) {
-              this.appStateService.addGrowls(msgs);
-            } else {
-              this.appStateService.addGrowl({ severity: 'error', summary: 'Submission Error :', detail: error.userMessage })
-            }
-            observer.next(false);
-            observer.complete();
-
-          });
-
-        }
-      });
-
-    });
-
-
-
-
-
+    return this.apiService.post("/infagen/workflows/silFromMetadata", topDownRequests);
 
 
 
   }
+
+
+
+  // SILTopDownRequest
 
 
 }

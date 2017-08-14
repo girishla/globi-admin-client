@@ -31,3 +31,9 @@ export interface Self {
     href: string;
 }
 
+
+
+export class SILTopDownRequest {
+        loadType: string;
+        tableName: string;
+  }
