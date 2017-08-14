@@ -30,8 +30,3 @@ export interface Self {
     href: string;
 }
 
-// export interface MessageObject {
-//     createdDate: Date;
-//     modifiedDate: Date;
-//     statusMessage: string;
-// }

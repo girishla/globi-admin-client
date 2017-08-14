@@ -22,15 +22,15 @@ import { SourceTableResolver } from "app/shared/services/source-table-resolver.s
 import { RouterModule, ActivatedRouteSnapshot } from "@angular/router";
 import { SourceTablesService } from "app/shared/services/source-tables.service";
 import { ApiService } from "app/shared/services/api.service";
-import { SelectTable } from "app/view/selecttable";
-import { SelectTableColumns } from "app/view/selectcolumns";
+import { SelectTable } from "app/infagen/pull-to-puddle/selecttable";
+import { SelectTableColumns } from "app/infagen/pull-to-puddle/selectcolumns";
 import { SourceTableColumnsResolver } from "app/shared/services/source-table-columns-resolver.service";
 import { SourceTableColumnsService } from "app/shared/services/source-table-columns.service";
-import { PTPConfirmGenerate } from "app/view/confirm";
-import { SelectSource } from "app/view/selectsource";
-import {BusyModule} from 'angular2-busy';
+import { PTPConfirmGenerate } from "app/infagen/pull-to-puddle/confirm";
+import { SelectSource } from "app/infagen/pull-to-puddle/selectsource";
+import { BusyModule } from 'angular2-busy';
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
-import { Puddles } from "app/view/puddles";
+import { Puddles } from "app/infagen/pull-to-puddle/puddles";
 import { PTPWorkflowResolver } from "app/shared/services/ptp-workflow-resolver.service";
 import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
 import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
@@ -50,6 +50,10 @@ import { MeasuresResolver } from "app/shared/services/measures-resolver.service"
 import { MeasuresService } from "app/shared/services/measures.service";
 import { BreadcrumbService } from "app/shared/services/breadcrumb.service";
 import { BreadcrumbComponent } from "app/app.breadcrumb.component";
+import { SILWorkflows } from "app/infagen/sil/sil-workflows.component";
+import { SILWorkflowResolver } from "app/shared/services/sil-workflow-resolver.service";
+import { SILWorkflowsService } from "app/shared/services/sil-workflows.service";
+import { SILStateService } from "app/infagen/sil/sil-state.service";
 
 
 @NgModule({
@@ -72,8 +76,9 @@ import { BreadcrumbComponent } from "app/app.breadcrumb.component";
     ScrollingListComponent,
     AuthComponent,
     ShowAuthedDirective,
-    BreadcrumbComponent
-    
+    BreadcrumbComponent,
+    SILWorkflows
+
 
   ],
   imports: [
@@ -114,6 +119,9 @@ import { BreadcrumbComponent } from "app/app.breadcrumb.component";
     SourceTableColumnsService,
     PTPWorkflowsService,
     PTPStateService,
+    SILWorkflowResolver,
+    SILWorkflowsService,
+    SILStateService,
     ApiService,
     ConfirmationService,
     AppStateService,

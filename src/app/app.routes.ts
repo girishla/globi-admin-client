@@ -6,18 +6,20 @@ import { Documentation } from "app/view/documentation";
 import { Home } from "app/view/home";
 import { Infagen } from "app/infagen/infagen";
 import { SourceTableResolver } from "app/shared/services/source-table-resolver.service";
-import { SelectTable } from "app/view/selecttable";
+import { SelectTable } from "app/infagen/pull-to-puddle/selecttable";
 import { SourceTableColumnsResolver } from "app/shared/services/source-table-columns-resolver.service";
-import { SelectTableColumns } from "app/view/selectcolumns";
-import { PTPConfirmGenerate } from "app/view/confirm";
-import { SelectSource } from "app/view/selectsource";
-import { Puddles } from "app/view/puddles";
+import { SelectTableColumns } from "app/infagen/pull-to-puddle/selectcolumns";
+import { PTPConfirmGenerate } from "app/infagen/pull-to-puddle/confirm";
+import { SelectSource } from "app/infagen/pull-to-puddle/selectsource";
+import { Puddles } from "app/infagen/pull-to-puddle/puddles";
 import { PTPWorkflowResolver } from "app/shared/services/ptp-workflow-resolver.service";
 import { SelectedTableColumnsResolver } from "app/shared/services/selected-table-columns-resolver.service";
 import { AuthComponent } from "app/auth/auth.component";
 import { NoAuthGuard } from "app/auth/no-auth-guard.service";
 import { AuthGuard } from "app/shared/services/auth-guard.service";
 import { MeasuresResolver } from "app/shared/services/measures-resolver.service";
+import { SILWorkflows } from "app/infagen/sil/sil-workflows.component";
+import { SILWorkflowResolver } from "app/shared/services/sil-workflow-resolver.service";
 
 
 
@@ -46,6 +48,12 @@ export const routes: Routes = [
                 selectedTableColumns: SelectedTableColumnsResolver
             }
         }]
+    },
+    {
+        path: 'infasil/silworkflows', component: SILWorkflows, canActivate: [AuthGuard],
+        resolve: {
+            silWorkflows: SILWorkflowResolver
+        }
     },
     { path: 'documentation', component: Documentation, canActivate: [AuthGuard] },
     {
