@@ -150,7 +150,7 @@ export class SILWorkflows implements OnInit {
 
     newworkflow() {
 
-        this.router.navigateByUrl('/infasil/start');
+        this.router.navigateByUrl('/infa/puddles/generate/start');
 
     }
 

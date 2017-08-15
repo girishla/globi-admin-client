@@ -34,7 +34,7 @@ export class PTPConfirmGenerate implements OnInit {
 
         if (!this.selectedCols || !this.ptpStateService.selectedSource || !this.ptpStateService.selectedTable) {
             console.warn("redirecting to start as required data not found.",this.selectedCols,this.ptpStateService.selectedSource,this.ptpStateService.selectedTable);
-            this.router.navigateByUrl('/infaptp/start');
+            this.router.navigateByUrl('/infa/puddles/generate/start');
         }
 
     }
@@ -60,7 +60,7 @@ export class PTPConfirmGenerate implements OnInit {
 
     selectColumns() {
 
-        this.router.navigateByUrl('/infaptp/datasources/' + this.route.snapshot.params['ds'] + "/tables/" + this.route.snapshot.params['table'] + "/columns");
+        this.router.navigateByUrl('/infa/puddles/generate/datasources/' + this.route.snapshot.params['ds'] + "/tables/" + this.route.snapshot.params['table'] + "/columns");
     }
 
     generate() {
@@ -79,7 +79,7 @@ export class PTPConfirmGenerate implements OnInit {
 
                     console.log(response);
                     this.appStateService.addMessage({ severity: 'info', summary: 'Submitted', detail: 'Workflow Generation Queued for ' + this.workflowName });
-                    this.router.navigateByUrl('/infaptp/puddles');
+                    this.router.navigateByUrl('/infa/puddles');
                 }, (error: ErrorAPIResponse) => {
                     console.log(error);
                     var msgs: Message[] = [];

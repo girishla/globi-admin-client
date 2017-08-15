@@ -101,7 +101,7 @@ export class SelectTableColumns implements OnInit {
 
         this.syncSelection();
 
-        let confirmationPageroute = '/infaptp/datasources/' + this.route.snapshot.params['ds']
+        let confirmationPageroute = '/infa/puddles/generate/datasources/' + this.route.snapshot.params['ds']
             + "/tables/" + this.route.snapshot.params['table'] + "/generate";
         this.router.navigateByUrl(confirmationPageroute);
 
@@ -110,7 +110,7 @@ export class SelectTableColumns implements OnInit {
     selectTable() {
 
         this.syncSelection();
-        this.router.navigateByUrl('/infaptp/datasources/' + this.route.snapshot.params['ds']);
+        this.router.navigateByUrl('/infa/puddles/generate/datasources/' + this.route.snapshot.params['ds']);
 
     }
 

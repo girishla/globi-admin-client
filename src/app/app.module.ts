@@ -42,7 +42,7 @@ import { SelectedTableColumnsResolver } from "app/shared/services/selected-table
 import { AppStateService } from "app/shared/services/app-state.service";
 import { ConfigService } from "app/shared/services/stomp/config/config.service";
 import { STOMPService } from "app/shared/services/stomp";
-import { ScrollingListComponent } from "app/infagen/scrolling-list.component";
+import { ScrollingListComponent } from "app/shared/scrolling-list.component";
 import { UserService } from "app/shared/services/user.service";
 import { JwtService } from "app/shared/services/jwt.service";
 import { AuthComponent } from "app/auth/auth.component";
@@ -57,6 +57,11 @@ import { SILWorkflows } from "app/view/sil-workflows.component";
 import { SILWorkflowResolver } from "app/shared/services/sil-workflow-resolver.service";
 import { SILWorkflowsService } from "app/shared/services/sil-workflows.service";
 import { SILStateService } from "app/infagen/sil/sil-state.service";
+import { SILSelectTable } from "app/infagen/sil/sil-selecttable";
+import { SILGenerateIntro } from "app/infagen/sil/sil-generate-intro.component";
+import { SilConfirmGenerateComponent } from './sil-confirm-generate/sil-confirm-generate.component';
+import { SilConfirmFactComponent } from './sil-confirm-fact/sil-confirm-fact.component';
+import { SilConfirmDimensionComponent } from './sil-confirm-dimension/sil-confirm-dimension.component';
 
 
 @NgModule({
@@ -70,17 +75,22 @@ import { SILStateService } from "app/infagen/sil/sil-state.service";
     Documentation,
     Home,
     Infagen,
-    PullToPuddleWizardComponent,
+    // PullToPuddleWizardComponent,
     SelectTable,
     SelectTableColumns,
     PTPConfirmGenerate,
     SelectSource,
     Puddles,
+    SILGenerateIntro,
     ScrollingListComponent,
     AuthComponent,
     ShowAuthedDirective,
     BreadcrumbComponent,
-    SILWorkflows
+    SILWorkflows,
+    SILSelectTable,
+    SilConfirmGenerateComponent,
+    SilConfirmFactComponent,
+    SilConfirmDimensionComponent
 
 
   ],

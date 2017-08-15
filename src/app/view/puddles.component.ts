@@ -115,7 +115,7 @@ export class Puddles implements OnInit {
         this.ptpStateService.selectedSource = editWorkflow.sourceName;
         this.ptpStateService.targetTableName = editWorkflow.targetTableName;
 
-        this.router.navigateByUrl('/infaptp/datasources/' + editWorkflow.sourceName.toLowerCase() + "/tables/" + editWorkflow.sourceTableName.toLowerCase() + "/columns?mode=edit");
+        this.router.navigateByUrl('/infa/puddles/generate/datasources/' + editWorkflow.sourceName.toLowerCase() + "/tables/" + editWorkflow.sourceTableName.toLowerCase() + "/columns?mode=edit");
 
     }
 
@@ -155,7 +155,7 @@ export class Puddles implements OnInit {
 
     newworkflow() {
 
-        this.router.navigateByUrl('/infaptp/start');
+        this.router.navigateByUrl('/infa/puddles/generate/start');
 
     }
 

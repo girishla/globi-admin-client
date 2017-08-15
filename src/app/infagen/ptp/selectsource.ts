@@ -26,7 +26,7 @@ export class SelectSource implements OnInit {
             this.ptpStateService.sourceTableList = null;
         }
         this.ptpStateService.selectedSource = this.sourceSystemValue;
-        this.router.navigateByUrl('/infaptp/datasources/' + this.sourceSystemValue.toLowerCase());
+        this.router.navigateByUrl('/infa/puddles/generate/datasources/' + this.sourceSystemValue.toLowerCase());
 
 
     }

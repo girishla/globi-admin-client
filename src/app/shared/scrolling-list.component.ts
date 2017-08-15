@@ -1,6 +1,7 @@
 import { Component, AfterViewChecked, ElementRef, Input } from '@angular/core';
 
 
+
 @Component({
     selector: 'scrolling-list',
     template: `
@@ -13,6 +14,8 @@ import { Component, AfterViewChecked, ElementRef, Input } from '@angular/core';
         </div>
     `
 })
+
+
 
 export class ScrollingListComponent implements AfterViewChecked {
     @Input() messages: any[] = [];

@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { SourceTable } from "app/shared/models/source-table.model";
 import { Observable } from "rxjs/Observable";
 import { ActivatedRoute, Router, ActivatedRouteSnapshot } from '@angular/router';
-import { PTPStateService } from "app/infagen/ptp/ptp-state.service";
+import { SILStateService } from "app/infagen/sil/sil-state.service";
 
 
 
 @Component({
-    templateUrl: './selecttable.html'
+    templateUrl: './sil-selecttable.html'
 })
-export class SelectTable implements OnInit {
+export class SILSelectTable implements OnInit {
     sourceTableList: SourceTable[];
     tableNameList = [];
     selectedTable: string;
@@ -17,8 +17,8 @@ export class SelectTable implements OnInit {
 
     ngOnInit(): void {
 
-        if (this.ptpStateService.selectedTable) {
-            this.selectedTable = this.ptpStateService.selectedTable;
+        if (this.silStateService.selectedTable) {
+            this.selectedTable = this.silStateService.selectedTable;
         }
 
 
@@ -34,7 +34,7 @@ export class SelectTable implements OnInit {
                         this.tableNameList.push({ label: tableName, value: tableName });
                     });
 
-                this.ptpStateService.sourceTableList = this.sourceTableList;
+                // this.silStateService.sourceTableList = this.sourceTableList;
             }
         );
 
@@ -44,13 +44,13 @@ export class SelectTable implements OnInit {
 
     selectColumns() {
         
-        this.ptpStateService.sourceTableList = this.sourceTableList;
+        // this.silStateService.sourceTableList = this.sourceTableList;
 
-        if(!(this.ptpStateService.selectedTable===this.selectedTable)){
-            this.ptpStateService.selectedCols=[];
-            this.ptpStateService.sourceTableCols=[];
-            this.ptpStateService.selectedTable = this.selectedTable;
-        }
+        // if(!(this.silStateService.selectedTable===this.selectedTable)){
+        //     this.silStateService.selectedCols=[];
+        //     this.silStateService.sourceTableCols=[];
+        //     this.silStateService.selectedTable = this.selectedTable;
+        // }
         
         
 
@@ -65,7 +65,7 @@ export class SelectTable implements OnInit {
 
 
 
-    constructor(private router: Router, private route: ActivatedRoute, private ptpStateService: PTPStateService) {
+    constructor(private router: Router, private route: ActivatedRoute, private silStateService: SILStateService) {
 
 
 

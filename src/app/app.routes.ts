@@ -20,6 +20,10 @@ import { AuthGuard } from "app/shared/services/auth-guard.service";
 import { MeasuresResolver } from "app/shared/services/measures-resolver.service";
 import { SILWorkflows } from "app/view/sil-workflows.component";
 import { SILWorkflowResolver } from "app/shared/services/sil-workflow-resolver.service";
+import { SILSelectTable } from "app/infagen/sil/sil-selecttable";
+import { SILGenerateIntro } from "app/infagen/sil/sil-generate-intro.component";
+import { SilConfirmFactComponent } from "app/infagen/sil/sil-confirm-fact/sil-confirm-fact.component";
+import { SilConfirmDimensionComponent } from "app/infagen/sil/sil-confirm-dimension/sil-confirm-dimension.component";
 
 
 
@@ -38,7 +42,7 @@ export const routes: Routes = [
         // , canActivate: [NoAuthGuard]
     },
     {
-        path: 'infaptp/puddles', component: Puddles, canActivate: [AuthGuard], resolve: {
+        path: 'infa/puddles', component: Puddles, canActivate: [AuthGuard], resolve: {
             ptpworkflows: PTPWorkflowResolver
         }, children: [{
             path: ':id/:ds/:table/columns',
@@ -50,14 +54,14 @@ export const routes: Routes = [
         }]
     },
     {
-        path: 'infasil/silworkflows', component: SILWorkflows, canActivate: [AuthGuard],
+        path: 'infa/silworkflows', component: SILWorkflows, canActivate: [AuthGuard],
         resolve: {
             silWorkflows: SILWorkflowResolver
         }
     },
     { path: 'documentation', component: Documentation, canActivate: [AuthGuard] },
     {
-        path: 'infaptp', component: Infagen, data: {
+        path: 'infa/puddles/generate', component: Infagen, data: {
             activeIndex: 0
         }, children: [{
             path: 'start',
@@ -78,18 +82,43 @@ export const routes: Routes = [
                 sourceTableColumn: SourceTableColumnsResolver,
                 selectedTableColumns: SelectedTableColumnsResolver
             }
-
         }, {
             path: 'datasources/:ds/tables/:table/generate',
-
             component: PTPConfirmGenerate,
             canActivate: [AuthGuard],
-            // ,resolve: {
-            //     selections: SelectionsResolver
-            // }
         }]
     },
+    {
+        path: 'infa/silworkflows/generate', component: Infagen, data: {
+            activeIndex: 0
+        }, children: [{
+            path: 'start',
+            component: SILGenerateIntro
+            , canActivate: [AuthGuard]
+        }, {
+            path: 'tables',
+            component: SILSelectTable,
+            canActivate: [AuthGuard],
+            resolve: {
+                sourceTableList: SourceTableResolver
+            }
+        }, {
+            path: 'tables/:table/fact',
+            component: SilConfirmFactComponent,
+            canActivate: [AuthGuard],
+            resolve: {
+               
+            }
+        }, {
+            path: 'tables/:table/dimension',
+            component: SilConfirmDimensionComponent,
+            canActivate: [AuthGuard],
+            resolve: {
+               
+            }
 
+        }]
+    }
 
 ];
 

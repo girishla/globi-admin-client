@@ -28,8 +28,8 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Infa Generators', icon: 'android',
                 items: [
-                    { label: 'Puddles', icon: 'input', routerLink: ['/infaptp/puddles'] },
-                     { label: 'SIL Workflows', icon: 'input', routerLink: ['/infasil/silworkflows'] }
+                    { label: 'Puddles', icon: 'input', routerLink: ['/infa/puddles'] },
+                     { label: 'SIL Workflows', icon: 'input', routerLink: ['/infa/silworkflows'] }
 
                 ]
             },
