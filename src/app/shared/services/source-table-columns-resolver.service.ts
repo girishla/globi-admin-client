@@ -5,7 +5,7 @@ import { SourceTable } from "app/shared/models/source-table.model";
 import { SourceTableColumnsService } from "app/shared/services/source-table-columns.service";
 import { SourceTableColumn } from "app/shared/models/source-table-column.model";
 import { PTPWorkflowColumn } from "app/shared/models/ptp-workflow-cols.model";
-import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
+import { PTPStateService } from "app/infagen/ptp/ptp-state.service";
 import { AppStateService } from "app/shared/services/app-state.service";
 
 

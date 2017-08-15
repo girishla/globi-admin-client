@@ -6,19 +6,19 @@ import { Documentation } from "app/view/documentation";
 import { Home } from "app/view/home";
 import { Infagen } from "app/infagen/infagen";
 import { SourceTableResolver } from "app/shared/services/source-table-resolver.service";
-import { SelectTable } from "app/infagen/pull-to-puddle/selecttable";
+import { SelectTable } from "app/infagen/ptp/selecttable";
 import { SourceTableColumnsResolver } from "app/shared/services/source-table-columns-resolver.service";
-import { SelectTableColumns } from "app/infagen/pull-to-puddle/selectcolumns";
-import { PTPConfirmGenerate } from "app/infagen/pull-to-puddle/confirm";
-import { SelectSource } from "app/infagen/pull-to-puddle/selectsource";
-import { Puddles } from "app/infagen/pull-to-puddle/puddles";
+import { SelectTableColumns } from "app/infagen/ptp/selectcolumns";
+import { PTPConfirmGenerate } from "app/infagen/ptp/confirm";
+import { SelectSource } from "app/infagen/ptp/selectsource";
+import { Puddles } from "app/view/puddles.component";
 import { PTPWorkflowResolver } from "app/shared/services/ptp-workflow-resolver.service";
 import { SelectedTableColumnsResolver } from "app/shared/services/selected-table-columns-resolver.service";
 import { AuthComponent } from "app/auth/auth.component";
 import { NoAuthGuard } from "app/auth/no-auth-guard.service";
 import { AuthGuard } from "app/shared/services/auth-guard.service";
 import { MeasuresResolver } from "app/shared/services/measures-resolver.service";
-import { SILWorkflows } from "app/infagen/sil/sil-workflows.component";
+import { SILWorkflows } from "app/view/sil-workflows.component";
 import { SILWorkflowResolver } from "app/shared/services/sil-workflow-resolver.service";
 
 

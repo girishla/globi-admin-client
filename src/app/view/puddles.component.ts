@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { ActivatedRoute, Router, ActivatedRouteSnapshot, NavigationEnd } from '@angular/router';
-import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
+import { PTPStateService } from "app/infagen/ptp/ptp-state.service";
 import { PTPWorkflow } from "app/shared/models/ptp-workflow.model";
 import { DatePipe } from "@angular/common/common";
 import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
@@ -17,7 +17,7 @@ import { Subscription } from "rxjs/Subscription";
 
 
 @Component({
-    templateUrl: './puddles.html'
+    templateUrl: './puddles.component.html'
 })
 export class Puddles implements OnInit {
     allWorkflows: PTPWorkflow[];

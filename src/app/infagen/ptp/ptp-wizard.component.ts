@@ -3,11 +3,11 @@ import { Message } from 'primeng/components/common/api';
 import { Router, ActivatedRoute, ActivatedRouteSnapshot, NavigationStart, NavigationEnd } from "@angular/router";
 import { SourceTable } from "app/shared/models/source-table.model";
 import { SourceTablesService } from "app/shared/services/source-tables.service";
-import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
+import { PTPStateService } from "app/infagen/ptp/ptp-state.service";
 
 @Component({
-    selector: 'pull-to-puddle-wizard',
-    templateUrl: './pull-to-puddle-wizard.component.html',
+    selector: 'ptp-wizard',
+    templateUrl: './ptp-wizard.component.html',
     //  providers: [PTPStateService]
 })
 

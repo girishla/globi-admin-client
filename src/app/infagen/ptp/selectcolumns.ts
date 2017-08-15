@@ -3,11 +3,10 @@ import { SourceTable } from "app/shared/models/source-table.model";
 import { Observable } from "rxjs/Observable";
 import { ActivatedRoute, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { SourceTableColumn } from "app/shared/models/source-table-column.model";
-import { PTPStateService } from "app/infagen/pull-to-puddle/ptp-state.service";
+import { PTPStateService } from "app/infagen/ptp/ptp-state.service";
 import { PTPWorkflowColumn } from "app/shared/models/ptp-workflow-cols.model";
 import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
 import { PTPWorkflow } from "app/shared/models/ptp-workflow.model";
-import { Puddles } from "app/infagen/pull-to-puddle/puddles";
 
 
 @Component({
