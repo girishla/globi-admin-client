@@ -1,3 +1,70 @@
-<p>
-  sil-confirm-dimension works!
-</p>
+<div class="card card-w-title">
+        <p-confirmDialog width="425"></p-confirmDialog>
+    <h1>Review & Confirm : {{selectedTable}}</h1>
+
+    <div class="ui-g">
+
+        <div class="ui-g-1">
+        </div>
+
+        <div class="ui-g-3">
+
+            <p-panel header="Attributes for Primary Dimension Table">
+                <span *ngIf="silMetadataPrimary.length==0">No Primary Table Attributes defined</span>
+
+                <ul>
+                    <li *ngFor="let metadataCol of silMetadataPrimary; let i = index">
+                        {{metadataCol.columnName}}
+                    </li>
+                </ul>
+
+            </p-panel>
+        </div>
+
+        <div class="ui-g-3">
+            <p-panel header="Attributes for Extension Dimension Table">
+
+                <span *ngIf="silMetadataLegacy.length==0">No Legacy Attributes defined</span>
+                <ul>
+                    <li *ngFor="let metadataCol of silMetadataLegacy; let i = index">
+                        {{metadataCol.columnName}}
+                    </li>
+                </ul>
+
+            </p-panel>
+        </div>
+
+        <div class="ui-g-3">
+            <p-panel header="Attributes for Mini Dimension Table">
+                <span *ngIf="silMetadataMini.length==0">No Mini Dimension Attributes defined</span>
+
+                <ul>
+                    <li *ngFor="let metadataCol of silMetadataMini; let i = index">
+                        {{metadataCol.columnName}}
+                    </li>
+                </ul>
+
+            </p-panel>
+        </div>
+
+        <div class="ui-g-2">
+        </div>
+
+
+    </div>
+
+</div>
+
+<div class="card card-w-title">
+    <div class="ui-g">
+        <div class="ui-g-2">
+            <button pButton type="text" (click)="selectMetadataTable()" icon="fa-hand-o-left" iconPos="left" label="Previous"></button>
+        </div>
+        <div class="ui-g-8">
+        </div>
+        <div class="ui-g-2">
+            <button pButton class="ui-button-warning" type="text" (click)="generate()" icon="fa-check" iconPos="right" label="Sumbit"></button>
+        </div>
+
+    </div>
+</div>

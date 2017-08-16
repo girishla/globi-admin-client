@@ -10,7 +10,7 @@ import { SILStateService } from "app/infagen/sil/sil-state.service";
 @Component({
     selector: 'sil-wizard',
     templateUrl: './sil-wizard.component.html',
-  
+
 
 })
 
@@ -36,9 +36,6 @@ export class SilWizardComponent implements OnInit {
     msgs: Message[] = [];
 
 
-    // 
-
-
     setCurrentIndex(url) {
 
         if (url === "/infa/silworkflows/generate/start") {
@@ -53,8 +50,6 @@ export class SilWizardComponent implements OnInit {
         }
 
     }
-
-
 
     ngOnDestroy(): void {
 
@@ -76,13 +71,12 @@ export class SilWizardComponent implements OnInit {
 
         });
 
-
         this.stepsItems = [
             {
                 label: 'Start'
             },
             {
-                label: 'Metadata Table & Generation Type'
+                label: 'Select Metadata Definition'
             },
             {
                 label: 'Review & Confirm'

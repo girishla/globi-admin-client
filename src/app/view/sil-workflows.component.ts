@@ -114,20 +114,18 @@ export class SILWorkflows implements OnInit {
             message: 'This will recreate any existing definitions of the same workflow using current Top-down metadata. Do you wish to proceed ?',
             accept: () => {
                 var msgs: GrowlMessage[] = [];
-                let topDownRequests: SILTopDownRequest[]=[];
+                // let topDownRequests: SILTopDownRequest[]=[];
 
                 this.selectedWorkflows.forEach(silWorkflow => {
-
 
                     let topDownRequestItem = new SILTopDownRequest();
 
                     topDownRequestItem.loadType = silWorkflow.loadType;
                     topDownRequestItem.tableName = silWorkflow.tableBaseName;
-                    topDownRequests.push(topDownRequestItem)
+                    // topDownRequests.push(topDownRequestItem)
 
-
-                    this.workflowService.regenerate(topDownRequests).subscribe(response => {
-                        Object.assign(SILWorkflow, response);
+                    this.workflowService.regenerate([topDownRequestItem]).subscribe(response => {
+                        Object.assign(silWorkflow, response);
                         silWorkflow.message = "";
                         msgs.push({ severity: 'info', summary: 'Submitted', detail: 'Workflow Generation Queued for ' + silWorkflow.workflowName })
                         this.selectedWorkflows = [];

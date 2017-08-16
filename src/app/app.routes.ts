@@ -27,6 +27,7 @@ import { SilConfirmDimensionComponent } from "app/infagen/sil/sil-confirm-dimens
 import { SilMetadataTableResolver } from "app/shared/services/sil-metadata-table-resolver.service";
 import { InfagenPTP } from "app/infagen/ptp/infagen-ptp";
 import { InfagenSIL } from "app/infagen/sil/infagen-sil";
+import { SilMetadataResolver } from "app/shared/services/sil-metadata-resolver.service";
 
 
 
@@ -108,14 +109,14 @@ export const routes: Routes = [
             component: SilConfirmFactComponent,
             canActivate: [AuthGuard],
             resolve: {
-               
+               silMetadata: SilMetadataResolver
             }
         }, {
             path: 'tables/:table/dimension',
             component: SilConfirmDimensionComponent,
             canActivate: [AuthGuard],
-            resolve: {
-               
+           resolve: {
+               silMetadata: SilMetadataResolver
             }
 
         }]

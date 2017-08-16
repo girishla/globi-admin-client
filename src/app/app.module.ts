@@ -66,6 +66,8 @@ import { SilWizardComponent } from "app/infagen/sil/sil-wizard.component";
 import { InfagenSIL } from "app/infagen/sil/infagen-sil";
 import { SilMetadataTableResolver } from "app/shared/services/sil-metadata-table-resolver.service";
 import { SilMetadataTablesService } from "app/shared/services/sil-metadata-tables.service";
+import { SilMetadataService } from "app/shared/services/sil-metadata.service";
+import { SilMetadataResolver } from "app/shared/services/sil-metadata-resolver.service";
 
 
 
@@ -147,6 +149,8 @@ import { SilMetadataTablesService } from "app/shared/services/sil-metadata-table
     SILStateService,
     SilMetadataTableResolver,
     SilMetadataTablesService,
+    SilMetadataResolver,
+    SilMetadataService,
     ApiService,
     ConfirmationService,
     AppStateService,
