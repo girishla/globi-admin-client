@@ -64,6 +64,8 @@ import { SilConfirmFactComponent } from './infagen/sil/sil-confirm-fact/sil-conf
 import { SilConfirmDimensionComponent } from './infagen/sil/sil-confirm-dimension/sil-confirm-dimension.component';
 import { SilWizardComponent } from "app/infagen/sil/sil-wizard.component";
 import { InfagenSIL } from "app/infagen/sil/infagen-sil";
+import { SilMetadataTableResolver } from "app/shared/services/sil-metadata-table-resolver.service";
+import { SilMetadataTablesService } from "app/shared/services/sil-metadata-tables.service";
 
 
 
@@ -143,6 +145,8 @@ import { InfagenSIL } from "app/infagen/sil/infagen-sil";
     SILWorkflowResolver,
     SILWorkflowsService,
     SILStateService,
+    SilMetadataTableResolver,
+    SilMetadataTablesService,
     ApiService,
     ConfirmationService,
     AppStateService,

@@ -7,7 +7,7 @@
 
             <p-panel id="sil-intro-panel-id" header="is hidden using css">
                 Welcome to the SIL Workflow generation wizard. This wizard will allow you to select an existing metadata entity definition
-                and generate Fact and Dimension workflows.
+                and generate Fact and Dimension SIL workflows.
 
 
             </p-panel>
@@ -42,7 +42,6 @@
                     <li><span>Expects that the metadata contains at least one Foreign Key and one Measure column</span></li>
                     <li><span>Mapping compares MD5 Hash of content and updates only if Hash has changed</span></li>
                     <li><span>Mapping sets ROW_WID to same as corresponding 1:1 dimension table</span></li>
-                    <li><span>In addition to mapping Measures, also maps columns marked as "Measure Attributes"</span></li>
                 </ul>
 
             </p-panel>
@@ -53,6 +52,16 @@
         <div class="ui-g-4">
         </div>
 
+    </div>
+
+    
+
+      <div class="ui-g">
+        <div class="ui-g-8">
+        </div>
+        <div class="ui-g-2">
+            <button pButton type="text" (click)="selecttable()" icon="fa-hand-o-right" iconPos="right" label="Next"></button>
+        </div>
     </div>
 
 </div>

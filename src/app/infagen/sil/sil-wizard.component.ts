@@ -44,11 +44,11 @@ export class SilWizardComponent implements OnInit {
         if (url === "/infa/silworkflows/generate/start") {
             this.activeIndex = 0;
         }
-        else if (url === "infa/silworkflows/generate/tables") {
+        else if (url === "/infa/silworkflows/generate/tables") {
 
             this.activeIndex = 1;
         }
-        else if (((url.startsWith("infa/silworkflows/generate/tables")) && (url.indexOf("fact") != -1 || url.indexOf("dimension") != -1))) {
+        else if (((url.startsWith("/infa/silworkflows/generate/tables")) && (url.indexOf("fact") != -1 || url.indexOf("dimension") != -1))) {
             this.activeIndex = 2
         }
 

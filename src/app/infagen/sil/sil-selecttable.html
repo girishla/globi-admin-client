@@ -1,5 +1,5 @@
-<div  class="card card-w-title">
-    <h1>Select Table</h1>
+<div class="card card-w-title">
+    <h1>Select Metadata Definition</h1>
 
     <div class="ui-g">
 
@@ -7,7 +7,7 @@
         </div>
 
         <div class="ui-g-6">
-             
+
             <p-listbox [options]="tableNameList" [(ngModel)]="selectedTable" filter="true"></p-listbox>
         </div>
         <div class="ui-g-3">
@@ -19,13 +19,18 @@
         <div class="ui-g-2">
             <button pButton type="text" (click)="selectSource()" icon="fa-hand-o-left" iconPos="left" label="Previous"></button>
         </div>
-        <div class="ui-g-8">
+        <div class="ui-g-6">
         </div>
         <div class="ui-g-2">
-            <button pButton type="text" (click)="selectColumns()" icon="fa-hand-o-right" iconPos="right" label="Next"></button>
+            <button pButton type="text" (click)="confirmDim()" [disabled]="selectedTable == null" icon="fa-hand-o-right" iconPos="right"
+                label="Dimension SIL"></button>
         </div>
+        <div class="ui-g-2">
+            <button pButton type="text" (click)="confirmFact()" [disabled]="selectedTable == null" icon="fa-hand-o-right" iconPos="right"
+                label="Fact SIL"></button>
+        </div>
+
 
     </div>
 
 </div>
-

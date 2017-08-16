@@ -42,25 +42,22 @@ export class SILSelectTable implements OnInit {
     }
 
 
-    selectColumns() {
-        
-        // this.silStateService.sourceTableList = this.sourceTableList;
+    confirmDim() {
 
-        // if(!(this.silStateService.selectedTable===this.selectedTable)){
-        //     this.silStateService.selectedCols=[];
-        //     this.silStateService.sourceTableCols=[];
-        //     this.silStateService.selectedTable = this.selectedTable;
-        // }
-        
-        
 
-        this.router.navigateByUrl('/infa/puddles/generate/datasources/' + this.route.snapshot.params['ds'] + "/tables/" + this.selectedTable + "/columns");
+        this.router.navigateByUrl('/infa/silworkflows/generate/tables/' + this.selectedTable + "/dimension");
+    }
+
+
+    confirmFact() {
+
+        this.router.navigateByUrl('/infa/silworkflows/generate/tables/' + this.selectedTable + "/fact");
     }
 
     selectSource() {
 
 
-        this.router.navigateByUrl('/infa/puddles/generate/start');
+        this.router.navigateByUrl('/infa/silworkflows/generate/start');
     }
 
 
