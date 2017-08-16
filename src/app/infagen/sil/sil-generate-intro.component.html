@@ -3,15 +3,54 @@
 
         <div class="ui-g-2">
         </div>
-        <div class="ui-g-4">
+        <div class="ui-g-6">
 
-            <p-panel header="is hidden using css">
-                Welcome to the SIL Workflow generation wizard. This wizard will allow you to select an existing metadata entity definition and generate Fact and Dimension workflows. Before continuing, please ensure that.,
+            <p-panel id="sil-intro-panel-id" header="is hidden using css">
+                Welcome to the SIL Workflow generation wizard. This wizard will allow you to select an existing metadata entity definition
+                and generate Fact and Dimension workflows.
 
 
             </p-panel>
+
+            <p-panel header="Dimension SIL Generation">
+
+                <ul>
+                    <li><span>The Generator creates a Dimension SIL workflow with potentially 4 mappings.</span>
+                        <ol>
+                            <li>Mapping for Primary dimension table</li>
+                            <li>Mapping for Mini Dimension if metada contains attributes marked as "Mini"</li>
+                            <li>Mapping for Dimension extension if metadata contains attributes marked as "Legacy"</li>
+                            <li>Mapping to build Persistent, Named lookup cache for use by fact mappings</li>
+                        </ol>
+                    </li>
+                    <li><span>Resolves SCD logic & change capture audit attributes</span></li>
+                    <li><span>Populates an unspecified row for each Dim table</span></li>
+                    <li><span>Defaults NULL attributes to their corresponding Unspecified equivlents </span></li>
+                    <li><span>Mapping compares MD5 Hash of content and updates only if Hash has changed</span></li>
+                </ul>
+
+            </p-panel>
+
+
+            <p-panel header="Fact SIL Generation">
+                <ul>
+                    <li><span>The Generator Creates a Fact SIL workflow with a single mapping</span></li>
+                    <li><span>Each fact table is associated with a 1:1 Dim table. Please Ensure that the corresponding 1:1 Dimension Workflow is generated before the Fact</span></li>
+                    <li><span>Fact tables can contain only Measure & Measure Attribute columns. They contain no system columns except ROW_WID</span></li>
+                    <li><span>Mapping Resolves Wids for all Foreign Key columns including dates</span></li>
+                    <li><span>Mapping Handles Currency Conversion into BU and Global Currencies</span></li>
+                    <li><span>Expects that the metadata contains at least one Foreign Key and one Measure column</span></li>
+                    <li><span>Mapping compares MD5 Hash of content and updates only if Hash has changed</span></li>
+                    <li><span>Mapping sets ROW_WID to same as corresponding 1:1 dimension table</span></li>
+                    <li><span>In addition to mapping Measures, also maps columns marked as "Measure Attributes"</span></li>
+                </ul>
+
+            </p-panel>
+
+
+
         </div>
-        <div class="ui-g-6">
+        <div class="ui-g-4">
         </div>
 
     </div>

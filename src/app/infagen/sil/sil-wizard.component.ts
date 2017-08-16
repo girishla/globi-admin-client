@@ -82,7 +82,7 @@ export class SilWizardComponent implements OnInit {
                 label: 'Start'
             },
             {
-                label: 'Metadata Table'
+                label: 'Metadata Table & Generation Type'
             },
             {
                 label: 'Review & Confirm'
