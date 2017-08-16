@@ -1,9 +1,8 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/primeng';
 
-
 @Component({
-    templateUrl: './infagen.html',
+    templateUrl: './infagen-ptp.html',
     styles: [`
         .ui-steps-item {
             width: 25%
@@ -12,6 +11,6 @@ import { MenuItem } from 'primeng/primeng';
     `],
     encapsulation: ViewEncapsulation.None
 })
-export class Infagen {
+export class InfagenPTP {
 
 }

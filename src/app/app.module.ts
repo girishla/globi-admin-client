@@ -17,7 +17,7 @@ import { Documentation } from "app/view/documentation";
 import { Home } from "app/view/home";
 import { StepsModule, GrowlModule, RadioButtonModule, ButtonModule, ListboxModule, DataTableModule, CheckboxModule } from "primeng/primeng";
 import { WizardModule } from "app/wizard/wizard.module";
-import { Infagen } from "app/infagen/infagen";
+import { InfagenPTP } from "app/infagen/ptp/infagen-ptp";
 
 
 import { PullToPuddleWizardComponent } from "app/infagen/ptp/ptp-wizard.component";
@@ -37,7 +37,7 @@ import { Puddles } from "app/view/puddles.component";
 import { PTPWorkflowResolver } from "app/shared/services/ptp-workflow-resolver.service";
 import { PTPWorkflowsService } from "app/shared/services/ptp-workflows.service";
 import { PTPStateService } from "app/infagen/ptp/ptp-state.service";
-import { DataListModule, SplitButtonModule, ConfirmationService, ConfirmDialogModule, MessagesModule, DialogModule, ProgressBarModule, ChartModule, BreadcrumbModule, ToolbarModule } from 'primeng/primeng';
+import { DataListModule, SplitButtonModule, ConfirmationService, ConfirmDialogModule, MessagesModule, DialogModule, ProgressBarModule, ChartModule, BreadcrumbModule, ToolbarModule, PanelModule } from 'primeng/primeng';
 import { SelectedTableColumnsResolver } from "app/shared/services/selected-table-columns-resolver.service";
 import { AppStateService } from "app/shared/services/app-state.service";
 import { ConfigService } from "app/shared/services/stomp/config/config.service";
@@ -59,9 +59,14 @@ import { SILWorkflowsService } from "app/shared/services/sil-workflows.service";
 import { SILStateService } from "app/infagen/sil/sil-state.service";
 import { SILSelectTable } from "app/infagen/sil/sil-selecttable";
 import { SILGenerateIntro } from "app/infagen/sil/sil-generate-intro.component";
-import { SilConfirmGenerateComponent } from './sil-confirm-generate/sil-confirm-generate.component';
-import { SilConfirmFactComponent } from './sil-confirm-fact/sil-confirm-fact.component';
-import { SilConfirmDimensionComponent } from './sil-confirm-dimension/sil-confirm-dimension.component';
+
+import { SilConfirmFactComponent } from './infagen/sil/sil-confirm-fact/sil-confirm-fact.component';
+import { SilConfirmDimensionComponent } from './infagen/sil/sil-confirm-dimension/sil-confirm-dimension.component';
+import { SilWizardComponent } from "app/infagen/sil/sil-wizard.component";
+import { InfagenSIL } from "app/infagen/sil/infagen-sil";
+
+
+
 
 
 @NgModule({
@@ -74,8 +79,8 @@ import { SilConfirmDimensionComponent } from './sil-confirm-dimension/sil-confir
     EmptyDemo,
     Documentation,
     Home,
-    Infagen,
-    // PullToPuddleWizardComponent,
+    InfagenPTP,
+    InfagenSIL,
     SelectTable,
     SelectTableColumns,
     PTPConfirmGenerate,
@@ -88,9 +93,11 @@ import { SilConfirmDimensionComponent } from './sil-confirm-dimension/sil-confir
     BreadcrumbComponent,
     SILWorkflows,
     SILSelectTable,
-    SilConfirmGenerateComponent,
     SilConfirmFactComponent,
-    SilConfirmDimensionComponent
+    SilConfirmDimensionComponent,
+    PullToPuddleWizardComponent,
+    SilWizardComponent
+
 
 
   ],
@@ -118,7 +125,8 @@ import { SilConfirmDimensionComponent } from './sil-confirm-dimension/sil-confir
     ProgressBarModule,
     ChartModule,
     BreadcrumbModule,
-    ToolbarModule
+    ToolbarModule,
+    PanelModule
   ],
 
 

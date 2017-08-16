@@ -4,7 +4,7 @@ import { ModuleWithProviders } from '@angular/core';
 import { EmptyDemo } from './view/emptydemo';
 import { Documentation } from "app/view/documentation";
 import { Home } from "app/view/home";
-import { Infagen } from "app/infagen/infagen";
+
 import { SourceTableResolver } from "app/shared/services/source-table-resolver.service";
 import { SelectTable } from "app/infagen/ptp/selecttable";
 import { SourceTableColumnsResolver } from "app/shared/services/source-table-columns-resolver.service";
@@ -24,8 +24,9 @@ import { SILSelectTable } from "app/infagen/sil/sil-selecttable";
 import { SILGenerateIntro } from "app/infagen/sil/sil-generate-intro.component";
 import { SilConfirmFactComponent } from "app/infagen/sil/sil-confirm-fact/sil-confirm-fact.component";
 import { SilConfirmDimensionComponent } from "app/infagen/sil/sil-confirm-dimension/sil-confirm-dimension.component";
-
-
+import { SilMetadataTableResolver } from "app/shared/services/sil-metadata-table-resolver.service";
+import { InfagenPTP } from "app/infagen/ptp/infagen-ptp";
+import { InfagenSIL } from "app/infagen/sil/infagen-sil";
 
 
 
@@ -61,7 +62,7 @@ export const routes: Routes = [
     },
     { path: 'documentation', component: Documentation, canActivate: [AuthGuard] },
     {
-        path: 'infa/puddles/generate', component: Infagen, data: {
+        path: 'infa/puddles/generate', component: InfagenPTP, data: {
             activeIndex: 0
         }, children: [{
             path: 'start',
@@ -89,7 +90,7 @@ export const routes: Routes = [
         }]
     },
     {
-        path: 'infa/silworkflows/generate', component: Infagen, data: {
+        path: 'infa/silworkflows/generate', component: InfagenSIL, data: {
             activeIndex: 0
         }, children: [{
             path: 'start',
@@ -100,7 +101,7 @@ export const routes: Routes = [
             component: SILSelectTable,
             canActivate: [AuthGuard],
             resolve: {
-                sourceTableList: SourceTableResolver
+                sourceTableList: SilMetadataTableResolver
             }
         }, {
             path: 'tables/:table/fact',

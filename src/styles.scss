@@ -10,6 +10,8 @@
 border: none;
 }
 
+
+
 /*to fix selected radio buttons not showing selections clearly*/
 
 .ga-radio .ui-state-active .fa{
@@ -130,3 +132,11 @@ color: grey;
 .avatar-circle      { @include avatar(100px); }
 .avatar-circle-sm   { @include avatar(36px); }
 .avatar-circle-lg   { @include avatar(250px); }
+
+
+
+.sil-wizard .ui-panel-titlebar{
+
+ display: none;
+
+}

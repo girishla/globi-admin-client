@@ -1,29 +1,29 @@
 import { Component, OnInit, SimpleChanges, OnChanges } from '@angular/core';
-import { Message } from 'primeng/components/common/api';
+import { Message, MenuItem } from 'primeng/components/common/api';
 import { Router, ActivatedRoute, ActivatedRouteSnapshot, NavigationStart, NavigationEnd } from "@angular/router";
 import { SourceTable } from "app/shared/models/source-table.model";
 import { SourceTablesService } from "app/shared/services/source-tables.service";
-import { PTPStateService } from "app/infagen/ptp/ptp-state.service";
-
+import { SILStateService } from "app/infagen/sil/sil-state.service";
 
 
 
 @Component({
-    selector: 'ptp-wizard',
-    templateUrl: './ptp-wizard.component.html',
-    
+    selector: 'sil-wizard',
+    templateUrl: './sil-wizard.component.html',
+  
+
 })
 
-export class PullToPuddleWizardComponent implements OnInit {
+export class SilWizardComponent implements OnInit {
 
     tables: SourceTable[];
-    stepsItems;
+    stepsItems: MenuItem[];
 
     constructor(
         private stService: SourceTablesService,
         private router: Router,
         private route: ActivatedRoute,
-        private ptpStateService: PTPStateService
+        private silStateService: SILStateService
 
     ) {
 
@@ -36,28 +36,21 @@ export class PullToPuddleWizardComponent implements OnInit {
     msgs: Message[] = [];
 
 
-
-
-    onChange(label: string) {
-
-    }
+    // 
 
 
     setCurrentIndex(url) {
 
-        if (url === "/infa/puddles/generate/start") {
+        if (url === "/infa/silworkflows/generate/start") {
             this.activeIndex = 0;
         }
-        else if (((url.startsWith("/infa/puddles/generate/datasources")) && (url.indexOf("tables") === -1))) {
+        else if (url === "infa/silworkflows/generate/tables") {
+
             this.activeIndex = 1;
         }
-        else if ((url.indexOf("tables") > 0) && (url.indexOf("generate") === -1)) {
-            this.activeIndex = 2;
+        else if (((url.startsWith("infa/silworkflows/generate/tables")) && (url.indexOf("fact") != -1 || url.indexOf("dimension") != -1))) {
+            this.activeIndex = 2
         }
-        else if (url.indexOf("generate") > 0) {
-            this.activeIndex = 3;
-        }
-
 
     }
 
@@ -65,7 +58,7 @@ export class PullToPuddleWizardComponent implements OnInit {
 
     ngOnDestroy(): void {
 
-        this.ptpStateService.clearState();
+        this.silStateService.clearState();
 
     }
 
@@ -86,18 +79,17 @@ export class PullToPuddleWizardComponent implements OnInit {
 
         this.stepsItems = [
             {
-                label: 'Source'
+                label: 'Start'
             },
             {
-                label: 'Table'
+                label: 'Metadata Table'
             },
             {
-                label: 'Columns'
-            },
-            {
-                label: 'Confirmation'
+                label: 'Review & Confirm'
+
             }
         ];
+
 
     }
 
