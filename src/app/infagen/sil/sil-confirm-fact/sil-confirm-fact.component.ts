@@ -208,7 +208,7 @@ export class SilConfirmFactComponent implements OnInit, AfterViewInit, OnDestroy
 
   showError(error: ErrorAPIResponse) {
 
-    this.appStateService.addMessage({ severity: 'error', summary: 'Server Error :', detail: error.userMessage });
+    this.appStateService.addGrowl({ severity: 'error', summary: 'Server Error :', detail: error.userMessage });
   }
 
   generate() {
