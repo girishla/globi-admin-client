@@ -19,16 +19,21 @@
         <div class="ui-g-2">
             <button pButton type="text" (click)="selectSource()" icon="fa-hand-o-left" iconPos="left" label="Previous"></button>
         </div>
-        <div class="ui-g-6">
+        <div class="ui-g-4">
         </div>
         <div class="ui-g-2">
+                
+                <button pButton  type="text" (click)="cancel()" icon="fa-cancel" iconPos="right" label="Cancel"></button>
+            </div>
+        <div class="ui-g-2">
             <button pButton type="text" (click)="confirmDim()" [disabled]="selectedTable == null" icon="fa-hand-o-right" iconPos="right"
-                label="Dimension SIL"></button>
+                label="Dim SIL"></button>
         </div>
         <div class="ui-g-2">
             <button pButton type="text" (click)="confirmFact()" [disabled]="selectedTable == null" icon="fa-hand-o-right" iconPos="right"
                 label="Fact SIL"></button>
         </div>
+
 
 
     </div>

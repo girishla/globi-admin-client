@@ -68,6 +68,7 @@ import { SilMetadataTableResolver } from "app/shared/services/sil-metadata-table
 import { SilMetadataTablesService } from "app/shared/services/sil-metadata-tables.service";
 import { SilMetadataService } from "app/shared/services/sil-metadata.service";
 import { SilMetadataResolver } from "app/shared/services/sil-metadata-resolver.service";
+import { D3Service } from "app/shared/services/d3.service";
 
 
 
@@ -162,7 +163,8 @@ import { SilMetadataResolver } from "app/shared/services/sil-metadata-resolver.s
     NoAuthGuard,
     MeasuresResolver,
     MeasuresService,
-    BreadcrumbService
+    BreadcrumbService,
+    D3Service
   ],
   bootstrap: [AppComponent]
 })

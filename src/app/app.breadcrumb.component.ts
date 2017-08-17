@@ -32,7 +32,8 @@ export class BreadcrumbComponent implements OnInit, OnChanges {
             this._urls.unshift(this.prefix);
         }
 
-        this.breadcrumbService.addFriendlyNameForRoute("/infa/puddles/generate/puddles", "Puddles List");
+        this.breadcrumbService.addFriendlyNameForRoute("/infa/puddles", "Puddles List");
+        this.breadcrumbService.addFriendlyNameForRoute("/infa/silworkflows", "SIL Workflows List");
         this.breadcrumbService.addFriendlyNameForRouteRegex("/documentation", "Documentation");
 
 

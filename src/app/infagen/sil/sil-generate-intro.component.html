@@ -15,7 +15,7 @@
             <p-panel header="Dimension SIL Generation">
 
                 <ul>
-                    <li><span>The Generator creates a Dimension SIL workflow with potentially 4 mappings.</span>
+                    <li><span>The Generator creates a Dimension SIL workflow with up to 4 mappings.</span>
                         <ol>
                             <li>Mapping for Primary dimension table</li>
                             <li>Mapping for Mini Dimension if metada contains attributes marked as "Mini"</li>
@@ -57,7 +57,11 @@
     
 
       <div class="ui-g">
-        <div class="ui-g-8">
+        <div class="ui-g-6">
+        </div>
+        <div class="ui-g-2">
+            
+            <button pButton  type="text" (click)="cancel()" icon="fa-cancel" iconPos="right" label="Cancel"></button>
         </div>
         <div class="ui-g-2">
             <button pButton type="text" (click)="selecttable()" icon="fa-hand-o-right" iconPos="right" label="Next"></button>

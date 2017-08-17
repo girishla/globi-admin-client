@@ -23,6 +23,10 @@ export class SILGenerateIntro implements OnInit {
 
 
     }
+    cancel(){
+        this.router.navigateByUrl('/infa/silworkflows');
+    }
+
 
 
     selecttable() {

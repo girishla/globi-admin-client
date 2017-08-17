@@ -41,7 +41,11 @@ export class SILSelectTable implements OnInit {
 
     }
 
+    cancel(){
+        this.router.navigateByUrl('/infa/silworkflows');
+    }
 
+    
     confirmDim() {
 
 

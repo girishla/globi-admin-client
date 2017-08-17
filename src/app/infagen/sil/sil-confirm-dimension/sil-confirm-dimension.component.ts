@@ -81,6 +81,10 @@ export class SilConfirmDimensionComponent implements OnInit {
         this.appStateService.addMessage({ severity: 'error', summary: 'Server Error :', detail: error.userMessage });
     }
 
+    cancel(){
+        this.router.navigateByUrl('/infa/silworkflows');
+    }
+
 
 
     generate() {
