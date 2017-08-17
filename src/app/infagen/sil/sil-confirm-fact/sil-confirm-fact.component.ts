@@ -232,12 +232,14 @@ export class SilConfirmFactComponent implements OnInit, AfterViewInit, OnDestroy
           Object.assign(SILWorkflow, response);
           msgs.push({ severity: 'info', summary: 'Submitted', detail: 'Workflow Generation Queued.' })
 
+          this.appStateService.addMessages(msgs);
+          this.router.navigateByUrl('/infa/silworkflows');
+
         }, error => this.showError(error));
 
 
 
-        this.appStateService.addMessages(msgs);
-        this.router.navigateByUrl('/infa/silworkflows');
+
 
 
 
