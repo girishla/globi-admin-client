@@ -1,9 +1,43 @@
 <div class="card card-w-title">
   <p-confirmDialog width="425"></p-confirmDialog>
-  <h1>Review & Confirm : {{selectedTable}}</h1>
+  <h1>Review & Confirm : Fact {{selectedTable}}</h1>
 
   <div class="ui-g">
 
-      <svg width="1200" height="1200"></svg>
+    <div class="ui-g-1">
+    </div>
+    <div class="ui-g-9">
+      <p-panel id="sil-intro-panel-id" header="is hidden using css">
+        Review the below star diagram carefully to ensure the grain is as expected. Each dimension will be resolved to a corresponding Wid in the fact table. Click the Submit button when ready.
+      </p-panel>
+    </div>
+    <div class="ui-g-2">
+    </div>
   </div>
+  <div class="ui-g">
+    <div class="ui-g-1">
+    </div>
+    <div class="ui-g-9">
+      <svg width="800" height="800"></svg>
+    </div>
+    <div class="ui-g-2">
+    </div>
+  </div>
+</div>
+
+<div class="card card-w-title">
+    <div class="ui-g">
+        <div class="ui-g-2">
+            <button pButton type="text" (click)="selectMetadataTable()" icon="fa-hand-o-left" iconPos="left" label="Previous"></button>
+        </div>
+        <div class="ui-g-6">
+        </div>
+        <div class="ui-g-2">
+            <button pButton  type="text" (click)="cancel()" icon="fa-cancel" iconPos="right" label="Cancel"></button>
+        </div>
+        <div class="ui-g-2">
+            <button pButton class="ui-button-warning" type="text" (click)="generate()" icon="fa-check" iconPos="right" label="Sumbit"></button>
+        </div>
+
+    </div>
 </div>

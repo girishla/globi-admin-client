@@ -4,6 +4,11 @@ import { SILStateService } from "app/infagen/sil/sil-state.service";
 import { SilMetadata } from "app/shared/models/sil-metadata.model";
 import { Observable } from "rxjs/Observable";
 import { D3Service, D3, Selection, Simulation, Link, ForceLink, SimulationLinkDatum } from "app/shared/services/d3.service";
+import { ConfirmationService, Message } from "primeng/primeng";
+import { SILTopDownRequest, SILWorkflow } from "app/shared/models/sil-workflow.model";
+import { SILWorkflowsService } from "app/shared/services/sil-workflows.service";
+import { AppStateService } from "app/shared/services/app-state.service";
+import { ErrorAPIResponse } from "app/shared/models/api-error.model";
 
 
 @Component({
@@ -15,18 +20,25 @@ export class SilConfirmFactComponent implements OnInit, AfterViewInit, OnDestroy
 
 
   silMetadata: SilMetadata[];
-  selectedTable: String;
+  selectedTable: string;
   svg;
   color;
   simulation;
   link;
   node;
+  label;
 
   private d3: D3; // <-- Define the private member which will hold the d3 reference
   private parentNativeElement: any;
   private dimTables: string[] = [];
 
-  constructor(private router: Router, private route: ActivatedRoute, private silStateService: SILStateService, element: ElementRef, d3Service: D3Service) {
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    private silStateService: SILStateService,
+    element: ElementRef, d3Service: D3Service,
+    private confirmationService: ConfirmationService,
+    private workflowService: SILWorkflowsService,
+    private appStateService: AppStateService) {
 
     this.d3 = d3Service.getD3(); // <-- obtain the d3 object from the D3 Service
     this.parentNativeElement = element.nativeElement;
@@ -45,24 +57,16 @@ export class SilConfirmFactComponent implements OnInit, AfterViewInit, OnDestroy
 
       (data: { silMetadata: SilMetadata[] }) => {
         this.silMetadata = data.silMetadata;
-
         let metadata$ = Observable.from(this.silMetadata);
-
         metadata$.map(col => col.dimTableName).distinct().subscribe(col => {
           if (col != null) {
             this.dimTables.push(col);
             console.log(col);
           }
-          
+
         }
-
-
         );
-
-
       }
-
-
     );
 
   }
@@ -78,10 +82,10 @@ export class SilConfirmFactComponent implements OnInit, AfterViewInit, OnDestroy
 
     this.simulation = this.d3.forceSimulation()
       .force("link", this.d3.forceLink().id(function (d: any) { return d.id; }))
-      .force("charge", this.d3.forceManyBody().strength(-10000))
+      .force("charge", this.d3.forceManyBody().strength(-5500))
       .force("center", this.d3.forceCenter(width / 2, height / 2));
 
-         this.render(this.getData());
+    this.render(this.getData());
   }
 
   ticked() {
@@ -94,6 +98,11 @@ export class SilConfirmFactComponent implements OnInit, AfterViewInit, OnDestroy
     this.node
       .attr("cx", function (d) { return d.x; })
       .attr("cy", function (d) { return d.y; });
+
+
+    this.label.attr("x", function (d) { return d.x; })
+      .attr("y", function (d) { return d.y; });
+
   }
 
   dragged(d) {
@@ -118,19 +127,6 @@ export class SilConfirmFactComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
 
-  // node_increase_force(alpha) {   
-
-
-
-  //   for (var i = 0, n = nodes_data.length; i < n; ++i) {
-  //     var curr_node = nodes_data[i];
-  //     if(curr_node.sex == "M"){
-  //       d3.selectAll("circle")._groups[0][i].attributes.r.value = +d3.selectAll("circle")._groups[0][i].attributes.r.value + 0.003;
-  //     } else if(curr_node.sex == "F"){
-  //     d3.selectAll("circle")._groups[0][i].attributes.r.value = +d3.selectAll("circle")._groups[0][i].attributes.r.value - 0.003;
-  //     }    
-  //   }
-  // }
 
   render(graph) {
     this.link = this.svg.append("g")
@@ -144,16 +140,35 @@ export class SilConfirmFactComponent implements OnInit, AfterViewInit, OnDestroy
       .attr("class", "nodes")
       .selectAll("circle")
       .data(graph.nodes)
-      .enter().append("circle")
-      .attr("r", 50)
-      .attr("fill", (d) => { return this.color(d.group); })
+      .enter()//
+      .append("circle")
+      .attr("r", function (d) { console.log(d); if (d.type == "fact") return 60; else return 45; })
+      .attr("fill", (d) => { if (d.type == "fact") return "#D1CB6D"; else return "#C2C1BC"; })
       .call(this.d3.drag()
         .on("start", (d) => { return this.dragstarted(d) })
         .on("drag", (d) => { return this.dragged(d) })
         .on("end", (d) => { return this.dragended(d) }));
 
+
     this.node.append("title")
       .text(function (d) { return d.id; });
+
+    // this.node.append("text")
+    //   .attr("dx", function(d){return -20})
+    //   .text(function (d) { return d.id; })
+
+
+    this.label = this.svg.selectAll(".mytext")
+      .data(graph.nodes)
+      .enter()
+      .append("text")
+      .text(function (d) { return d.id; })
+      .style("text-anchor", "middle")
+      .style("fill", "#555")
+      .style("font-family", "Arial")
+      .style("font-size", 12);
+
+
 
     this.simulation
       .nodes(graph.nodes)
@@ -171,11 +186,8 @@ export class SilConfirmFactComponent implements OnInit, AfterViewInit, OnDestroy
     let links: any[] = [];
 
 
-    console.log(this.selectedTable);
-    console.log(this.dimTables);
-
-    nodes.push({ "id": "F_" + this.selectedTable, "group": 1 });
-    this.dimTables.forEach(table => nodes.push({ "id": table, "group": 1 }));
+    nodes.push({ "id": "F_" + this.selectedTable, "group": 1, "type": "fact" });
+    this.dimTables.forEach(table => nodes.push({ "id": table, "group": 2, "type": "dimension" }));
     this.dimTables.forEach(table => links.push({ "source": "F_" + this.selectedTable, "target": table, "value": 4 }))
 
 
@@ -183,6 +195,60 @@ export class SilConfirmFactComponent implements OnInit, AfterViewInit, OnDestroy
       "nodes": nodes,
       "links": links
     }
+
+  }
+
+  selectMetadataTable() {
+    this.router.navigateByUrl('/infa/silworkflows/generate/tables');
+}
+
+  cancel() {
+    this.router.navigateByUrl('/infa/silworkflows');
+  }
+
+  showError(error: ErrorAPIResponse) {
+
+    this.appStateService.addMessage({ severity: 'error', summary: 'Server Error :', detail: error.userMessage });
+  }
+
+  generate() {
+
+
+    this.confirmationService.confirm({
+      message: 'This might overwrite any existing definitions of the same workflow. Are you sure that you want to generate a new Workflow.?',
+      accept: () => {
+
+        var msgs: Message[] = [];
+        let topDownRequests: SILTopDownRequest[] = [];
+
+        let topDownRequestItem = new SILTopDownRequest();
+
+        topDownRequestItem.loadType = "FACT";
+        topDownRequestItem.tableName = this.selectedTable;
+        topDownRequests.push(topDownRequestItem)
+
+
+        this.workflowService.regenerate(topDownRequests).subscribe(response => {
+          Object.assign(SILWorkflow, response);
+          msgs.push({ severity: 'info', summary: 'Submitted', detail: 'Workflow Generation Queued.' })
+
+        }, error => this.showError(error));
+
+
+
+        this.appStateService.addMessages(msgs);
+        this.router.navigateByUrl('/infa/silworkflows');
+
+
+
+      }
+    });
+
+
+
+
+
+
 
   }
 
