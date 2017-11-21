@@ -68,9 +68,13 @@ export class SILWorkflowsService {
   }
 
 
-  regenerate(topDownRequests: SILTopDownRequestTable[],runWF:boolean) {
+  regenerate(topDownRequests: SILTopDownRequestTable[], runWF: boolean) {
 
-    return this.apiService.post("/infagen/workflows/silFromMetadata", {tables:topDownRequests,runWorkflow:runWF});
+    var req: SILTopDownRequest;
+
+    req = { tables: topDownRequests, runWorkflow: runWF };
+
+    return this.apiService.post("/infagen/workflows/silFromMetadata", req);
 
   }
 
