@@ -1,6 +1,7 @@
    export class SILWorkflowColumn {
         columnName: string;
         columnType: string;
+        columnSubType: string;
         columnOrder: number;
         dimTableName: string;
         stageTableColumn: boolean;

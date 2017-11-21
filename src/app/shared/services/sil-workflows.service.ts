@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 
 import { ApiService } from './api.service';
 import { SourceTable } from '../models/source-table.model';
-import { SILWorkflow, SILTopDownRequest } from "app/shared/models/sil-workflow.model";
+import { SILWorkflow, SILTopDownRequest, SILTopDownRequestTable } from "app/shared/models/sil-workflow.model";
 import { AppStateService } from "app/shared/services/app-state.service";
 import { ErrorAPIResponse } from "app/shared/models/api-error.model";
 import { Message, ConfirmationService } from "primeng/primeng";
@@ -68,18 +68,10 @@ export class SILWorkflowsService {
   }
 
 
-  regenerate(topDownRequests: SILTopDownRequest[]) {
+  regenerate(topDownRequests: SILTopDownRequestTable[],runWF:boolean) {
 
-
-    return this.apiService.post("/infagen/workflows/silFromMetadata", topDownRequests);
-
-
+    return this.apiService.post("/infagen/workflows/silFromMetadata", {tables:topDownRequests,runWorkflow:runWF});
 
   }
-
-
-
-  // SILTopDownRequest
-
 
 }

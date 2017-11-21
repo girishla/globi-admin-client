@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, ActivatedRouteSnapshot } from '@angular/router'
 import { SILStateService } from "app/infagen/sil/sil-state.service";
 import { SilMetadata } from "app/shared/models/sil-metadata.model";
 import { Observable } from "rxjs/Observable";
-import { SILTopDownRequest, SILWorkflow } from "app/shared/models/sil-workflow.model";
+import { SILTopDownRequest, SILWorkflow, SILTopDownRequestTable } from "app/shared/models/sil-workflow.model";
 import { ConfirmationService, Message } from "primeng/primeng";
 import { SILWorkflowsService } from "app/shared/services/sil-workflows.service";
 import { AppStateService } from "app/shared/services/app-state.service";
@@ -59,7 +59,7 @@ export class SilConfirmDimensionComponent implements OnInit {
                 metadata$.filter(col => col.miniDimColumnFlag && col.stageColumnFlag && (col.columnType === "Attribute" || col.columnType === "Measure Attribute")).toArray()
                     .subscribe(cols => this.silMetadataMini = cols);
 
-                metadata$.filter(col => col.legacyColumnFlag && col.stageColumnFlag && (col.columnType === "Attribute" || col.columnType === "Measure Attribute")).toArray()
+                metadata$.filter(col => col.legacyColumnFlag && col.stageColumnFlag && (col.columnType === "Attribute" || col.columnType === "Measure Attribute" )).toArray()
                     .subscribe(cols => this.silMetadataLegacy = cols);
 
 
@@ -87,7 +87,7 @@ export class SilConfirmDimensionComponent implements OnInit {
 
 
 
-    generate() {
+    generate(runWF:boolean) {
 
 
         this.confirmationService.confirm({
@@ -95,16 +95,16 @@ export class SilConfirmDimensionComponent implements OnInit {
             accept: () => {
 
                 var msgs: Message[] = [];
-                let topDownRequests: SILTopDownRequest[] = [];
+                let topDownRequests: SILTopDownRequestTable[] = [];
 
-                let topDownRequestItem = new SILTopDownRequest();
+                let topDownRequestItem = new SILTopDownRequestTable();
 
                 topDownRequestItem.loadType = "DIMENSION";
                 topDownRequestItem.tableName =  this.selectedTable;
                 topDownRequests.push(topDownRequestItem)
 
 
-                this.workflowService.regenerate(topDownRequests).subscribe(response => {
+                this.workflowService.regenerate(topDownRequests,runWF).subscribe(response => {
                     Object.assign(SILWorkflow, response);
                     msgs.push({ severity: 'info', summary: 'Submitted', detail: 'Workflow Generation Queued.' })
 

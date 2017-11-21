@@ -3,7 +3,9 @@
         stageName: string;
         columnOrder: string;
         columnName: string;
+        columnName: string;
         columnType: string;
+        columnSubType: string;
         columnDataType: string;
         columnPrecision: number;
         columnScale: number;

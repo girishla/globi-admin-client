@@ -3,6 +3,9 @@
 import { SILWorkflowColumn } from "app/shared/models/sil-workflow-cols.model";
 
 
+
+
+
 export class SILWorkflow {
     tableBaseName: string;
     id: number;
@@ -32,8 +35,12 @@ export interface Self {
 }
 
 
+export class SILTopDownRequestTable {
+    loadType: string;
+    tableName: string;
+}
 
 export class SILTopDownRequest {
-        loadType: string;
-        tableName: string;
-  }
+        runWorkflow:boolean;
+        tables:SILTopDownRequestTable[];
+}
