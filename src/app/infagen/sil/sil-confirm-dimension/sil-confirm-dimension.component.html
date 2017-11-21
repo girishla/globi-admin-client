@@ -76,14 +76,17 @@
         <div class="ui-g-2">
             <button pButton type="text" (click)="selectMetadataTable()" icon="fa-hand-o-left" iconPos="left" label="Previous"></button>
         </div>
-        <div class="ui-g-6">
+        <div class="ui-g-4">
         </div>
         <div class="ui-g-2">
             <button pButton  type="text" (click)="cancel()" icon="fa-cancel" iconPos="right" label="Cancel"></button>
         </div>
         <div class="ui-g-2">
-            <button pButton class="ui-button-warning" type="text" (click)="generate(true)" icon="fa-check" iconPos="right" label="Submit"></button>
+            <button pButton class="ui-button-warning" type="text" (click)="generate()" icon="fa-check" iconPos="right" label="Generate"></button>
         </div>
+        <div class="ui-g-2">
+          <button pButton class="ui-button-warning" type="text" (click)="generate(true)" icon="fa-check" iconPos="right" label="Generate & Run"></button>
+      </div>
 
     </div>
 </div>

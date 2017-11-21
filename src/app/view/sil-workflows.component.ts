@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { ActivatedRoute, Router, ActivatedRouteSnapshot, NavigationEnd } from '@angular/router';
 import { SILStateService } from "app/infagen/sil/sil-state.service";
-import { SILWorkflow, SILTopDownRequest } from "app/shared/models/sil-workflow.model";
+import { SILWorkflow, SILTopDownRequest, SILTopDownRequestTable } from "app/shared/models/sil-workflow.model";
 import { DatePipe } from "@angular/common/common";
 import { SILWorkflowsService } from "app/shared/services/sil-workflows.service";
 import { ConfirmationService, Message as GrowlMessage } from "primeng/primeng";
@@ -108,7 +108,7 @@ export class SILWorkflows implements OnInit {
     }
 
 
-    generateWorkflow() {
+    generateWorkflow(runWF:boolean ) {
 
         this.confirmationService.confirm({
             message: 'This will recreate any existing definitions of the same workflow using current Top-down metadata. Do you wish to proceed ?',
@@ -118,13 +118,13 @@ export class SILWorkflows implements OnInit {
 
                 this.selectedWorkflows.forEach(silWorkflow => {
 
-                    let topDownRequestItem = new SILTopDownRequest();
+                    let topDownRequestItem = new SILTopDownRequestTable();
 
                     topDownRequestItem.loadType = silWorkflow.loadType;
                     topDownRequestItem.tableName = silWorkflow.tableBaseName;
                     // topDownRequests.push(topDownRequestItem)
 
-                    this.workflowService.regenerate([topDownRequestItem]).subscribe(response => {
+                    this.workflowService.regenerate([topDownRequestItem],runWF).subscribe(response => {
                         Object.assign(silWorkflow, response);
                         silWorkflow.message = "";
                         msgs.push({ severity: 'info', summary: 'Submitted', detail: 'Workflow Generation Queued for ' + silWorkflow.workflowName })

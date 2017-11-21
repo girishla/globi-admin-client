@@ -10,16 +10,18 @@
                 <div class="ui-toolbar-group-left">
 
                     <span id="table-col-search" class="md-inputfield search-item">
-                            <input placeholder="Search..." size="30" style="line-height: 25px;" #filterText  type="text" pInputText>
-                            <!--<label>Search</label>-->
-                            <i  class="topbar-icon material-icons">search</i>
-                        </span>
+                        <input placeholder="Search..." size="30" style="line-height: 25px;" #filterText type="text" pInputText>
+                        <!--<label>Search</label>-->
+                        <i class="topbar-icon material-icons">search</i>
+                    </span>
                 </div>
 
                 <div class="ui-toolbar-group-right">
                     <button pButton type="button" (click)="newworkflow()" label="New" icon="fa-plus"></button>
                     <button class="ui-button-warning" pButton type="button" [disabled]="selectedWorkflows==null || selectedWorkflows.length==0"
                         (click)="generateWorkflow()" label="Regenerate" icon="fa-sitemap"></button>
+                    <button class="ui-button-warning" pButton type="button" [disabled]="selectedWorkflows==null || selectedWorkflows.length==0"
+                        (click)="generateWorkflow(true)" label="Regenerate & Run" icon="fa-sitemap"></button>
 
                 </div>
 
@@ -35,7 +37,7 @@
         <scrolling-list [messages]="workflowMessages[selectedWorkflow] || ['No Messages to Show']"></scrolling-list>
 
 
-        
+
     </p-dialog>
 
 
@@ -59,14 +61,14 @@
 
         <p-column [style]="{'width':'100px','text-align': 'center'}" field="workflowStatus" header="Status" [sortable]="true">
             <ng-template let-col let-data="rowData" pTemplate="body">
-         
+
                 <span *ngIf='data["workflowStatus"]=="Queued"'>{{data["workflowStatus"]}}</span>
 
                 <button *ngIf='data["workflowStatus"]=="Error"' (click)='showMessagesDialog(data["id"])' pButton type="button" class="ui-button-icon ui-button-error"
                     title="Error" icon="fa-warning"></button>
                 <button *ngIf='data["workflowStatus"]=="Processed"' (click)="showMessagesDialog(data['id'])" pButton type="button" class="ui-button-icon ui-button-success"
                     title="Processed" icon="fa-check"></button>
-         
+
                 <button *ngIf='data["workflowStatus"]=="Processing"' (click)="showMessagesDialog(data['id'])" pButton type="button" class="ui-button-icon ui-button-info"
                     title="Processed" icon="fa-spinner fa-spin"></button>
 
@@ -82,7 +84,7 @@
             </ng-template>
 
         </p-column>
-    
+
     </p-dataTable>
 
 </div>

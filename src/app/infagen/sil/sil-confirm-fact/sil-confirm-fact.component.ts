@@ -5,7 +5,7 @@ import { SilMetadata } from "app/shared/models/sil-metadata.model";
 import { Observable } from "rxjs/Observable";
 import { D3Service, D3, Selection, Simulation, Link, ForceLink, SimulationLinkDatum } from "app/shared/services/d3.service";
 import { ConfirmationService, Message } from "primeng/primeng";
-import { SILTopDownRequest, SILWorkflow } from "app/shared/models/sil-workflow.model";
+import { SILTopDownRequest, SILWorkflow, SILTopDownRequestTable } from "app/shared/models/sil-workflow.model";
 import { SILWorkflowsService } from "app/shared/services/sil-workflows.service";
 import { AppStateService } from "app/shared/services/app-state.service";
 import { ErrorAPIResponse } from "app/shared/models/api-error.model";
@@ -211,7 +211,7 @@ export class SilConfirmFactComponent implements OnInit, AfterViewInit, OnDestroy
     this.appStateService.addGrowl({ severity: 'error', summary: 'Server Error :', detail: error.userMessage });
   }
 
-  generate() {
+  generate(runWF:boolean) {
 
 
     this.confirmationService.confirm({
@@ -219,16 +219,16 @@ export class SilConfirmFactComponent implements OnInit, AfterViewInit, OnDestroy
       accept: () => {
 
         var msgs: Message[] = [];
-        let topDownRequests: SILTopDownRequest[] = [];
+        let topDownRequests: SILTopDownRequestTable[] = [];
 
-        let topDownRequestItem = new SILTopDownRequest();
+        let topDownRequestItem = new SILTopDownRequestTable();
 
         topDownRequestItem.loadType = "FACT";
         topDownRequestItem.tableName = this.selectedTable;
         topDownRequests.push(topDownRequestItem)
 
 
-        this.workflowService.regenerate(topDownRequests).subscribe(response => {
+        this.workflowService.regenerate(topDownRequests,runWF).subscribe(response => {
           Object.assign(SILWorkflow, response);
           msgs.push({ severity: 'info', summary: 'Submitted', detail: 'Workflow Generation Queued.' })
 
